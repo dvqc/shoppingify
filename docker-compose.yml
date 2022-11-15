@@ -1,0 +1,23 @@
+services:
+
+  # mongo:
+  #   image: mongo:4.4.18-rc0-focal
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: shoppingify
+  #     MONGO_INITDB_ROOT_PASSWORD: shoppingify
+  #   volumes:
+  #     - ~/shoppingify/mdata:/etc/mongo
+  #   ports:
+  #     - 27017:27017
+
+  web:
+    build: .
+    image: shoppingify-app
+    command: npm run dev
+    expose:
+      - 3000
+    env_file:
+      - ./.env
+    # depends_on:
+    #   - mongo
