@@ -11,4 +11,5 @@ services:
       - ./data:/etc/mongo
     ports:
       - 27017:27017
-    command: [ --auth ]
+    command: [  --auth, --replSet=rs0, --dbpath=/data]
+  

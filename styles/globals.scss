@@ -1,0 +1,47 @@
+$green-1 : #3DB46D;
+$green-2 : #46ce7c;
+$red-1: #EB5757;
+$red-2: #ff6464;
+$dark-1: #333333;
+$dark-2: #4F4F4F;
+$gray: #BDBDBD;
+$text-white: white;
+$box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+$grid-width: 25.65rem;
+$grid-height: 19.1rem;
+
+$grid-width-mobile: 80%;
+$grid-height-mobile: 30rem;
+
+@mixin button {
+    padding: 0;
+    border: none;
+    display: block;
+    min-height: 100%;
+    border-radius: 0.8rem;
+    box-shadow: $box-shadow;
+    color: $text-white;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
