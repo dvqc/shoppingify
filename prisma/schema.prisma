@@ -64,27 +64,35 @@ model Category {
   createdBy String @map("user_id") @db.ObjectId
   label     String @unique
   items     Item[]
-  User      User?  @relation(fields: [createdBy], references: [id])
-
-  @@unique([items.name])
+  user      User?  @relation(fields: [createdBy], references: [id])
 }
 
 model List {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   createdBy String     @map("user_id") @db.ObjectId
-  User      User?      @relation(fields: [createdBy], references: [id])
-  items     ListItem[]
-
-  @@unique([items.name])
+  name      String
+  createdAt DateTime?  @default(now())
+  user      User?      @relation(fields: [createdBy], references: [id])
+  listItems ListItem[]
 }
 
-type Item {
-  name  String
-  note  String?
-  image String?
+model Item {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  name       String     @unique
+  note       String?
+  image      String?
+  category   Category   @relation(fields: [categoryId], references: [id])
+  categoryId String     @db.ObjectId
+  listItem   ListItem[]
 }
 
-type ListItem {
-  name String
-  qty  Int
+model ListItem {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  itemId String @db.ObjectId
+  item   Item   @relation(fields: [itemId], references: [id])
+  listId String @db.ObjectId
+  list   List   @relation(fields: [listId], references: [id])
+  qty    Int
+
+  @@unique([itemId, listId])
 }
