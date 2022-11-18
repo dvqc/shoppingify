@@ -37,17 +37,17 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?    @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime?  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime?  @updatedAt @map(name: "updated_at")
+  createdAt     DateTime? @default(now()) @map(name: "created_at")
+  updatedAt     DateTime? @updatedAt @map(name: "updated_at")
   accounts      Account[]
   sessions      Session[]
-  categories    Category[]
   lists         List[]
+  items         Item[]
 }
 
 model VerificationToken {
@@ -60,16 +60,14 @@ model VerificationToken {
 }
 
 model Category {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  createdBy String @map("user_id") @db.ObjectId
-  label     String @unique
-  items     Item[]
-  user      User?  @relation(fields: [createdBy], references: [id])
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  label String @unique
+  items Item[]
 }
 
 model List {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  createdBy String     @map("user_id") @db.ObjectId
+  createdBy String
   name      String
   createdAt DateTime?  @default(now())
   user      User?      @relation(fields: [createdBy], references: [id])
@@ -78,12 +76,16 @@ model List {
 
 model Item {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  name       String     @unique
+  name       String
   note       String?
   image      String?
+  createdBy  String
+  user       User?      @relation(fields: [createdBy], references: [id])
   category   Category   @relation(fields: [categoryId], references: [id])
   categoryId String     @db.ObjectId
   listItem   ListItem[]
+
+  @@unique([name, createdBy])
 }
 
 model ListItem {
