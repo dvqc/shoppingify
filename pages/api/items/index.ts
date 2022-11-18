@@ -4,19 +4,18 @@ import prisma from "lib/prisma";
 import {
   Body,
   createHandler,
+  Delete,
   Get,
   HttpCode,
-  Post,
   Req
 } from "next-api-decorators";
 import type { ItemBody } from "types/prisma.types";
-import { getUser } from "utils/helpers";
+import { BasicHandler, getUser } from "utils/helpers";
 
 // GET,POST /api/items
-class ItemsHandler {
-  @Post()
+class ItemsHandler extends BasicHandler {
   @HttpCode(201)
-  async create(@Body() body: ItemBody, @Req() req: NextApiRequest) {
+  async post(@Body() body: ItemBody, @Req() req: NextApiRequest) {
     const user = await getUser(req);
     const { name, note, image, categoryId } = body;
     const item = prisma.item.create({
