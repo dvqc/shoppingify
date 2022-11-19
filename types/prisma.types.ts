@@ -9,6 +9,13 @@ const itemBody = Prisma.validator<Prisma.ItemArgs>()({
   }
 });
 
+const itemData = Prisma.validator<Prisma.ItemArgs>()({
+  include: {
+    category: true
+  }
+});
+type ItemData = Prisma.ItemGetPayload<typeof itemData>;
+
 type ItemBody = Prisma.ItemGetPayload<typeof itemBody>;
 
 const listBody = Prisma.validator<Prisma.ListArgs>()({
@@ -18,4 +25,4 @@ const listBody = Prisma.validator<Prisma.ListArgs>()({
 });
 type ListBody = Prisma.ListGetPayload<typeof listBody>;
 
-export type { ItemBody, ListBody };
+export type { ItemData, ItemBody, ListBody };

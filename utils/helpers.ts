@@ -28,7 +28,7 @@ class BasicHandler {
   }
 
   @Post()
-  async post(...args: any[]): Promise<any> {
+  async post(...args: any[]): Promise<any>{
     throwMethodNotAllowed();
   }
 

@@ -1,29 +1,30 @@
-import { getSession } from "next-auth/react";
-import type { NextApiRequest, NextApiResponse } from "next/types";
+import type { NextApiRequest } from "next/types";
 import prisma from "lib/prisma";
 import {
   Body,
   createHandler,
-  Delete,
   Get,
   HttpCode,
-  Req
+  Post,
+  Req,
+  ValidationPipe
 } from "next-api-decorators";
-import type { ItemBody } from "types/prisma.types";
 import { BasicHandler, getUser } from "utils/helpers";
+import { CreateItemDTO } from "validators";
 
 // GET,POST /api/items
 class ItemsHandler extends BasicHandler {
   @HttpCode(201)
-  async post(@Body() body: ItemBody, @Req() req: NextApiRequest) {
+  @Post()
+  async post(
+    @Body(ValidationPipe({ whitelist: true }))
+    body: CreateItemDTO,
+    @Req() req: NextApiRequest
+  ) {
     const user = await getUser(req);
-    const { name, note, image, categoryId } = body;
     const item = prisma.item.create({
       data: {
-        name: name,
-        note: note,
-        image: image,
-        categoryId: categoryId,
+        ...body,
         createdBy: user.id
       }
     });
@@ -31,10 +32,11 @@ class ItemsHandler extends BasicHandler {
   }
 
   @Get()
-  async getItems(@Req() req: NextApiRequest) {
+  async get(@Req() req: NextApiRequest) {
     const user = await getUser(req);
     const items = await prisma.item.findMany({
       select: {
+        id: true,
         name: true,
         category: true,
         image: true,
