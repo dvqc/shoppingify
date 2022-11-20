@@ -70,7 +70,7 @@ model List {
   createdBy String
   name      String
   createdAt DateTime?  @default(now())
-  user      User?      @relation(fields: [createdBy], references: [id])
+  user      User?      @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   listItems ListItem[]
 }
 
@@ -80,8 +80,8 @@ model Item {
   note       String?
   image      String?
   createdBy  String
-  user       User?      @relation(fields: [createdBy], references: [id])
-  category   Category   @relation(fields: [categoryId], references: [id])
+  user       User?      @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  category   Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String     @db.ObjectId
   listItem   ListItem[]
 
@@ -91,9 +91,9 @@ model Item {
 model ListItem {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   itemId String @db.ObjectId
-  item   Item   @relation(fields: [itemId], references: [id])
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
   listId String @db.ObjectId
-  list   List   @relation(fields: [listId], references: [id])
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
   qty    Int
 
   @@unique([itemId, listId])

@@ -35,6 +35,7 @@ const listBody = Prisma.validator<Prisma.ListArgs>()({
     }
   }
 });
+
 type ListBody = Prisma.ListGetPayload<typeof listBody>;
 
 const listItem = Prisma.validator<Prisma.ListItemArgs>()({
@@ -43,6 +44,7 @@ const listItem = Prisma.validator<Prisma.ListItemArgs>()({
     qty: true
   }
 });
+
 type ListItem = Prisma.ListItemGetPayload<typeof listItem>;
 
 const listData = Prisma.validator<Prisma.ListArgs>()({
