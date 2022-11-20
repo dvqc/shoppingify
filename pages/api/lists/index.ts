@@ -24,15 +24,13 @@ class ListsHandler extends BasicHandler {
   ) {
     const user = await getUser(req);
     const { name, listItems } = body;
-    const listItemss = listItems.map((l) => {
-      return { itemId: l.itemId, qty: parseInt(String(l.qty)) };
-    });
+
     const list = prisma.list.create({
       data: {
         name: name,
         createdBy: user.id,
         listItems: {
-          create: listItemss
+          create: listItems
         }
       }
     });
@@ -43,7 +41,7 @@ class ListsHandler extends BasicHandler {
   async get(@Req() req: NextApiRequest) {
     const user = await getUser(req);
     const lists = await prisma.list.findMany({
-     ...listData,
+      ...listData,
       where: {
         createdBy: user.id
       }

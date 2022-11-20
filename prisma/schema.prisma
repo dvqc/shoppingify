@@ -94,7 +94,7 @@ model ListItem {
   item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
   listId String @db.ObjectId
   list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
-  qty    Int
+  qty    Float
 
   @@unique([itemId, listId])
 }

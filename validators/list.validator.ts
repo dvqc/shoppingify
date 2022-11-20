@@ -6,7 +6,8 @@ import {
   MinLength,
   MaxLength,
   ValidateNested,
-  IsNumber
+  IsNumber,
+  IsDecimal
 } from "class-validator";
 import { Type } from "class-transformer";
 
