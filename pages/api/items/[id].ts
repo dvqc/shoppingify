@@ -12,6 +12,7 @@ import {
 import { BasicHandler, getUser } from "utils/helpers";
 import { NotFoundError } from "@prisma/client/runtime";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import { itemData } from "types/prisma.types";
 // GET,DELETE /api/items/:id
 class ItemHandler extends BasicHandler {
   @Delete()
@@ -45,14 +46,7 @@ class ItemHandler extends BasicHandler {
 
     try {
       const item = await prisma.item.findUniqueOrThrow({
-        select: {
-          id: true,
-          name: true,
-          category: true,
-          image: true,
-          note: true,
-          createdBy: true
-        },
+        ...itemData,
         where: {
           id: id
         }

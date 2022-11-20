@@ -12,7 +12,7 @@ import {
 import { BasicHandler, getUser } from "utils/helpers";
 import { NotFoundError } from "@prisma/client/runtime";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
-import { listRes } from "types/prisma.types";
+import { listData } from "types/prisma.types";
 
 // GET,DELETE /api/lists/:id
 class ListHandler extends BasicHandler {
@@ -47,7 +47,7 @@ class ListHandler extends BasicHandler {
 
     try {
       const list = await prisma.list.findUniqueOrThrow({
-      ...listRes,
+      ...listData,
         where: {
           id: id
         }

@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next/types";
 import prisma from "lib/prisma";
-import type { ListBody } from "types/prisma.types";
 import {
   Body,
   createHandler,
@@ -11,7 +10,8 @@ import {
   ValidationPipe
 } from "next-api-decorators";
 import { BasicHandler, getUser } from "utils/helpers";
-import { CreateListDTO } from "validators/list.validator";
+import { CreateListDTO } from "validators";
+import { listData } from "types/prisma.types";
 
 // GET,POST /api/lists
 class ListsHandler extends BasicHandler {
@@ -43,27 +43,7 @@ class ListsHandler extends BasicHandler {
   async get(@Req() req: NextApiRequest) {
     const user = await getUser(req);
     const lists = await prisma.list.findMany({
-      select: {
-        id: true,
-        name: true,
-        createdAt: true,
-        listItems: {
-          select: {
-            id: true,
-            item: {
-              select: {
-                name: true,
-                category: {
-                  select: {
-                    label: true
-                  }
-                }
-              }
-            },
-            qty: true
-          }
-        }
-      },
+     ...listData,
       where: {
         createdBy: user.id
       }

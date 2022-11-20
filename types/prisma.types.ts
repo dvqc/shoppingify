@@ -11,11 +11,15 @@ const itemBody = Prisma.validator<Prisma.ItemArgs>()({
 });
 
 const itemData = Prisma.validator<Prisma.ItemArgs>()({
-  include: {
-    category: true
+  select: {
+    id: true,
+    name: true,
+    category: true,
+    image: true,
+    note: true,
+    createdBy: true
   }
 });
-type ItemData = Prisma.ItemGetPayload<typeof itemData>;
 
 type ItemBody = Prisma.ItemGetPayload<typeof itemBody>;
 
@@ -33,24 +37,31 @@ const listBody = Prisma.validator<Prisma.ListArgs>()({
 });
 type ListBody = Prisma.ListGetPayload<typeof listBody>;
 
-const listItemData = Prisma.validator<Prisma.ListItemArgs>()({
+const listItem = Prisma.validator<Prisma.ListItemArgs>()({
   select: {
     itemId: true,
     qty: true
   }
 });
-type ListItem = Prisma.ListItemGetPayload<typeof listItemData>;
+type ListItem = Prisma.ListItemGetPayload<typeof listItem>;
 
-const listRes = Prisma.validator<Prisma.ListArgs>()({
+const listData = Prisma.validator<Prisma.ListArgs>()({
   select: {
     id: true,
     name: true,
+    createdAt: true,
     createdBy: true,
     listItems: {
       select: {
+        id: true,
         item: {
-          include: {
-            category: true
+          select: {
+            name: true,
+            category: {
+              select: {
+                label: true
+              }
+            }
           }
         },
         qty: true
@@ -58,5 +69,6 @@ const listRes = Prisma.validator<Prisma.ListArgs>()({
     }
   }
 });
-export type { ItemData, ItemBody, ListBody, ListItem };
-export { listRes };
+
+export type { ItemBody, ListBody, ListItem };
+export { listData, itemData };

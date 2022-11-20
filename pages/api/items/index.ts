@@ -11,6 +11,7 @@ import {
 } from "next-api-decorators";
 import { BasicHandler, getUser } from "utils/helpers";
 import { CreateItemDTO } from "validators";
+import { itemData } from "types/prisma.types";
 
 // GET,POST /api/items
 class ItemsHandler extends BasicHandler {
@@ -35,13 +36,7 @@ class ItemsHandler extends BasicHandler {
   async get(@Req() req: NextApiRequest) {
     const user = await getUser(req);
     const items = await prisma.item.findMany({
-      select: {
-        id: true,
-        name: true,
-        category: true,
-        image: true,
-        note: true
-      },
+      ...itemData,
       where: {
         createdBy: user.id
       }
