@@ -1,8 +1,7 @@
 import Loader from "components/Loader";
 import Signin from "components/Signin";
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
@@ -17,7 +16,9 @@ const Home: NextPage = () => {
   return (
     <div>
       welcome {user?.name}
-      <button onClick={() => signOut()}>signout</button>
+      <button className="btn" onClick={() => signOut()}>
+        signout
+      </button>
     </div>
   );
 };
