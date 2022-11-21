@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next/types";
+import { NotFoundError } from "@prisma/client/runtime";
 import prisma from "lib/prisma";
 import {
   createHandler,
@@ -9,10 +9,10 @@ import {
   Req,
   UnauthorizedException
 } from "next-api-decorators";
-import { BasicHandler, getUser } from "utils/helpers";
-import { NotFoundError } from "@prisma/client/runtime";
-import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import type { NextApiRequest } from "next/types";
 import { itemData } from "types/prisma.types";
+import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import { BasicHandler, getUser } from "utils/helpers";
 
 // GET,DELETE /api/items/:id
 class ItemHandler extends BasicHandler {

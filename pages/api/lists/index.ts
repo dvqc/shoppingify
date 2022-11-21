@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next/types";
 import prisma from "lib/prisma";
 import {
   Body,
@@ -9,9 +8,10 @@ import {
   Req,
   ValidationPipe
 } from "next-api-decorators";
+import type { NextApiRequest } from "next/types";
+import { listData } from "types/prisma.types";
 import { BasicHandler, getUser } from "utils/helpers";
 import { CreateListDTO } from "validators";
-import { listData } from "types/prisma.types";
 
 // GET,POST /api/lists
 class ListsHandler extends BasicHandler {

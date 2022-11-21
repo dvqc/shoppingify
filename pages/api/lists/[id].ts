@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next/types";
+import { NotFoundError } from "@prisma/client/runtime";
 import prisma from "lib/prisma";
 import {
   Body,
@@ -12,11 +12,11 @@ import {
   UnauthorizedException,
   ValidationPipe
 } from "next-api-decorators";
-import { BasicHandler, getUser } from "utils/helpers";
-import { NotFoundError } from "@prisma/client/runtime";
-import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import type { NextApiRequest } from "next/types";
 import { listData } from "types/prisma.types";
-import { CreateListDTO, UpdateListDTO } from "validators";
+import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import { BasicHandler, getUser } from "utils/helpers";
+import { UpdateListDTO } from "validators";
 
 // GET,DELETE /api/lists/:id
 class ListHandler extends BasicHandler {
