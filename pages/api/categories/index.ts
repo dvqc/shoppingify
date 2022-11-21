@@ -18,9 +18,7 @@ class CategoriesHandler extends BasicHandler {
   @Get()
   async get(@Req() req: NextApiRequest) {
     const user = await getUser(req);
-    const categories = await prisma.category.findMany({
-      include: { items: true }
-    });
+    const categories = await prisma.category.findMany({});
     return categories;
   }
 }
