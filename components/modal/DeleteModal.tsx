@@ -1,7 +1,12 @@
 import Router from "next/router";
-import { useEffect, useRef, forwardRef } from "react";
+import {
+  forwardRef,
+  MutableRefObject,
+  RefObject,
+  useEffect,
+  useRef
+} from "react";
 import styles from "styles/Modal.module.scss";
-import { closeModal } from "./closeModal";
 
 const DeleteModal = forwardRef<HTMLDialogElement, { id: string }>(
   ({ id }, ref) => {
@@ -9,13 +14,7 @@ const DeleteModal = forwardRef<HTMLDialogElement, { id: string }>(
 
     const submitData = async (e: React.SyntheticEvent) => {
       e.preventDefault();
-      try {
-        await fetch("/api/myphotos/" + id, {
-          method: "DELETE"
-        });
-      } catch (error) {
-        console.error(error);
-      }
+      // todo ...
       closeModal(localRef, () => {
         return;
       });
@@ -30,7 +29,7 @@ const DeleteModal = forwardRef<HTMLDialogElement, { id: string }>(
     return (
       <dialog ref={ref} className={styles["modal"]}>
         <form onSubmit={submitData}>
-          <h2>Are you sure you want to delete this photo?</h2>
+          <h2>Are you sure you that want to cancel this list?</h2>
           <div>
             <input className={styles["delete"]} type="submit" value="Delete" />
             <button
@@ -49,5 +48,23 @@ const DeleteModal = forwardRef<HTMLDialogElement, { id: string }>(
     );
   }
 );
+
+const afterAnimation = (ref: RefObject<HTMLElement>, callback: () => void) => {
+  ref.current?.addEventListener("animationend", callback, {
+    once: true
+  });
+};
+
+const closeModal = (
+  ref: MutableRefObject<HTMLDialogElement | null>,
+  cleanUpFunc: () => void
+) => {
+  ref.current?.setAttribute("closing", "");
+  afterAnimation(ref, () => {
+    ref.current?.removeAttribute("closing");
+    ref.current?.close();
+  });
+  cleanUpFunc();
+};
 
 export default DeleteModal;
