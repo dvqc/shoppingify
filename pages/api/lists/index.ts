@@ -28,7 +28,9 @@ class ListsHandler extends BasicHandler {
     const list = prisma.list.create({
       data: {
         name: name,
-        createdBy: user.id,
+        user: {
+          connect: { id: user.id }
+        },
         listItems: {
           create: listItems
         }

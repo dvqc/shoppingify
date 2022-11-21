@@ -1,14 +1,29 @@
 import { Prisma } from "@prisma/client";
 
+/******************** category types ********************/
+const categoryCreateBody = Prisma.validator<Prisma.CategoryArgs>()({
+  select: {
+    label: true
+  }
+});
+
+type CategoryCreateBody = Prisma.CategoryGetPayload<typeof categoryCreateBody>;
+
 /******************** item types ********************/
-const itemBody = Prisma.validator<Prisma.ItemArgs>()({
+const itemCreateBody = Prisma.validator<Prisma.ItemArgs>()({
   select: {
     name: true,
     note: true,
     image: true,
-    categoryId: true
+    category: {
+      select: {
+        label: true
+      }
+    }
   }
 });
+
+type ItemCreateBody = Prisma.ItemGetPayload<typeof itemCreateBody>;
 
 const itemData = Prisma.validator<Prisma.ItemArgs>()({
   select: {
@@ -21,10 +36,8 @@ const itemData = Prisma.validator<Prisma.ItemArgs>()({
   }
 });
 
-type ItemBody = Prisma.ItemGetPayload<typeof itemBody>;
-
 /******************** list types *********************/
-const listBody = Prisma.validator<Prisma.ListArgs>()({
+const listCreateBody = Prisma.validator<Prisma.ListArgs>()({
   select: {
     name: true,
     listItems: {
@@ -36,7 +49,15 @@ const listBody = Prisma.validator<Prisma.ListArgs>()({
   }
 });
 
-type ListBody = Prisma.ListGetPayload<typeof listBody>;
+type ListCreateBody = Prisma.ListGetPayload<typeof listCreateBody>;
+
+const listUpdateBody = Prisma.validator<Prisma.ListArgs>()({
+  select: {
+    name: true
+  }
+});
+
+type ListUpdateBody = Prisma.ListGetPayload<typeof listUpdateBody>;
 
 const listItem = Prisma.validator<Prisma.ListItemArgs>()({
   select: {
@@ -72,5 +93,5 @@ const listData = Prisma.validator<Prisma.ListArgs>()({
   }
 });
 
-export type { ItemBody, ListBody, ListItem };
+export type { ItemCreateBody, ListCreateBody, ListItem, ListUpdateBody, CategoryCreateBody };
 export { listData, itemData };

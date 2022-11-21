@@ -13,6 +13,7 @@ import { BasicHandler, getUser } from "utils/helpers";
 import { NotFoundError } from "@prisma/client/runtime";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { itemData } from "types/prisma.types";
+
 // GET,DELETE /api/items/:id
 class ItemHandler extends BasicHandler {
   @Delete()

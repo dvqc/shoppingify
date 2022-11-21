@@ -1,4 +1,4 @@
-import { ListBody, ListItem } from "types/prisma.types";
+import { ListCreateBody, ListItem, ListUpdateBody } from "types/prisma.types";
 import {
   IsNotEmpty,
   IsAlphanumeric,
@@ -7,7 +7,7 @@ import {
   MaxLength,
   ValidateNested,
   IsNumber,
-  IsDecimal
+  IsString
 } from "class-validator";
 import { Type } from "class-transformer";
 
@@ -21,9 +21,9 @@ class listItemDTO implements ListItem {
   qty!: number;
 }
 
-export class CreateListDTO implements ListBody {
+export class CreateListDTO implements ListCreateBody {
   @IsNotEmpty()
-  @IsAlphanumeric()
+  @IsString()
   @MinLength(3)
   @MaxLength(50)
   name!: string;
@@ -32,4 +32,12 @@ export class CreateListDTO implements ListBody {
   @ValidateNested()
   @IsNotEmpty()
   listItems!: listItemDTO[];
+}
+
+export class UpdateListDTO implements ListUpdateBody {
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(50)
+  name!: string;
 }

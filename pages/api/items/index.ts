@@ -23,11 +23,25 @@ class ItemsHandler extends BasicHandler {
     @Req() req: NextApiRequest
   ) {
     const user = await getUser(req);
+    const { category, ...rest } = body;
     const item = prisma.item.create({
       data: {
-        ...body,
-        createdBy: user.id
-      }
+        ...rest,
+        user: {
+          connect: { id: user.id }
+        },
+        category: {
+          connectOrCreate: {
+            where: {
+              label: category.label
+            },
+            create: {
+              ...category
+            }
+          }
+        }
+      },
+      ...itemData
     });
     return item;
   }
@@ -41,6 +55,7 @@ class ItemsHandler extends BasicHandler {
         createdBy: user.id
       }
     });
+    console.log(user, items);
     return items;
   }
 }

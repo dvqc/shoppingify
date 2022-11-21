@@ -1,18 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from "next/types";
 import prisma from "lib/prisma";
 import {
+  Body,
   createHandler,
   Delete,
   Get,
   NotFoundException,
+  Patch,
   Query,
   Req,
-  UnauthorizedException
+  UnauthorizedException,
+  ValidationPipe
 } from "next-api-decorators";
 import { BasicHandler, getUser } from "utils/helpers";
 import { NotFoundError } from "@prisma/client/runtime";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { listData } from "types/prisma.types";
+import { CreateListDTO, UpdateListDTO } from "validators";
 
 // GET,DELETE /api/lists/:id
 class ListHandler extends BasicHandler {
@@ -47,13 +51,45 @@ class ListHandler extends BasicHandler {
 
     try {
       const list = await prisma.list.findUniqueOrThrow({
-      ...listData,
+        ...listData,
         where: {
           id: id
         }
       });
       if (user.id != list.createdBy)
         throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
+
+      return list;
+    } catch (err) {
+      if (err instanceof NotFoundError)
+        throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+      else throw err;
+    }
+  }
+
+  @Patch()
+  async patch(
+    @Query("id") id: string,
+    @Body(ValidationPipe({ whitelist: true }))
+    body: UpdateListDTO,
+    @Req() req: NextApiRequest
+  ) {
+    const user = await getUser(req);
+    try {
+      const listToUpdate = await prisma.list.findUniqueOrThrow({
+        where: {
+          id: id
+        }
+      });
+      if (user.id != listToUpdate.createdBy)
+        throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
+
+      const list = await prisma.list.update({
+        data: { ...body },
+        where: {
+          id: id
+        }
+      });
 
       return list;
     } catch (err) {
