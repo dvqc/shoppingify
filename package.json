@@ -21,6 +21,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "@tsconfig/recommended": "^1.0.1",
     "@types/eslint": "^8.4.2",
     "@types/lodash.groupby": "^4.6.7",
