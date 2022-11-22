@@ -18,11 +18,10 @@ const Home: NextPage = () => {
   return (
     <>
       <NavBar>
-        <NavItem link="#" text="items" img=""></NavItem>
-        <NavItem link="#" text="history" img=""></NavItem>
-        <NavItem link="#" text="statistics" img=""></NavItem>
+        <NavItem link="#" text="items" svgPath="/images/items.svg"></NavItem>
+        <NavItem link="#" text="history" svgPath="/images/history.svg"></NavItem>
+        <NavItem link="#" text="statistics" svgPath="/images/stats.svg"></NavItem>
       </NavBar>
-
       <main>
         welcome {user?.name}
         <button className="btn" onClick={() => signOut()}>
