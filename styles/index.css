@@ -13,6 +13,7 @@ body {
 }
 #__next {
   display: flex;
+  justify-content: center;
 }
 
 a {

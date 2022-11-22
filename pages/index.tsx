@@ -1,3 +1,4 @@
+import Header from "components/header/Header";
 import Loader from "components/Loader";
 import NavBar from "components/navbar/Navbar";
 import NavItem from "components/navbar/NavItem";
@@ -25,12 +26,16 @@ const Home: NextPage = () => {
         <NavItem link="#" text="history" svg={<HistorySvg />}></NavItem>
         <NavItem link="#" text="statistics" svg={<StatsSvg />}></NavItem>
       </NavBar>
-      <main>
-        welcome {user?.name}
-        <button className="btn" onClick={() => signOut()}>
-          signout
-        </button>
+      <main className="grow">
+        <Header></Header>
+        <div>
+          welcome {user?.name}
+          <button className="btn" onClick={() => signOut()}>
+            signout
+          </button>
+        </div>
       </main>
+      <div className="w-96 bg-orange-100 sticky top-0 right-0"></div>
     </>
   );
 };
