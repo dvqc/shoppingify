@@ -1,7 +1,7 @@
-import Header from "components/header/Header";
+import Header from "components/header";
+import CategoriesContainer from "components/items";
 import Loader from "components/Loader";
-import NavBar from "components/navbar/Navbar";
-import NavItem from "components/navbar/NavItem";
+import { NavBar, NavItem } from "components/navbar";
 import Signin from "components/Signin";
 import type { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
@@ -26,8 +26,9 @@ const Home: NextPage = () => {
         <NavItem link="#" text="history" svg={<HistorySvg />}></NavItem>
         <NavItem link="#" text="statistics" svg={<StatsSvg />}></NavItem>
       </NavBar>
-      <main className="grow">
+      <main className="grow mx-10">
         <Header></Header>
+        <CategoriesContainer categories={["Meat", "Vegitables", "Dairy products"]}></CategoriesContainer>
         <div>
           welcome {user?.name}
           <button className="btn" onClick={() => signOut()}>

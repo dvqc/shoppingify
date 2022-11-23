@@ -1,13 +1,5 @@
 import prisma from "lib/prisma";
-import {
-  Body,
-  createHandler,
-  Get,
-  HttpCode,
-  Post,
-  Req,
-  ValidationPipe
-} from "next-api-decorators";
+import { Body, createHandler, Get, HttpCode, Post, Query, Req, ValidationPipe } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
 import { itemData } from "types/prisma.types";
 import { BasicHandler, getUser } from "utils/helpers";
@@ -47,12 +39,13 @@ class ItemsHandler extends BasicHandler {
   }
 
   @Get()
-  async get(@Req() req: NextApiRequest) {
+  async get(@Req() req: NextApiRequest, @Query("categoryId") categoryId?: string) {
     const user = await getUser(req);
     const items = await prisma.item.findMany({
       ...itemData,
       where: {
-        createdBy: user.id
+        createdBy: user.id,
+        ...(categoryId && { categoryId: categoryId })
       }
     });
     console.log(user, items);

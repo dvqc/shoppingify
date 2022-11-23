@@ -36,6 +36,8 @@ const itemData = Prisma.validator<Prisma.ItemArgs>()({
   }
 });
 
+type ItemData = Prisma.ItemGetPayload<typeof itemData>;
+
 /******************** list types *********************/
 const listCreateBody = Prisma.validator<Prisma.ListArgs>()({
   select: {
@@ -93,5 +95,5 @@ const listData = Prisma.validator<Prisma.ListArgs>()({
   }
 });
 
-export type { ItemCreateBody, ListCreateBody, ListItem, ListUpdateBody, CategoryCreateBody };
+export type { ItemCreateBody, ListCreateBody, ListItem, ListUpdateBody, CategoryCreateBody, ItemData };
 export { listData, itemData };
