@@ -1,5 +1,5 @@
 import Header from "components/header";
-import CategoriesContainer from "components/items";
+import AllItemsContainer from "components/items";
 import Loader from "components/Loader";
 import { NavBar, NavItem } from "components/navbar";
 import Signin from "components/Signin";
@@ -26,9 +26,9 @@ const Home: NextPage = () => {
         <NavItem link="#" text="history" svg={<HistorySvg />}></NavItem>
         <NavItem link="#" text="statistics" svg={<StatsSvg />}></NavItem>
       </NavBar>
-      <main className="grow mx-10">
+      <main className="grow px-20 bg-gray5">
         <Header></Header>
-        <CategoriesContainer categories={["Meat", "Vegitables", "Dairy products"]}></CategoriesContainer>
+        <AllItemsContainer></AllItemsContainer>
         <div>
           welcome {user?.name}
           <button className="btn" onClick={() => signOut()}>
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           </button>
         </div>
       </main>
-      <div className="w-96 bg-orange-100 sticky top-0 right-0"></div>
+      <div className="w-96 bg-orange1 sticky top-0 right-0"></div>
     </>
   );
 };

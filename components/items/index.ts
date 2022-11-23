@@ -1,3 +1,3 @@
-import CategoriesContainer from "./CategoriesContainer";
+import CategoriesContainer from "./AllItemsContainer";
 
-export default CategoriesContainer
+export default CategoriesContainer;

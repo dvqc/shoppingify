@@ -39,16 +39,17 @@ class ItemsHandler extends BasicHandler {
   }
 
   @Get()
-  async get(@Req() req: NextApiRequest, @Query("categoryId") categoryId?: string) {
+  async get(@Req() req: NextApiRequest, @Query("category") category?: string) {
     const user = await getUser(req);
     const items = await prisma.item.findMany({
       ...itemData,
       where: {
-        createdBy: user.id,
-        ...(categoryId && { categoryId: categoryId })
+        user: {
+          id: user.id
+        },
+        ...(category && { category: { label: category } })
       }
     });
-    console.log(user, items);
     return items;
   }
 }

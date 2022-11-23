@@ -9,6 +9,15 @@ const categoryCreateBody = Prisma.validator<Prisma.CategoryArgs>()({
 
 type CategoryCreateBody = Prisma.CategoryGetPayload<typeof categoryCreateBody>;
 
+const categoryData = Prisma.validator<Prisma.CategoryArgs>()({
+  select: {
+    id: true,
+    label: true
+  }
+});
+
+type CategoryData = Prisma.CategoryGetPayload<typeof categoryData>;
+
 /******************** item types ********************/
 const itemCreateBody = Prisma.validator<Prisma.ItemArgs>()({
   select: {
@@ -95,5 +104,5 @@ const listData = Prisma.validator<Prisma.ListArgs>()({
   }
 });
 
-export type { ItemCreateBody, ListCreateBody, ListItem, ListUpdateBody, CategoryCreateBody, ItemData };
-export { listData, itemData };
+export type { ItemCreateBody, ListCreateBody, ListItem, ListUpdateBody, CategoryCreateBody, ItemData, CategoryData };
+export { listData, itemData, categoryData };

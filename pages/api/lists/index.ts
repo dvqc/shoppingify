@@ -1,13 +1,5 @@
 import prisma from "lib/prisma";
-import {
-  Body,
-  createHandler,
-  Get,
-  HttpCode,
-  Post,
-  Req,
-  ValidationPipe
-} from "next-api-decorators";
+import { Body, createHandler, Get, HttpCode, Post, Req, ValidationPipe } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
 import { listData } from "types/prisma.types";
 import { BasicHandler, getUser } from "utils/helpers";
@@ -45,7 +37,9 @@ class ListsHandler extends BasicHandler {
     const lists = await prisma.list.findMany({
       ...listData,
       where: {
-        createdBy: user.id
+        user: {
+          id: user.id
+        }
       }
     });
     return lists;
