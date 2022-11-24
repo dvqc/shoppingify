@@ -47,6 +47,28 @@ module.exports = {
       },
       boxShadow: {
         base: "0px 2px 12px 0px #0000000D"
+      },
+      animation: {
+        "fade-in": "fadein .2s ease-in forwards",
+        "fade-out": "fadeout .2s ease-in forwards"
+      },
+      keyframes: {
+        fadein: {
+          "0%": {
+            opacity: "0"
+          },
+          "100%": {
+            opacity: "1"
+          }
+        },
+        fadeout: {
+          "0%": {
+            opacity: "1"
+          },
+          "100%": {
+            opacity: "0"
+          }
+        }
       }
     }
   },

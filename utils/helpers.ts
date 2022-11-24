@@ -1,6 +1,7 @@
 import type { NextApiRequest } from "next";
 import { Delete, Get, HttpException, Patch, Post, Put, UnauthorizedException } from "next-api-decorators";
 import { getSession } from "next-auth/react";
+import { RefObject } from "react";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 
 class MethodNotAllowedException extends HttpException {
@@ -50,4 +51,9 @@ const getUser = async (req: NextApiRequest) => {
 const fetcher = (input: RequestInfo | URL, init?: RequestInit | undefined) =>
   fetch(input, init).then((res) => res.json());
 
-export { BasicHandler, getUser, MethodNotAllowedException, throwMethodNotAllowed, fetcher };
+const afterAnimation = (ref: RefObject<HTMLElement>, callback: () => void) => {
+  ref.current?.addEventListener("animationend", callback, {
+    once: true
+  });
+};
+export { BasicHandler, getUser, MethodNotAllowedException, throwMethodNotAllowed, fetcher, afterAnimation };

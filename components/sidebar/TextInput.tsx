@@ -18,7 +18,7 @@ const TextInput = ({
       ) : (
         <input type="text" id={id} name={name} className="input" placeholder={placeholder} />
       )}
-      <label htmlFor={name} className="label">
+      <label htmlFor={id} className="label">
         {label}
       </label>
     </div>
