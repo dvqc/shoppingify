@@ -11,9 +11,14 @@ body {
   font-family: Quicksand, sans-serif;
   font-size: 15px;
 }
+
 #__next {
   display: flex;
   justify-content: center;
+}
+
+textarea {
+  resize: none;
 }
 
 a {
@@ -57,6 +62,27 @@ a {
 
 @layer components {
   .btn {
-    @apply p-0 border-none block h-8 rounded-xl shadow-md text-white text-base font-bold bg-slate-300 cursor-pointer;
+    @apply block p-0  min-w-[5rem] min-h-[2rem] border-none rounded-xl text-base font-bold shadow-base cursor-pointer
+    hover:opacity-90 transition-opacity;
+  }
+
+  .btn-group {
+    @apply w-full h-16 flex flex-row justify-center gap-8;
+  }
+
+  .input-group {
+    @apply flex flex-col-reverse w-full m-0 p-0;
+  }
+
+  .label {
+    @apply text-base font-medium text-dark2 mt-5 mb-2  ease-in duration-200;
+  }
+
+  .input {
+    @apply m-0 px-4 h-16 border-2 text-base text-dark2 border-gray3 rounded-xl placeholder:text-gray3 outline-none
+    focus:border-yellow1 ease-in duration-200;
+  }
+  .input:focus + .label {
+    @apply border-yellow1 text-yellow1;
   }
 }

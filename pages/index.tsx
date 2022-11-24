@@ -2,6 +2,7 @@ import Header from "components/header";
 import AllItemsContainer from "components/items";
 import Loader from "components/Loader";
 import { NavBar, NavItem } from "components/navbar";
+import { AddItem } from "components/sidebar";
 import Signin from "components/Signin";
 import type { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
@@ -32,7 +33,9 @@ const Home: NextPage = () => {
         <Header></Header>
         <AllItemsContainer></AllItemsContainer>
       </main>
-      <div className="w-96 bg-orange1 sticky top-0 right-0"></div>
+      <div className="w-96 bg-orange1 sticky top-0 right-0">
+        <AddItem></AddItem>
+      </div>
     </>
   );
 };
