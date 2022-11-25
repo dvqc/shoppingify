@@ -65,11 +65,18 @@ model Category {
   items Item[]
 }
 
+enum Status {
+  COMPLETED
+  CANCELED
+  ACTIVE
+}
+
 model List {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   createdAt DateTime?  @default(now())
   createdBy String     @db.ObjectId
+  status    Status     @default(ACTIVE)
   user      User?      @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   listItems ListItem[]
 }

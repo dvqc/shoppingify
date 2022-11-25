@@ -2,7 +2,7 @@ import SelectInput from "./SelectInput";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 
-const AddItem = () => {
+const AddItemForm = () => {
   // const handleSubmit = (e: FormEvent) => {return;};
   return (
     <form className="w-full h-full m-0 px-10 py-8 flex flex-col bg-white">
@@ -46,4 +46,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default AddItemForm;

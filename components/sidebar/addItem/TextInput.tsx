@@ -13,11 +13,7 @@ const TextInput = ({
 }) => {
   return (
     <div className="input-group">
-      {isRequired ? (
-        <input type="text" id={id} name={name} className="input" placeholder={placeholder} required />
-      ) : (
-        <input type="text" id={id} name={name} className="input" placeholder={placeholder} />
-      )}
+      <input type="text" id={id} name={name} className="input" placeholder={placeholder} required={isRequired} />
       <label htmlFor={id} className="label">
         {label}
       </label>

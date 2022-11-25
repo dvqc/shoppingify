@@ -70,15 +70,6 @@ const listUpdateBody = Prisma.validator<Prisma.ListArgs>()({
 
 type ListUpdateBody = Prisma.ListGetPayload<typeof listUpdateBody>;
 
-const listItem = Prisma.validator<Prisma.ListItemArgs>()({
-  select: {
-    itemId: true,
-    qty: true
-  }
-});
-
-type ListItem = Prisma.ListItemGetPayload<typeof listItem>;
-
 const listData = Prisma.validator<Prisma.ListArgs>()({
   select: {
     id: true,
@@ -103,6 +94,25 @@ const listData = Prisma.validator<Prisma.ListArgs>()({
     }
   }
 });
+type ListData = Prisma.ListGetPayload<typeof listData>;
 
-export type { ItemCreateBody, ListCreateBody, ListItem, ListUpdateBody, CategoryCreateBody, ItemData, CategoryData };
+const listItem = Prisma.validator<Prisma.ListItemArgs>()({
+  select: {
+    itemId: true,
+    qty: true
+  }
+});
+
+type ListItem = Prisma.ListItemGetPayload<typeof listItem>;
+
+export type {
+  ItemCreateBody,
+  ListCreateBody,
+  ListItem,
+  ListUpdateBody,
+  CategoryCreateBody,
+  ItemData,
+  CategoryData,
+  ListData
+};
 export { listData, itemData, categoryData };

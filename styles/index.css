@@ -52,7 +52,7 @@ select::-ms-expand {
 
 @layer components {
   .btn {
-    @apply block p-0  min-w-[5rem] min-h-[2rem] border-none rounded-xl text-base font-bold shadow-base cursor-pointer
+    @apply block p-0  min-w-[5rem] min-h-[2rem] border-none rounded-xl text-base font-bold cursor-pointer
     hover:opacity-90 transition-opacity;
   }
 
