@@ -1,17 +1,8 @@
-import { ListCreateBody, ListItem, ListUpdateBody } from "types/prisma.types";
-import {
-  IsNotEmpty,
-  IsAlphanumeric,
-  IsMongoId,
-  MinLength,
-  MaxLength,
-  ValidateNested,
-  IsNumber,
-  IsString
-} from "class-validator";
 import { Type } from "class-transformer";
+import { IsMongoId, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength, ValidateNested } from "class-validator";
+import { ListCreateBody, ListItemBody, ListUpdateBody } from "types/prisma.types";
 
-class listItemDTO implements ListItem {
+class listItemDTO implements ListItemBody {
   @IsNotEmpty()
   @IsMongoId()
   itemId!: string;

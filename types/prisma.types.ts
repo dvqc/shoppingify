@@ -70,6 +70,34 @@ const listUpdateBody = Prisma.validator<Prisma.ListArgs>()({
 
 type ListUpdateBody = Prisma.ListGetPayload<typeof listUpdateBody>;
 
+const listItemBody = Prisma.validator<Prisma.ListItemArgs>()({
+  select: {
+    itemId: true,
+    qty: true
+  }
+});
+
+type ListItemBody = Prisma.ListItemGetPayload<typeof listItemBody>;
+
+const listItemData = Prisma.validator<Prisma.ListItemArgs>()({
+  select: {
+    id: true,
+    item: {
+      select: {
+        name: true,
+        category: {
+          select: {
+            label: true
+          }
+        }
+      }
+    },
+    qty: true
+  }
+});
+
+type ListItemData = Prisma.ListItemGetPayload<typeof listItemData>;
+
 const listData = Prisma.validator<Prisma.ListArgs>()({
   select: {
     id: true,
@@ -77,38 +105,17 @@ const listData = Prisma.validator<Prisma.ListArgs>()({
     createdAt: true,
     createdBy: true,
     listItems: {
-      select: {
-        id: true,
-        item: {
-          select: {
-            name: true,
-            category: {
-              select: {
-                label: true
-              }
-            }
-          }
-        },
-        qty: true
-      }
+      ...listItemData
     }
   }
 });
 type ListData = Prisma.ListGetPayload<typeof listData>;
 
-const listItem = Prisma.validator<Prisma.ListItemArgs>()({
-  select: {
-    itemId: true,
-    qty: true
-  }
-});
-
-type ListItem = Prisma.ListItemGetPayload<typeof listItem>;
-
 export type {
   ItemCreateBody,
   ListCreateBody,
-  ListItem,
+  ListItemBody,
+  ListItemData,
   ListUpdateBody,
   CategoryCreateBody,
   ItemData,
