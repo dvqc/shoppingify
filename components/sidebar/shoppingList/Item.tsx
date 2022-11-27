@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { ListItemData } from "types/prisma.types";
-import QuantityBtn from "./QuantityBtn";
 
-const Item = ({ listItem }: { listItem: ListItemData }) => {
+const Item = ({ listItem, children }: { listItem: ListItemData; children: React.ReactNode }) => {
   const [itemChecked, setItemChecked] = useState(false);
   const checkItem = () => {
     setItemChecked(!itemChecked);
@@ -14,7 +13,7 @@ const Item = ({ listItem }: { listItem: ListItemData }) => {
         <span className="h-6 w-6 inline-block relative border-2 border-yellow1 rounded-[4px]"></span>
       </label>
       <div className={`text-lg font-medium text-black ${itemChecked ? "line-through" : ""}`}>{listItem.item.name}</div>
-      <QuantityBtn qty={listItem.qty}></QuantityBtn>
+      {children}
     </li>
   );
 };

@@ -1,6 +1,7 @@
 import groupBy from "lodash.groupby";
 import { ListData } from "types/prisma.types";
 import Item from "./Item";
+import QuantityBtn from "./QuantityBtn";
 
 const ItemsList = ({ list, isEditing }: { list: ListData; isEditing: boolean }) => {
   const listByCategory = groupBy(list?.listItems, (list) => list.item.category.label);
@@ -15,7 +16,9 @@ const ItemsList = ({ list, isEditing }: { list: ListData; isEditing: boolean }) 
               <h3 className="text-sm font-medium text-gray1 mt-8 mb-4 ">{category}</h3>
               <ul>
                 {litsItems.map((listItem, i) => (
-                  <Item key={listItem.id} listItem={listItem}></Item>
+                  <Item key={listItem.id} listItem={listItem}>
+                    <QuantityBtn qty={listItem.qty} isEditing={isEditing}></QuantityBtn>
+                  </Item>
                 ))}
               </ul>
             </div>

@@ -1,8 +1,13 @@
-const NameInput = ({ disabled = false }: { disabled?: boolean }) => {
+import { useState } from "react";
+
+const NameInput = ({ disabled = false, value }: { disabled?: boolean; value?: string }) => {
+  const [name, setName] = useState(value);
   return (
     <div className="btn-group">
       <div className="w-full h-full  relative">
         <input
+          value={name}
+          onChange={(e) => setName(e.currentTarget.value)}
           disabled={disabled}
           type="text"
           placeholder="Enter a name"

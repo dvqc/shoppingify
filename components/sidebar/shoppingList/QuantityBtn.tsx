@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { afterAnimation } from "utils/helpers";
 
-const QuantityBtn = ({ qty }: { qty: number }) => {
+const QuantityBtn = ({ qty, isEditing }: { qty: number; isEditing: boolean }) => {
   const [quantity, setQuantity] = useState(qty);
 
   const [btnGrpStatus, setBtnGrpStatus] = useState<"open" | "closed" | "closing">("closed");
@@ -10,8 +10,9 @@ const QuantityBtn = ({ qty }: { qty: number }) => {
   const minusRef = useRef<HTMLButtonElement>(null);
 
   const toggleBtnGrp = () => {
-    if (btnGrpStatus == "open") hideBtnGrp();
-    else showBtnGrp();
+    if (isEditing)
+      if (btnGrpStatus == "open") hideBtnGrp();
+      else showBtnGrp();
   };
 
   const conditionalStyle =
