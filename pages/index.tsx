@@ -33,7 +33,7 @@ const Home: NextPage = () => {
         <Header></Header>
         <AllItemsContainer></AllItemsContainer>
       </main>
-      <div className="w-96 bg-orange1 sticky top-0 right-0">
+      <div className="w-96 h-screen sticky top-0 right-0 bg-orange1 hide-scroll">
         <ShoppingList></ShoppingList>
       </div>
     </>

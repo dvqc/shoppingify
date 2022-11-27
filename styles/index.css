@@ -80,4 +80,15 @@ select::-ms-expand {
     @apply absolute content-[""] w-full h-full 
     bg-[url('/images/check.svg')]  bg-no-repeat bg-[length:120%_120%] bg-center;
   }
+
+  .hide-scroll {
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+  .hide-scroll::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+  }
 }

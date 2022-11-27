@@ -13,7 +13,7 @@ const ShoppingList = () => {
   if (error) return <div>failed to load</div>;
 
   return (
-    <div className="w-full h-full m-0 p-0 flex flex-col">
+    <div className="w-full m-0 p-0 flex flex-col">
       {!list ? (
         <Loader></Loader>
       ) : (
@@ -29,7 +29,7 @@ const ShoppingList = () => {
             {isEditing ? (
               <NameInput disabled={list.listItems.length == 0}></NameInput>
             ) : (
-              <div className="btn-group">
+              <div className="btn-group  ">
                 <button className="btn bg-gray5 text-dark2">Cancel</button>
                 <button className="btn bg-blue1 text-white">Complete</button>
               </div>
