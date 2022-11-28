@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-const NameInput = ({ disabled = false, value }: { disabled?: boolean; value?: string }) => {
+const NameInput = ({
+  disabled = false,
+  value,
+  onSave
+}: {
+  disabled?: boolean;
+  value: string;
+  onSave: (newName: string) => void;
+}) => {
   const [name, setName] = useState(value);
   return (
     <div className="btn-group">
@@ -18,6 +26,7 @@ const NameInput = ({ disabled = false, value }: { disabled?: boolean; value?: st
         <button
           disabled={disabled}
           className="btn h-full absolute right-0 z-10  text-white bg-yellow1 disabled:bg-gray3"
+          onClick={() => onSave(name)}
         >
           Save
         </button>

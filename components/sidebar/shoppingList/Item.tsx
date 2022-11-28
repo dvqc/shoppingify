@@ -1,8 +1,14 @@
 import { useState } from "react";
+import useSwr from "swr";
 import { ListItemData } from "types/prisma.types";
+import { fetcher } from "utils/helpers";
+import QuantityBtn from "./QuantityBtn";
 
-const Item = ({ listItem, children }: { listItem: ListItemData; children: React.ReactNode }) => {
+const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: boolean }) => {
   const [itemChecked, setItemChecked] = useState(false);
+  const [qty, setQty] = useState(listItem.qty);
+  const { data, error } = useSwr(`api/listItems/${listItem.id}`, fetcher);
+
   const checkItem = () => {
     setItemChecked(!itemChecked);
   };
@@ -13,7 +19,7 @@ const Item = ({ listItem, children }: { listItem: ListItemData; children: React.
         <span className="h-6 w-6 inline-block relative border-2 border-yellow1 rounded-[4px]"></span>
       </label>
       <div className={`text-lg font-medium text-black ${itemChecked ? "line-through" : ""}`}>{listItem.item.name}</div>
-      {children}
+      <QuantityBtn qty={qty} isEditing={isEditing} setQty={setQty}></QuantityBtn>
     </li>
   );
 };

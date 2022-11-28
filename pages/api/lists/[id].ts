@@ -14,7 +14,7 @@ import {
   ValidationPipe
 } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
-import { listData } from "types/prisma.types";
+import { listData, listDataExpanded } from "types/prisma.types";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { BasicHandler, getUser } from "utils/helpers";
 import { CreateListDTO, UpdateListDTO } from "validators";
@@ -45,12 +45,13 @@ class ListHandler extends BasicHandler {
   }
 
   @Get()
-  async get(@Query("id") id: string, @Req() req: NextApiRequest) {
+  async get(@Query("id") id: string, @Req() req: NextApiRequest, @Query("expand") expand?: boolean) {
     const user = await getUser(req);
+    const fields = !expand ? listData : listDataExpanded;
 
     try {
       const list = await prisma.list.findUniqueOrThrow({
-        ...listData,
+        ...fields,
         where: {
           id: id
         }

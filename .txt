@@ -1,0 +1,15 @@
+sidebar:
+  addItem: 
+    ...
+  viewItem:
+    ...
+  shoppingList:
+    addItem:
+    emptyList:
+      ...
+    list:
+      item:
+
+
+listState: mutate if(addItem, removeItem, changeName)
+item: mutate if(addQty, reduceQty)

@@ -87,7 +87,7 @@ model Item {
   note       String?
   image      String?
   createdBy  String     @db.ObjectId
-  user       User?      @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   category   Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String     @db.ObjectId
   listItem   ListItem[]

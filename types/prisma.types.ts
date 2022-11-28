@@ -105,11 +105,26 @@ const listData = Prisma.validator<Prisma.ListArgs>()({
     createdAt: true,
     createdBy: true,
     listItems: {
-      ...listItemData
+      select: {
+        id: true
+      }
     }
   }
 });
 type ListData = Prisma.ListGetPayload<typeof listData>;
+
+const listDataExpanded = Prisma.validator<Prisma.ListArgs>()({
+  select: {
+    id: true,
+    name: true,
+    createdAt: true,
+    createdBy: true,
+    listItems: {
+      ...listItemData
+    }
+  }
+});
+type ListDataExpanded = Prisma.ListGetPayload<typeof listData>;
 
 export type {
   ItemCreateBody,
@@ -120,6 +135,7 @@ export type {
   CategoryCreateBody,
   ItemData,
   CategoryData,
-  ListData
+  ListData,
+  ListDataExpanded
 };
-export { listData, itemData, categoryData };
+export { listData, listDataExpanded, itemData, categoryData, listItemData };

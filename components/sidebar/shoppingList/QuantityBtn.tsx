@@ -1,9 +1,15 @@
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { afterAnimation } from "utils/helpers";
 
-const QuantityBtn = ({ qty, isEditing }: { qty: number; isEditing: boolean }) => {
-  const [quantity, setQuantity] = useState(qty);
-
+const QuantityBtn = ({
+  qty,
+  setQty,
+  isEditing
+}: {
+  qty: number;
+  setQty: Dispatch<SetStateAction<number>>;
+  isEditing: boolean;
+}) => {
   const [btnGrpStatus, setBtnGrpStatus] = useState<"open" | "closed" | "closing">("closed");
   const deleteRef = useRef<HTMLButtonElement>(null);
   const addRef = useRef<HTMLButtonElement>(null);
@@ -51,7 +57,9 @@ const QuantityBtn = ({ qty, isEditing }: { qty: number; isEditing: boolean }) =>
         ref={minusRef}
         className={`w-8 bg-[url('/images/minus.svg')]  bg-no-repeat bg-[length:60%_60%] bg-center ${conditionalStyle}`}
         onClick={() => {
-          if (quantity > 1) setQuantity(quantity - 1);
+          if (qty > 1) {
+            setQty(qty - 1);
+          }
         }}
       ></button>
       <button
@@ -60,13 +68,13 @@ const QuantityBtn = ({ qty, isEditing }: { qty: number; isEditing: boolean }) =>
     border-yellow1 border-2 rounded-3xl ${btnGrpStatus == "closing" ? "animate-fade-out" : "block animate-fade-in"}
     `}
       >
-        {quantity}
+        {qty}
         {" pcs"}
       </button>
       <button
         ref={addRef}
         onClick={() => {
-          setQuantity(quantity + 1);
+          setQty(qty + 1);
         }}
         className={`w-8 bg-[url('/images/addPcs.svg')]  bg-no-repeat bg-[length:60%_60%] bg-center ${conditionalStyle}`}
       ></button>
