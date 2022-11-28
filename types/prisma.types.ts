@@ -46,6 +46,42 @@ const itemData = Prisma.validator<Prisma.ItemArgs>()({
 });
 
 type ItemData = Prisma.ItemGetPayload<typeof itemData>;
+/****************** listItem types *******************/
+const listItemBody = Prisma.validator<Prisma.ListItemArgs>()({
+  select: {
+    itemId: true,
+    qty: true
+  }
+});
+
+type ListItemBody = Prisma.ListItemGetPayload<typeof listItemBody>;
+
+const listItemUpdateBody = Prisma.validator<Prisma.ListItemArgs>()({
+  select: {
+    qty: true
+  }
+});
+type ListItemUpdateBody = Prisma.ListItemGetPayload<typeof listItemUpdateBody>;
+
+
+const listItemData = Prisma.validator<Prisma.ListItemArgs>()({
+  select: {
+    id: true,
+    item: {
+      select: {
+        name: true,
+        category: {
+          select: {
+            label: true
+          }
+        }
+      }
+    },
+    qty: true
+  }
+});
+
+type ListItemData = Prisma.ListItemGetPayload<typeof listItemData>;
 
 /******************** list types *********************/
 const listCreateBody = Prisma.validator<Prisma.ListArgs>()({
@@ -70,33 +106,7 @@ const listUpdateBody = Prisma.validator<Prisma.ListArgs>()({
 
 type ListUpdateBody = Prisma.ListGetPayload<typeof listUpdateBody>;
 
-const listItemBody = Prisma.validator<Prisma.ListItemArgs>()({
-  select: {
-    itemId: true,
-    qty: true
-  }
-});
 
-type ListItemBody = Prisma.ListItemGetPayload<typeof listItemBody>;
-
-const listItemData = Prisma.validator<Prisma.ListItemArgs>()({
-  select: {
-    id: true,
-    item: {
-      select: {
-        name: true,
-        category: {
-          select: {
-            label: true
-          }
-        }
-      }
-    },
-    qty: true
-  }
-});
-
-type ListItemData = Prisma.ListItemGetPayload<typeof listItemData>;
 
 const listData = Prisma.validator<Prisma.ListArgs>()({
   select: {
@@ -124,7 +134,7 @@ const listDataExpanded = Prisma.validator<Prisma.ListArgs>()({
     }
   }
 });
-type ListDataExpanded = Prisma.ListGetPayload<typeof listData>;
+type ListDataExpanded = Prisma.ListGetPayload<typeof listDataExpanded>;
 
 export type {
   ItemCreateBody,
@@ -136,6 +146,7 @@ export type {
   ItemData,
   CategoryData,
   ListData,
-  ListDataExpanded
+  ListDataExpanded,
+  ListItemUpdateBody
 };
-export { listData, listDataExpanded, itemData, categoryData, listItemData };
+export { listData, listDataExpanded, itemData, categoryData, listItemData , listItemUpdateBody};

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { afterAnimation } from "utils/helpers";
 
 const QuantityBtn = ({
@@ -7,7 +7,7 @@ const QuantityBtn = ({
   isEditing
 }: {
   qty: number;
-  setQty: Dispatch<SetStateAction<number>>;
+  setQty: (qty: number) => Promise<any>;
   isEditing: boolean;
 }) => {
   const [btnGrpStatus, setBtnGrpStatus] = useState<"open" | "closed" | "closing">("closed");

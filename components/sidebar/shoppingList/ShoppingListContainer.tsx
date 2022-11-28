@@ -1,11 +1,11 @@
 import Loader from "components/Loader";
 import useSWR, { useSWRConfig } from "swr";
-import { ListData } from "types/prisma.types";
+import { ListDataExpanded } from "types/prisma.types";
 import { fetcher } from "utils/helpers";
 import ShoppingList from "./ShoppingList";
 
 const ShoppingListContainer = () => {
-  const { data: list, error } = useSWR<ListData>("/api/lists/active", fetcher);
+  const { data: list, error } = useSWR<ListDataExpanded>("/api/lists/active?expand=true", fetcher);
   const { mutate } = useSWRConfig();
 
   const handleUpdate = () => {

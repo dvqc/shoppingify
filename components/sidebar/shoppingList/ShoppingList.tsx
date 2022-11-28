@@ -1,10 +1,10 @@
 import { useReducer, useState } from "react";
-import { ListData } from "types/prisma.types";
+import { ListData, ListDataExpanded } from "types/prisma.types";
 import AddItem from "./AddItem";
 import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
 
-const ShoppingList = ({ list }: { list: ListData }) => {
+const ShoppingList = ({ list }: { list: ListDataExpanded }) => {
   const [isEditing, setIsEditing] = useState(true);
 
   console.log(list);
