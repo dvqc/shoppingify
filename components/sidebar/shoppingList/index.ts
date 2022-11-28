@@ -1,3 +1,3 @@
-import ShoppingList from "./ShoppingListContainer";
+import ShoppingList from "./ShoppingList";
 
 export default ShoppingList;

@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  if (status == "loading") return <Loader />;
+  if (status == "loading") return <Loader size="xl" />;
 
   if (user == undefined || status == "unauthenticated") {
     return <Signin></Signin>;

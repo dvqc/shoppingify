@@ -7,7 +7,7 @@ const NameInput = ({
 }: {
   disabled?: boolean;
   value: string;
-  onSave: (newName: string) => void;
+  onSave: (newName: string) => Promise<any>;
 }) => {
   const [name, setName] = useState(value);
   return (

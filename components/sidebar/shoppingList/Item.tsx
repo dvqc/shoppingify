@@ -11,8 +11,8 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
   const { data: listItemData, error } = useSwr<ListItemData>(listItemKey, fetcher);
   const { mutate } = useSWRConfig();
 
-  const updateListItem = (payload: ListItemUpdateBody) =>
-    fetcher(listItemKey, {
+  const updateListItem = async (url: string, payload: ListItemUpdateBody) =>
+    await fetcher(url, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -40,7 +40,7 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
         qty={listItemData.qty}
         isEditing={isEditing}
         setQty={(qty: number) =>
-          mutate(listItemKey, updateListItem({ qty: qty }), {
+          mutate(listItemKey, updateListItem(listItemKey, { qty: qty }), {
             optimisticData: { ...listItemData, qty: qty },
             rollbackOnError: true
           })
