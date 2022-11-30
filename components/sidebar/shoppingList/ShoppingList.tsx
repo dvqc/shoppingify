@@ -29,7 +29,7 @@ const ShoppingList = () => {
     <div className="w-full min-h-screen m-0 p-0 flex flex-col">
       {!list ? (
         <div className="h-screen">
-          <Loader size="l"></Loader>
+          <Loader height="h-24" width="w-24"></Loader>
         </div>
       ) : (
         <>

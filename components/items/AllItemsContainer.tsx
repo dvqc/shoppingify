@@ -8,7 +8,7 @@ const AllItemsContainer = () => {
   const { data: categories, error } = useSWR<CategoryData[], Error>(`/api/categories`, fetcher);
 
   if (error) return <div>failed to load</div>;
-  if (!categories) return <Loader size="l"></Loader>;
+  if (!categories) return <Loader height="h-24" width="w-24"></Loader>;
 
   return (
     <div className="w-full m-0 p-0">
