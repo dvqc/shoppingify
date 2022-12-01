@@ -4,6 +4,7 @@ import useSwr, { useSWRConfig } from "swr";
 import { ListItemData, ListItemUpdateBody } from "types/prisma.types";
 import { fetcher } from "utils/helpers";
 import { getListItemKey } from "utils/swrKeys";
+import CheckBox from "./CheckBox";
 import QuantityBtn from "./QuantityBtn";
 
 const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: boolean }) => {
@@ -21,7 +22,6 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
     });
 
   const [itemChecked, setItemChecked] = useState(false);
-
   const checkItem = () => {
     setItemChecked(!itemChecked);
   };
@@ -31,10 +31,7 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
 
   return (
     <li key={listItem.id} className="my-4 max-h-min flex flex-row basis-10 items-center flex-wrap">
-      <label className="flex mr-4 cursor-pointer">
-        <input className="hidden" type="checkbox" onChange={checkItem} checked={itemChecked} />
-        <span className="h-6 w-6 inline-block relative border-2 border-yellow1 rounded-[4px]"></span>
-      </label>
+      {!isEditing ? <CheckBox onChange={checkItem} isChecked={itemChecked}></CheckBox> : <></>}
       <div className={`text-lg font-medium text-black ${itemChecked ? "line-through" : ""}`}>{listItem.item.name}</div>
       <QuantityBtn
         qty={listItemData.qty}

@@ -3,15 +3,16 @@ import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 import { ListDataExpanded, ListUpdateBody } from "types/prisma.types";
 import { fetcher } from "utils/helpers";
-import { getListKey } from "utils/swrKeys";
+import { getActiveListKey, getListKey } from "utils/swrKeys";
 import AddItem from "./AddItem";
 import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
 
 const ShoppingList = () => {
-  const { data: list, error } = useSWR<ListDataExpanded>("/api/lists/active?expand=true", fetcher);
+  const actvieListKey = getActiveListKey({ expand: true });
+  const { data: list, error } = useSWR<ListDataExpanded>(actvieListKey, fetcher);
   const { mutate } = useSWRConfig();
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
 
   const updateListName = async (url: string, payload: ListUpdateBody) => {
     await fetcher(url, {
@@ -36,7 +37,12 @@ const ShoppingList = () => {
           <div className="w-full m-0 px-10 pt-8 grow">
             <AddItem></AddItem>
             <div className="m-0 p-0 w-full">
-              <h2 className="my-10 text-2xl font-bold text-dark2">{list.name}</h2>
+              <div className="w-full flex flex-row justify-between">
+                <h2 className="my-10 text-2xl font-bold text-dark2">{list.name}</h2>
+                <button className="w-8" onClick={() => setIsEditing(!isEditing)}>
+                  Edit
+                </button>
+              </div>
               <ItemsList list={list} isEditing={isEditing}></ItemsList>
             </div>
           </div>
@@ -45,21 +51,18 @@ const ShoppingList = () => {
               <NameInput
                 disabled={list.listItems.length == 0}
                 value={list.name}
-                onSave={(newName: string) =>
-                  mutate(
-                    "/api/lists/active?expand=true",
+                onSave={async (newName: string) => {
+                  await mutate(
+                    actvieListKey,
                     updateListName(getListKey(list.id), {
                       name: newName
-                    }),
-                    {
-                      optimisticData: { ...list, name: newName },
-                      rollbackOnError: true
-                    }
-                  )
-                }
+                    })
+                  );
+                  setIsEditing(false);
+                }}
               ></NameInput>
             ) : (
-              <div className="btn-group  ">
+              <div className="btn-group animate-fade-in">
                 <button className="btn bg-gray5 text-dark2">Cancel</button>
                 <button className="btn bg-blue1 text-white">Complete</button>
               </div>

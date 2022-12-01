@@ -11,7 +11,7 @@ const NameInput = ({
 }) => {
   const [name, setName] = useState(value);
   return (
-    <div className="btn-group">
+    <div className="btn-group animate-fade-in">
       <div className="w-full h-full  relative">
         <input
           value={name}
