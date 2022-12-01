@@ -1,5 +1,6 @@
+import FadeInOut from "components/FadeInOut";
 import Loader from "components/Loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSwr, { useSWRConfig } from "swr";
 import { ListItemData, ListItemUpdateBody } from "types/prisma.types";
 import { fetcher } from "utils/helpers";
@@ -22,6 +23,7 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
     });
 
   const [itemChecked, setItemChecked] = useState(false);
+
   const checkItem = () => {
     setItemChecked(!itemChecked);
   };
@@ -29,9 +31,15 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
   if (error) return <div>Failed to load data</div>;
   if (!listItemData) return <Loader></Loader>;
 
+  useEffect(() => {
+    if (isEditing && itemChecked) setItemChecked(false);
+  }, [isEditing]);
+
   return (
     <li key={listItem.id} className="my-4 max-h-min flex flex-row basis-10 items-center flex-wrap">
-      {!isEditing ? <CheckBox onChange={checkItem} isChecked={itemChecked}></CheckBox> : <></>}
+      <FadeInOut fit={true} show={!isEditing}>
+        <CheckBox onChange={checkItem} isChecked={itemChecked}></CheckBox>
+      </FadeInOut>
       <div className={`text-lg font-medium text-black ${itemChecked ? "line-through" : ""}`}>{listItem.item.name}</div>
       <QuantityBtn
         qty={listItemData.qty}

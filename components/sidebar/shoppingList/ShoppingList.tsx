@@ -4,6 +4,7 @@ import useSWR, { useSWRConfig } from "swr";
 import { ListDataExpanded, ListUpdateBody } from "types/prisma.types";
 import { fetcher } from "utils/helpers";
 import { getActiveListKey, getListKey } from "utils/swrKeys";
+import FadeInOut from "../../FadeInOut";
 import AddItem from "./AddItem";
 import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
@@ -46,27 +47,35 @@ const ShoppingList = () => {
               <ItemsList list={list} isEditing={isEditing}></ItemsList>
             </div>
           </div>
-          <div className="w-full px-10 py-8 bg-white mb-0 mt-auto">
-            {isEditing ? (
-              <NameInput
-                disabled={list.listItems.length == 0}
-                value={list.name}
-                onSave={async (newName: string) => {
-                  await mutate(
-                    actvieListKey,
-                    updateListName(getListKey(list.id), {
-                      name: newName
-                    })
-                  );
-                  setIsEditing(false);
-                }}
-              ></NameInput>
-            ) : (
-              <div className="btn-group animate-fade-in">
-                <button className="btn bg-gray5 text-dark2">Cancel</button>
-                <button className="btn bg-blue1 text-white">Complete</button>
-              </div>
-            )}
+          <div className="w-full h-28 px-10 py-8 bg-white mb-0 mt-auto relative">
+            {/* {isEditing ? ( */}
+            <div className="absolute w-full h-full bottom-0 right-0">
+              <FadeInOut show={isEditing}>
+                <NameInput
+                  disabled={list.listItems.length == 0}
+                  value={list.name}
+                  onSave={async (newName: string) => {
+                    await mutate(
+                      actvieListKey,
+                      updateListName(getListKey(list.id), {
+                        name: newName
+                      })
+                    );
+                    setIsEditing(false);
+                  }}
+                ></NameInput>
+              </FadeInOut>
+            </div>
+            {/* ) : ( */}
+            <div className="absolute w-full h-full  bottom-0 right-0">
+              <FadeInOut show={!isEditing}>
+                <div className="btn-group">
+                  <button className="btn bg-gray5 text-dark2">Cancel</button>
+                  <button className="btn bg-blue1 text-white">Complete</button>
+                </div>
+              </FadeInOut>
+            </div>
+            {/* )} */}
           </div>
         </>
       )}{" "}
