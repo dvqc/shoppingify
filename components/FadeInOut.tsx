@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { afterAnimation } from "utils/helpers";
 
-const FadeInOut = ({ children, show, fit }: { children: React.ReactNode; show: boolean; fit?: boolean }) => {
+const FadeInOut = ({
+  children,
+  show,
+  fit,
+  className = ""
+}: {
+  children: React.ReactNode;
+  show: boolean;
+  fit?: boolean;
+  className?: string;
+}) => {
   const [status, setStatus] = useState<"closed" | "closing" | "open">("closed");
   const ref = useRef<HTMLDivElement>(null);
 
@@ -22,7 +32,7 @@ const FadeInOut = ({ children, show, fit }: { children: React.ReactNode; show: b
     }
   }, [show]);
   return (
-    <div ref={ref} className={`${fit ? "w-fit h-fit" : "w-full h-full"} m-0 p-0 ${conditionalStyle}`}>
+    <div ref={ref} className={`${fit ? "w-fit h-fit" : "w-full h-full"} m-0 p-0 ${conditionalStyle} ${className}`}>
       {children}
     </div>
   );

@@ -2,7 +2,8 @@ import FadeInOut from "components/FadeInOut";
 import Loader from "components/Loader";
 import { useEffect, useState } from "react";
 import useSwr, { useSWRConfig } from "swr";
-import { ListItemData, ListItemUpdateBody } from "types/prisma.types";
+import { ListItemData } from "types/prisma.types";
+import { updateListItem } from "utils/api-helpers";
 import { fetcher } from "utils/helpers";
 import { getListItemKey } from "utils/swrKeys";
 import CheckBox from "./CheckBox";
@@ -12,28 +13,18 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
   const listItemKey = getListItemKey(listItem.id);
   const { data: listItemData, error } = useSwr<ListItemData>(listItemKey, fetcher);
   const { mutate } = useSWRConfig();
-
-  const updateListItem = async (url: string, payload: ListItemUpdateBody) =>
-    await fetcher(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
   const [itemChecked, setItemChecked] = useState(false);
 
   const checkItem = () => {
     setItemChecked(!itemChecked);
   };
 
-  if (error) return <div>Failed to load data</div>;
-  if (!listItemData) return <Loader></Loader>;
-
   useEffect(() => {
     if (isEditing && itemChecked) setItemChecked(false);
   }, [isEditing]);
+
+  if (error) return <div>Failed to load data</div>;
+  if (!listItemData) return <Loader></Loader>;
 
   return (
     <li key={listItem.id} className="my-4 max-h-min flex flex-row basis-10 items-center flex-wrap">

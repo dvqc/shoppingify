@@ -45,9 +45,13 @@ module.exports = {
         blue1: "#56CCF2",
         red1: "#EB5757"
       },
+      fill: {
+        yellow1: "#F9A109"
+      },
       boxShadow: {
         base: "0px 2px 12px 0px #0000000D"
       },
+      filter: ["hover", "focus"],
       animation: {
         "fade-in": "fadein .2s ease-in forwards",
         "fade-out": "fadeout .2s ease-in forwards"

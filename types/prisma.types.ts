@@ -1,5 +1,8 @@
 import { Prisma } from "@prisma/client";
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
 /******************** category types ********************/
 const categoryCreateBody = Prisma.validator<Prisma.CategoryArgs>()({
   select: {
@@ -63,7 +66,6 @@ const listItemUpdateBody = Prisma.validator<Prisma.ListItemArgs>()({
 });
 type ListItemUpdateBody = Prisma.ListItemGetPayload<typeof listItemUpdateBody>;
 
-
 const listItemData = Prisma.validator<Prisma.ListItemArgs>()({
   select: {
     id: true,
@@ -100,13 +102,12 @@ type ListCreateBody = Prisma.ListGetPayload<typeof listCreateBody>;
 
 const listUpdateBody = Prisma.validator<Prisma.ListArgs>()({
   select: {
-    name: true
+    name: true,
+    status: true
   }
 });
 
-type ListUpdateBody = Prisma.ListGetPayload<typeof listUpdateBody>;
-
-
+type ListUpdateBody = PartialBy<Prisma.ListGetPayload<typeof listUpdateBody>, "status" | "name">;
 
 const listData = Prisma.validator<Prisma.ListArgs>()({
   select: {
@@ -149,4 +150,4 @@ export type {
   ListDataExpanded,
   ListItemUpdateBody
 };
-export { listData, listDataExpanded, itemData, categoryData, listItemData , listItemUpdateBody};
+export { listData, listDataExpanded, itemData, categoryData, listItemData, listItemUpdateBody };

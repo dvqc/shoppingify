@@ -1,7 +1,8 @@
 import prisma from "lib/prisma";
-import { createHandler, Get, Query, Req } from "next-api-decorators";
+import { createHandler, Get, NotFoundException, Query, Req } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
 import { listData, listDataExpanded } from "types/prisma.types";
+import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { BasicHandler, getUser } from "utils/helpers";
 
 // GET /api/lists/active
@@ -19,6 +20,7 @@ class ActiveListHandler extends BasicHandler {
         status: "ACTIVE"
       }
     });
+    if (!activeList) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
     return activeList;
   }
 }

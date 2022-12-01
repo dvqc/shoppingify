@@ -1,7 +1,9 @@
 import Loader from "components/Loader";
+import EditSvg from "public/images/edit.svg";
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
-import { ListDataExpanded, ListUpdateBody } from "types/prisma.types";
+import { ListDataExpanded } from "types/prisma.types";
+import { updateList } from "utils/api-helpers";
 import { fetcher } from "utils/helpers";
 import { getActiveListKey, getListKey } from "utils/swrKeys";
 import FadeInOut from "../../FadeInOut";
@@ -15,17 +17,9 @@ const ShoppingList = () => {
   const { mutate } = useSWRConfig();
   const [isEditing, setIsEditing] = useState(false);
 
-  const updateListName = async (url: string, payload: ListUpdateBody) => {
-    await fetcher(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-  };
-
-  if (error) return <div>failed to load</div>;
+  if (error) {
+    return <div>failed to load</div>;
+  }
 
   return (
     <div className="w-full min-h-screen m-0 p-0 flex flex-col">
@@ -38,44 +32,60 @@ const ShoppingList = () => {
           <div className="w-full m-0 px-10 pt-8 grow">
             <AddItem></AddItem>
             <div className="m-0 p-0 w-full">
-              <div className="w-full flex flex-row justify-between">
+              <div className="w-full flex flex-row justify-between items-center ">
                 <h2 className="my-10 text-2xl font-bold text-dark2">{list.name}</h2>
-                <button className="w-8" onClick={() => setIsEditing(!isEditing)}>
-                  Edit
+                <button className="w-6 h-6" onClick={() => setIsEditing(!isEditing)}>
+                  <EditSvg
+                    className="w-full h-full hover:fill-blue-400 ease-in duration-200"
+                    viewBox=" 0 0 48 48"
+                  ></EditSvg>
                 </button>
               </div>
               <ItemsList list={list} isEditing={isEditing}></ItemsList>
             </div>
           </div>
           <div className="w-full h-28 px-10 py-8 bg-white mb-0 mt-auto relative">
-            {/* {isEditing ? ( */}
-            <div className="absolute w-full h-full bottom-0 right-0">
-              <FadeInOut show={isEditing}>
-                <NameInput
-                  disabled={list.listItems.length == 0}
-                  value={list.name}
-                  onSave={async (newName: string) => {
+            <FadeInOut
+              show={isEditing}
+              className="absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0
+               flex justify-center items-center"
+            >
+              <NameInput
+                disabled={list.listItems.length == 0}
+                value={list.name}
+                onSave={async (newName: string) => {
+                  await mutate(
+                    actvieListKey,
+                    updateList(getListKey(list.id), {
+                      name: newName
+                    })
+                  );
+                  setIsEditing(false);
+                }}
+              ></NameInput>
+            </FadeInOut>
+            <FadeInOut
+              show={!isEditing}
+              className="absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0 
+              flex justify-center items-center"
+            >
+              <div className="btn-group">
+                <button className="btn bg-gray5 text-dark2">Cancel</button>
+                <button
+                  onClick={async () =>
                     await mutate(
                       actvieListKey,
-                      updateListName(getListKey(list.id), {
-                        name: newName
+                      updateList(getListKey(list.id), {
+                        status: "COMPLETED"
                       })
-                    );
-                    setIsEditing(false);
-                  }}
-                ></NameInput>
-              </FadeInOut>
-            </div>
-            {/* ) : ( */}
-            <div className="absolute w-full h-full  bottom-0 right-0">
-              <FadeInOut show={!isEditing}>
-                <div className="btn-group">
-                  <button className="btn bg-gray5 text-dark2">Cancel</button>
-                  <button className="btn bg-blue1 text-white">Complete</button>
-                </div>
-              </FadeInOut>
-            </div>
-            {/* )} */}
+                    )
+                  }
+                  className="btn bg-blue1 text-white"
+                >
+                  Complete
+                </button>
+              </div>
+            </FadeInOut>
           </div>
         </>
       )}{" "}

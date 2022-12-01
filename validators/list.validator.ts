@@ -1,6 +1,18 @@
 import { Type } from "class-transformer";
-import { IsMongoId, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength, ValidateNested } from "class-validator";
+import {
+  IsEnum,
+  IsMongoId,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+  ValidateNested
+} from "class-validator";
 import { ListCreateBody, ListItemBody, ListUpdateBody } from "types/prisma.types";
+
+type Status = "COMPLETED" | "CANCELED" | "ACTIVE";
 
 class listItemDTO implements ListItemBody {
   @IsNotEmpty()
@@ -26,9 +38,14 @@ export class CreateListDTO implements ListCreateBody {
 }
 
 export class UpdateListDTO implements ListUpdateBody {
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
   @MinLength(3)
   @MaxLength(50)
   name!: string;
+
+  @IsOptional()
+  @IsEnum(["COMPLETED", "CANCELED"])
+  status!: Status;
 }
