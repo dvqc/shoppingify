@@ -1,3 +1,4 @@
-export * from "./item.validator";
-export * from "./list.validator";
-export * from "./listItem.validator";
+export {CreateItemDTO} from "./item";
+export {CreateListDTO,UpdateListDTO} from "./list";
+export {listItemUpdateDTO} from "./listItem";
+ 

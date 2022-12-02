@@ -15,7 +15,7 @@ import type { NextApiRequest } from "next/types";
 import { listItemData } from "types/prisma.types";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { BasicHandler, getUser } from "utils/helpers";
-import listItemUpdateDTO from "validators/listItem.validator";
+import {listItemUpdateDTO} from "validators";
 
 // GET /api/listItems/:id
 class ListItemHandler extends BasicHandler {

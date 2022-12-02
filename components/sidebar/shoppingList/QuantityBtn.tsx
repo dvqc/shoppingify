@@ -24,13 +24,13 @@ const QuantityBtn = ({
       className={`h-10 flex flex-row mr-0 ml-auto bg-none text-xs font-bold  rounded-xl
     ${!showBtnGrp ? "bg-transparent ease-in duration-200" : "bg-white ease-in duration-200"}`}
     >
-      <FadeInOut show={showBtnGrp} fit={true}>
+      <FadeInOut show={showBtnGrp} className="w-fit h-fit">
         <button
           className={`w-8 h-10 bg-[url('/images/delete.svg')] bg-yellow1 bg-no-repeat bg-[length:60%_60%] 
     bg-center rounded-xl`}
         ></button>
       </FadeInOut>
-      <FadeInOut show={showBtnGrp} fit={true}>
+      <FadeInOut show={showBtnGrp} className="w-fit h-fit">
         <button
           className={`w-8 h-10  bg-[url('/images/minus.svg')]  bg-no-repeat bg-[length:60%_60%] bg-center`}
           onClick={() => {
@@ -49,7 +49,7 @@ const QuantityBtn = ({
         {qty}
         {" pcs"}
       </button>
-      <FadeInOut show={showBtnGrp} fit={true}>
+      <FadeInOut show={showBtnGrp} className="w-fit h-fit">
         <button
           onClick={() => {
             setQty(qty + 1);

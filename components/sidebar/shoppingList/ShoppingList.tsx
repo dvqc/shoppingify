@@ -1,4 +1,5 @@
 import Loader from "components/Loader";
+import { CancelModal } from "components/modal";
 import EditSvg from "public/images/edit.svg";
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
@@ -16,6 +17,7 @@ const ShoppingList = () => {
   const { data: list, error } = useSWR<ListDataExpanded>(actvieListKey, fetcher);
   const { mutate } = useSWRConfig();
   const [isEditing, setIsEditing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   if (error) {
     return <div>failed to load</div>;
@@ -70,7 +72,9 @@ const ShoppingList = () => {
               flex justify-center items-center"
             >
               <div className="btn-group">
-                <button className="btn bg-gray5 text-dark2">Cancel</button>
+                <button onClick={() => setShowModal(true)} className="btn bg-gray5 text-dark2">
+                  Cancel
+                </button>
                 <button
                   onClick={async () =>
                     await mutate(
@@ -87,8 +91,22 @@ const ShoppingList = () => {
               </div>
             </FadeInOut>
           </div>
+
+       
+            <CancelModal
+              isOpen={showModal}
+              setIsOpen={setShowModal}
+              onSubmit={async () =>
+                await mutate(
+                  actvieListKey,
+                  updateList(getListKey(list.id), {
+                    status: "CANCELED"
+                  })
+                )
+              }
+            ></CancelModal>
         </>
-      )}{" "}
+      )}
     </div>
   );
 };

@@ -1,3 +1,3 @@
-import DeleteModal from "./DeleteModal";
+import CancelModal from "./CancelModal";
 
-export { DeleteModal };
+export { CancelModal };

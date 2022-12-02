@@ -28,7 +28,7 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
 
   return (
     <li key={listItem.id} className="my-4 max-h-min flex flex-row basis-10 items-center flex-wrap">
-      <FadeInOut fit={true} show={!isEditing}>
+      <FadeInOut className="w-fit h-fit" show={!isEditing}>
         <CheckBox onChange={checkItem} isChecked={itemChecked}></CheckBox>
       </FadeInOut>
       <div className={`text-lg font-medium text-black ${itemChecked ? "line-through" : ""}`}>{listItem.item.name}</div>
