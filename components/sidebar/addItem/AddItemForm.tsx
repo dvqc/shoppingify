@@ -1,9 +1,17 @@
+import useSWR from "swr";
+import { CategoryData } from "types/prisma.types";
+import { fetcher } from "utils/helpers";
+import { getCategoriesKey } from "utils/swr-keys";
 import SelectInput from "./SelectInput";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 
 const AddItemForm = () => {
-  // const handleSubmit = (e: FormEvent) => {return;};
+  const { data: cateogries, error } = useSWR<CategoryData[]>(getCategoriesKey, fetcher);
+  // const handleSubmit = (e: FormEvent) => {
+  // TODO.....
+  // return;
+  // };
   return (
     <form className="w-full h-full m-0 px-10 py-8 flex flex-col bg-white">
       <h2 className="text-2xl font-medium">Add a new item</h2>
@@ -25,13 +33,13 @@ const AddItemForm = () => {
         name="category"
         placeholder="Enter a category"
         label="Category"
-        options={[
-          { text: "Meat and Fish", value: "adfsfzgef" },
-          { text: "Fruit and Veggies", value: "adfsfdsdzef" },
-          { text: "Beverages", value: "afdsdfsfzef" },
-          { text: "Dairy products", value: "afdsdfsfzef" },
-          { text: "Dairy products sd", value: "afdsdfsfzef" }
-        ]}
+        options={
+          cateogries
+            ? cateogries.map((cat) => {
+                return { text: cat.label, value: cat.label };
+              })
+            : []
+        }
       />
 
       <div className="btn-group mt-auto mb-0">

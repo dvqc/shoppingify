@@ -6,8 +6,12 @@ const getListKey = (id: string) => {
   return `/api/lists/${id}`;
 };
 
+const getCategoriesKey = () => {
+  return `/api/categories`;
+};
+
 const getActiveListKey = ({ expand }: { expand?: boolean }) => {
   return `/api/lists/active${expand ? "?expand=true" : ""}`;
 };
 
-export { getListItemKey, getListKey, getActiveListKey };
+export { getListItemKey, getListKey, getActiveListKey, getCategoriesKey };

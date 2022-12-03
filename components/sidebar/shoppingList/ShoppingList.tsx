@@ -6,7 +6,7 @@ import useSWR, { useSWRConfig } from "swr";
 import { ListDataExpanded } from "types/prisma.types";
 import { updateList } from "utils/api-helpers";
 import { fetcher } from "utils/helpers";
-import { getActiveListKey, getListKey } from "utils/swrKeys";
+import { getActiveListKey, getListKey } from "utils/swr-keys";
 import FadeInOut from "../../FadeInOut";
 import AddItem from "./AddItem";
 import ItemsList from "./ItemsList";
@@ -48,28 +48,9 @@ const ShoppingList = () => {
           </div>
           <div className="w-full h-28 px-10 py-8 bg-white mb-0 mt-auto relative">
             <FadeInOut
-              show={isEditing}
-              className="absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0
-               flex justify-center items-center"
-            >
-              <NameInput
-                disabled={list.listItems.length == 0}
-                value={list.name}
-                onSave={async (newName: string) => {
-                  await mutate(
-                    actvieListKey,
-                    updateList(getListKey(list.id), {
-                      name: newName
-                    })
-                  );
-                  setIsEditing(false);
-                }}
-              ></NameInput>
-            </FadeInOut>
-            <FadeInOut
               show={!isEditing}
-              className="absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0 
-              flex justify-center items-center"
+              className={`absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0 
+              flex justify-center items-center ${!isEditing ? "" : "translate-y-full duration-200 ease-in"} `}
             >
               <div className="btn-group">
                 <button onClick={() => setShowModal(true)} className="btn bg-gray5 text-dark2">
@@ -90,21 +71,39 @@ const ShoppingList = () => {
                 </button>
               </div>
             </FadeInOut>
+            <FadeInOut
+              show={isEditing}
+              className={`absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0
+               flex justify-center items-center ${isEditing ? "" : "translate-y-full duration-200 ease-in"}`}
+            >
+              <NameInput
+                disabled={list.listItems.length == 0}
+                value={list.name}
+                onSave={async (newName: string) => {
+                  await mutate(
+                    actvieListKey,
+                    updateList(getListKey(list.id), {
+                      name: newName
+                    })
+                  );
+                  setIsEditing(false);
+                }}
+              ></NameInput>
+            </FadeInOut>
           </div>
 
-       
-            <CancelModal
-              isOpen={showModal}
-              setIsOpen={setShowModal}
-              onSubmit={async () =>
-                await mutate(
-                  actvieListKey,
-                  updateList(getListKey(list.id), {
-                    status: "CANCELED"
-                  })
-                )
-              }
-            ></CancelModal>
+          <CancelModal
+            isOpen={showModal}
+            setIsOpen={setShowModal}
+            onSubmit={async () =>
+              await mutate(
+                actvieListKey,
+                updateList(getListKey(list.id), {
+                  status: "CANCELED"
+                })
+              )
+            }
+          ></CancelModal>
         </>
       )}
     </div>

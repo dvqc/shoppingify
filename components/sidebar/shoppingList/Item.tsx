@@ -5,7 +5,7 @@ import useSwr, { useSWRConfig } from "swr";
 import { ListItemData } from "types/prisma.types";
 import { updateListItem } from "utils/api-helpers";
 import { fetcher } from "utils/helpers";
-import { getListItemKey } from "utils/swrKeys";
+import { getListItemKey } from "utils/swr-keys";
 import CheckBox from "./CheckBox";
 import QuantityBtn from "./QuantityBtn";
 

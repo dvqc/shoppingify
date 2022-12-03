@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { afterAnimation } from "utils/helpers";
 
 const FadeInOut = ({
@@ -10,18 +10,25 @@ const FadeInOut = ({
   show: boolean;
   className?: string;
 }) => {
-  // const [isShow, setIsShow] = useState(show);
-  const [status, setStatus] = useState<"closed" | "closing" | "open">(!show ? "closing" : "open");
+  const [status, setStatus] = useState<"closed" | "closing" | "open">("closed");
   const ref = useRef<HTMLDivElement>(null);
 
   const conditionalStyle =
     status == "closed" ? "hidden" : status == "closing" ? "animate-fade-out" : "block animate-fade-in";
 
-  if (status == "closing")
-    afterAnimation(ref, () => {
-      setStatus("closed");
-    });
+  useEffect(() => {
+    if (!show) {
+      if (status !== "closing") {
+        afterAnimation(ref, () => {
+          setStatus("closed");
+        });
 
+        setStatus("closing");
+      }
+    } else {
+      setStatus("open");
+    }
+  }, [show]);
   return (
     <div ref={ref} className={`w-full h-full m-0 p-0 ${conditionalStyle} ${className}`}>
       {children}
