@@ -54,7 +54,8 @@ module.exports = {
       filter: ["hover", "focus"],
       animation: {
         "fade-in": "fadein .2s ease-in forwards",
-        "fade-out": "fadeout .2s ease-in forwards"
+        "fade-out": "fadeout .2s ease-in forwards",
+        "slide-in": "slidein .4s ease-in forwards"
       },
       keyframes: {
         fadein: {
@@ -71,6 +72,14 @@ module.exports = {
           },
           "100%": {
             opacity: "0"
+          }
+        },
+        slidein: {
+          "0%": {
+            left: "-100%"
+          },
+          "100%": {
+            left: "0%"
           }
         }
       }

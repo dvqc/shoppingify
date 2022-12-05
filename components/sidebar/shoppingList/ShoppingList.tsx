@@ -24,7 +24,7 @@ const ShoppingList = () => {
   }
 
   return (
-    <div className="w-full min-h-screen m-0 p-0 flex flex-col">
+    <div className="w-full min-h-screen m-0 p-0 flex flex-col hide-scroll">
       {!list ? (
         <div className="h-screen">
           <Loader height="h-24" width="w-24"></Loader>
