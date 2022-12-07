@@ -1,27 +1,41 @@
 import Loader from "components/Loader";
 import { CancelModal } from "components/modal";
 import EditSvg from "public/images/edit.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
-import { ListDataExpanded } from "types/prisma.types";
+import { ListCreateBody } from "types/prisma.types";
 import { updateList } from "utils/api-helpers";
-import { fetcher } from "utils/helpers";
+import { fetcher, HttpException } from "utils/helpers";
 import { getActiveListKey, getListKey } from "utils/swr-keys";
 import FadeInOut from "../../FadeInOut";
 import AddItem from "./AddItem";
 import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
 
+const initialList: ListCreateBody = {
+  name: "Shopping list",
+  listItems: []
+};
+
 const ShoppingList = () => {
   const actvieListKey = getActiveListKey({ expand: true });
-  const { data: list, error } = useSWR<ListDataExpanded>(actvieListKey, fetcher);
+  const { data: listData, error } = useSWR<ListCreateBody>(actvieListKey, fetcher);
+  const [list, setList] = useState<ListCreateBody>(initialList);
   const { mutate } = useSWRConfig();
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   if (error) {
-    return <div>failed to load</div>;
+    const apiError: HttpException = error.message;
+    if (error && apiError.statusCode != 404) {
+      return <div>Failed to load</div>;
+    }
   }
+
+  useEffect(() => {
+    if (listData) setList(listData);
+    console.log(list);
+  }, [listData]);
 
   return (
     <div className="w-full min-h-screen m-0 p-0 flex flex-col hide-scroll">

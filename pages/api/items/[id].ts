@@ -12,7 +12,7 @@ import {
 import type { NextApiRequest } from "next/types";
 import { itemData } from "types/prisma.types";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
-import { BasicHandler, getUser } from "utils/helpers";
+import { BasicHandler, getUser } from "utils/api-helpers";
 
 // GET,DELETE /api/items/:id
 class ItemHandler extends BasicHandler {

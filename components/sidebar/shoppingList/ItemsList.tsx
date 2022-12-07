@@ -1,9 +1,9 @@
 import groupBy from "lodash.groupby";
-import { ListData, ListDataExpanded } from "types/prisma.types";
+import { ListDataExpanded } from "types/prisma.types";
 import Item from "./Item";
 
 const ItemsList = ({ list, isEditing }: { list: ListDataExpanded; isEditing: boolean }) => {
-  const listByCategory = groupBy(list?.listItems, (list) => list.item.category.label);
+  const listByCategory = groupBy(list?.listItems, (listItem) => listItem.item.category.label);
 
   return (
     <>

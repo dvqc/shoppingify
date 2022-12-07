@@ -16,7 +16,7 @@ import {
 import type { NextApiRequest } from "next/types";
 import { listData, listDataExpanded } from "types/prisma.types";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
-import { BasicHandler, getUser } from "utils/helpers";
+import { BasicHandler, getUser } from "utils/api-helpers";
 import { CreateListDTO, UpdateListDTO } from "validators";
 
 // GET,DELETE /api/lists/:id
