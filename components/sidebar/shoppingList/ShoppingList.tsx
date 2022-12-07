@@ -1,45 +1,43 @@
 import Loader from "components/Loader";
 import { CancelModal } from "components/modal";
 import EditSvg from "public/images/edit.svg";
-import { useEffect, useState } from "react";
-import useSWR, { useSWRConfig } from "swr";
-import { ListCreateBody } from "types/prisma.types";
+import { useState } from "react";
+import { KeyedMutator } from "swr";
+import { ListDataExpanded } from "types/prisma.types";
 import { updateList } from "utils/api-helpers";
-import { fetcher, HttpException } from "utils/helpers";
-import { getActiveListKey, getListKey } from "utils/swr-keys";
+import { HttpException } from "utils/helpers";
+import { getListKey } from "utils/swr-keys";
 import FadeInOut from "../../FadeInOut";
 import AddItem from "./AddItem";
+import EmptyList from "./EmptyList";
 import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
 
-const initialList: ListCreateBody = {
-  name: "Shopping list",
-  listItems: []
-};
-
-const ShoppingList = () => {
-  const actvieListKey = getActiveListKey({ expand: true });
-  const { data: listData, error } = useSWR<ListCreateBody>(actvieListKey, fetcher);
-  const [list, setList] = useState<ListCreateBody>(initialList);
-  const { mutate } = useSWRConfig();
+const ShoppingList = ({
+  list,
+  error,
+  mutate
+}: {
+  list: ListDataExpanded | undefined;
+  error: any;
+  mutate: KeyedMutator<ListDataExpanded>;
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const apiError: HttpException = error?.message;
 
-  if (error) {
-    const apiError: HttpException = error.message;
-    if (error && apiError.statusCode != 404) {
-      return <div>Failed to load</div>;
-    }
+  if (error && apiError?.statusCode != 404) {
+    return <div>Failed to load</div>;
   }
-
-  useEffect(() => {
-    if (listData) setList(listData);
-    console.log(list);
-  }, [listData]);
 
   return (
     <div className="w-full min-h-screen m-0 p-0 flex flex-col hide-scroll">
-      {!list ? (
+      {apiError?.statusCode == 404 ? (
+        <div className="w-full m-0 px-10 pt-8 grow">
+          <AddItem></AddItem>
+          <EmptyList></EmptyList>
+        </div>
+      ) : !list ? (
         <div className="h-screen">
           <Loader height="h-24" width="w-24"></Loader>
         </div>
@@ -73,7 +71,6 @@ const ShoppingList = () => {
                 <button
                   onClick={async () =>
                     await mutate(
-                      actvieListKey,
                       updateList(getListKey(list.id), {
                         status: "COMPLETED"
                       })
@@ -91,11 +88,10 @@ const ShoppingList = () => {
                flex justify-center items-center ${isEditing ? "" : "translate-y-full duration-200 ease-in"}`}
             >
               <NameInput
-                disabled={list.listItems.length == 0}
+                disabled={list.listItems?.length == 0}
                 value={list.name}
                 onSave={async (newName: string) => {
                   await mutate(
-                    actvieListKey,
                     updateList(getListKey(list.id), {
                       name: newName
                     })
@@ -111,7 +107,6 @@ const ShoppingList = () => {
             setIsOpen={setShowModal}
             onSubmit={async () =>
               await mutate(
-                actvieListKey,
                 updateList(getListKey(list.id), {
                   status: "CANCELED"
                 })

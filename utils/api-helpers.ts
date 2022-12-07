@@ -1,7 +1,7 @@
 import { NextApiRequest } from "next";
-import { HttpException, Get, Post, Delete, Put, Patch, UnauthorizedException } from "next-api-decorators";
+import { Delete, Get, HttpException, Patch, Post, Put, UnauthorizedException } from "next-api-decorators";
 import { getSession } from "next-auth/react";
-import { ListItemUpdateBody, ListUpdateBody } from "types/prisma.types";
+import { ListDataExpanded, ListItemUpdateBody, ListUpdateBody } from "types/prisma.types";
 import { HTTP_ERROR_MESSAGES } from "./constants";
 import { fetcher } from "./helpers";
 
@@ -50,13 +50,14 @@ const getUser = async (req: NextApiRequest) => {
 };
 
 const updateList = async (url: string, payload: ListUpdateBody) => {
-  await fetcher(url, {
+  const data: ListDataExpanded = await fetcher(url, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
   }).catch((err) => console.log(err));
+  return data;
 };
 
 const updateListItem = async (url: string, payload: ListItemUpdateBody) =>
@@ -68,4 +69,4 @@ const updateListItem = async (url: string, payload: ListItemUpdateBody) =>
     body: JSON.stringify(payload)
   }).catch((err) => console.log(err));
 
-export { updateList, updateListItem, MethodNotAllowedException, BasicHandler,getUser};
+export { updateList, updateListItem, MethodNotAllowedException, BasicHandler, getUser };
