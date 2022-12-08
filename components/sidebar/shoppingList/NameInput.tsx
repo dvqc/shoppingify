@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NameInput = ({
   disabled = false,
@@ -10,6 +10,10 @@ const NameInput = ({
   onSave: (newName: string) => Promise<any>;
 }) => {
   const [name, setName] = useState(value);
+
+  useEffect(() => {
+    setName(value);
+  }, [value]);
   return (
     <div className="btn-group">
       <div className="w-full h-full  relative">

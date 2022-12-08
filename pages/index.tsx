@@ -23,7 +23,7 @@ const Home: NextPage = () => {
 
   const actvieListKey = getActiveListKey({ expand: true });
   const { data: listData, error, mutate } = useSWR<ListDataExpanded>(actvieListKey, fetcher);
-
+  console.log(listData);
   if (status == "loading") return <Loader height="h-48" width="w-48" />;
 
   if (user == undefined || status == "unauthenticated") {
