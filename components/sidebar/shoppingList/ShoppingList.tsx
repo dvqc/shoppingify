@@ -27,14 +27,15 @@ const ShoppingList = ({
 
   const { cache } = useSWRConfig();
 
-  const [isEditing, setIsEditing] = useState(!list);
+  const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   if (apiError && apiError?.statusCode != 404) {
     return <div>Failed to load</div>;
   }
+
   useEffect(() => {
-    setIsEditing(!!list);
+    !list ? setIsEditing(true) : setIsEditing(false);
   }, [list]);
 
   console.log(isEditing);
@@ -81,10 +82,9 @@ const ShoppingList = ({
                         await mutate(
                           updateList(getListKey(list.id), {
                             status: "COMPLETED"
-                          }),
-                          { optimisticData: undefined }
+                          })
                         );
-                        cache.delete(getActiveListKey()); // ⚠️ Clear all the cache. SWR will revalidate upon re-render.
+                        cache.delete(getActiveListKey(true));
                       }
                     : () => {}
                 }

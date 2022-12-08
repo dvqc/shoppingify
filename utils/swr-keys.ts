@@ -10,7 +10,7 @@ const getCategoriesKey = () => {
   return `/api/categories`;
 };
 
-const getActiveListKey = ({ expand }: { expand?: boolean }) => {
+const getActiveListKey = (expand?: boolean) => {
   return `/api/lists/active${expand ? "?expand=true" : ""}`;
 };
 

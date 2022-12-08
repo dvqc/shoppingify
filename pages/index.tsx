@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  const actvieListKey = getActiveListKey({ expand: true });
+  const actvieListKey = getActiveListKey(true);
   const { data: listData, error, mutate } = useSWR<ListDataExpanded>(actvieListKey, fetcher);
   console.log(listData);
   if (status == "loading") return <Loader height="h-48" width="w-48" />;
