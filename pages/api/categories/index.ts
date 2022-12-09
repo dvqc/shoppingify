@@ -1,7 +1,7 @@
 import prisma from "lib/prisma";
 import { createHandler, Get, Req } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
-import { categoryData } from "types/prisma.types";
+import { categoryData } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
 
 // GET /api/categories

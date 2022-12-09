@@ -1,18 +1,12 @@
 import FadeInOut from "components/FadeInOut";
 import Loader from "components/Loader";
+import { useListItem } from "hooks/queries";
 import { useEffect, useState } from "react";
-import useSwr, { useSWRConfig } from "swr";
-import { ListItemData } from "types/prisma.types";
-import { updateListItem } from "utils/api-helpers";
-import { fetcher } from "utils/helpers";
-import { getListItemKey } from "utils/swr-keys";
+import { ListItemData } from "types/prisma";
 import CheckBox from "./CheckBox";
-import QuantityBtn from "./QuantityBtn";
 
 const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: boolean }) => {
-  const listItemKey = getListItemKey(listItem.id);
-  const { data: listItemData, error } = useSwr<ListItemData>(listItemKey, fetcher);
-  const { mutate } = useSWRConfig();
+  const { data: listItemData, error, mutate } = useListItem(listItem.id);
   const [itemChecked, setItemChecked] = useState(false);
 
   const checkItem = () => {

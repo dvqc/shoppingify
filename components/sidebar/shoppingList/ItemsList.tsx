@@ -1,5 +1,5 @@
 import groupBy from "lodash.groupby";
-import { ListDataExpanded } from "types/prisma.types";
+import { ListDataExpanded } from "types/prisma";
 import Item from "./Item";
 
 const ItemsList = ({ list, isEditing }: { list: ListDataExpanded; isEditing: boolean }) => {

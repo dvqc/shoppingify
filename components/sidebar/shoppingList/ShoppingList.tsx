@@ -3,10 +3,10 @@ import { CancelModal } from "components/modal";
 import EditSvg from "public/images/edit.svg";
 import { useEffect, useState } from "react";
 import { KeyedMutator, useSWRConfig } from "swr";
-import { ListDataExpanded } from "types/prisma.types";
-import { updateList } from "utils/api-helpers";
+import { ListDataExpanded } from "types/prisma";
+import { updateList } from "utils/fetch-helpers";
 import { HttpException } from "utils/helpers";
-import { getActiveListKey, getListKey } from "utils/swr-keys";
+import { getActiveListKey } from "utils/swr-keys";
 import FadeInOut from "../../FadeInOut";
 import AddItem from "./AddItem";
 import Complete from "./Complete";
@@ -30,13 +30,13 @@ const ShoppingList = ({
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  if (apiError && apiError?.statusCode != 404) {
-    return <div>Failed to load</div>;
-  }
-
   useEffect(() => {
     !list ? setIsEditing(true) : setIsEditing(false);
   }, [list]);
+
+  if (apiError && apiError?.statusCode != 404) {
+    return <div>Failed to load</div>;
+  }
 
   console.log(isEditing);
   return (
@@ -80,7 +80,7 @@ const ShoppingList = ({
                   list
                     ? async () => {
                         await mutate(
-                          updateList(getListKey(list.id), {
+                          updateList(list.id, {
                             status: "COMPLETED"
                           })
                         );
@@ -103,7 +103,7 @@ const ShoppingList = ({
                   list
                     ? async (newName: string) => {
                         await mutate(
-                          updateList(getListKey(list.id), {
+                          updateList(list.id, {
                             name: newName
                           })
                         );
@@ -121,7 +121,7 @@ const ShoppingList = ({
               list
                 ? async () =>
                     await mutate(
-                      updateList(getListKey(list.id), {
+                      updateList(list.id, {
                         status: "CANCELED"
                       })
                     )

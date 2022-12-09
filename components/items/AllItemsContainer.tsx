@@ -1,20 +1,25 @@
 import Loader from "components/Loader";
-import useSWR from "swr";
-import { CategoryData } from "types/prisma.types";
-import { fetcher } from "utils/helpers";
+import { useItems } from "hooks/queries";
+import groupBy from "lodash.groupby";
 import CategoryItems from "./CategoryItems";
 
 const AllItemsContainer = () => {
-  const { data: categories, error } = useSWR<CategoryData[], Error>(`/api/categories`, fetcher);
+  const { data: items, error } = useItems();
 
   if (error) return <div>failed to load</div>;
-  if (!categories) return <Loader height="h-24" width="w-24"></Loader>;
+  if (!items) return <Loader height="h-24" width="w-24"></Loader>;
+
+  const itemsByCategory = groupBy(items, (item) => item.category.label);
 
   return (
     <div className="w-full m-0 p-0">
-      {categories.map((category, i) => (
-        <CategoryItems key={i} category={category}></CategoryItems>
-      ))}
+      {(() => {
+        let allItems = [];
+        for (const [category, categoryItems] of Object.entries(itemsByCategory)) {
+          allItems.push(<CategoryItems key={category} category={category} items={categoryItems}></CategoryItems>);
+        }
+        return allItems;
+      })()}
     </div>
   );
 };

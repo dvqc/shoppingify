@@ -10,7 +10,7 @@ import {
   MinLength,
   ValidateNested
 } from "class-validator";
-import { ListCreateBody, ListItemBody, ListUpdateBody } from "types/prisma.types";
+import { ListCreateBody, ListItemBody, ListUpdateBody } from "types/prisma";
 
 type Status = "COMPLETED" | "CANCELED" | "ACTIVE";
 

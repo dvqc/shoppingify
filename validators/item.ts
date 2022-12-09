@@ -1,14 +1,6 @@
-import { CategoryCreateBody, ItemCreateBody } from "types/prisma.types";
-import {
-  IsNotEmpty,
-  IsUrl,
-  MinLength,
-  MaxLength,
-  IsOptional,
-  ValidateNested,
-  IsString
-} from "class-validator";
 import { Type } from "class-transformer";
+import { IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
+import { CategoryCreateBody, ItemCreateBody } from "types/prisma";
 class CategoryDTO implements CategoryCreateBody {
   @IsNotEmpty()
   @IsString()

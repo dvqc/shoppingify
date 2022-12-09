@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { CategoryData } from "types/prisma.types";
+import { CategoryData } from "types/prisma";
 import { fetcher } from "utils/helpers";
 import { getCategoriesKey } from "utils/swr-keys";
 import SelectInput from "./SelectInput";

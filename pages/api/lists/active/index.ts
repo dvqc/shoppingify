@@ -1,9 +1,9 @@
 import prisma from "lib/prisma";
 import { createHandler, Get, NotFoundException, Query, Req } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
-import { listData, listDataExpanded } from "types/prisma.types";
-import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import { listData, listDataExpanded } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
+import { HTTP_ERROR_MESSAGES } from "utils/constants";
 
 // GET /api/lists/active
 class ActiveListHandler extends BasicHandler {

@@ -12,7 +12,7 @@ import {
   ValidationPipe
 } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
-import { listItemData } from "types/prisma.types";
+import { listItemData } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { listItemUpdateDTO } from "validators";

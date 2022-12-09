@@ -1,9 +1,7 @@
 import { NextApiRequest } from "next";
 import { Delete, Get, HttpException, Patch, Post, Put, UnauthorizedException } from "next-api-decorators";
 import { getSession } from "next-auth/react";
-import { ListDataExpanded, ListItemUpdateBody, ListUpdateBody } from "types/prisma.types";
 import { HTTP_ERROR_MESSAGES } from "./constants";
-import { fetcher } from "./helpers";
 
 class MethodNotAllowedException extends HttpException {
   public constructor(message: string = "Method Not Allowed") {
@@ -45,28 +43,8 @@ class BasicHandler {
 const getUser = async (req: NextApiRequest) => {
   const session = await getSession({ req });
   const user = session?.user;
-  if (!session || !user || user == undefined) throw new UnauthorizedException(HTTP_ERROR_MESSAGES[401]);
+  if (!session || !user) throw new UnauthorizedException(HTTP_ERROR_MESSAGES[401]);
   return user;
 };
 
-const updateList = async (url: string, payload: ListUpdateBody) => {
-  const data: ListDataExpanded = await fetcher(url, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  }).catch((err) => console.log(err));
-  return data;
-};
-
-const updateListItem = async (url: string, payload: ListItemUpdateBody) =>
-  await fetcher(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  }).catch((err) => console.log(err));
-
-export { updateList, updateListItem, MethodNotAllowedException, BasicHandler, getUser };
+export { MethodNotAllowedException, BasicHandler, getUser };

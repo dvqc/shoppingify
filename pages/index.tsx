@@ -6,23 +6,19 @@ import { NavBar, NavItem } from "components/navbar";
 import SideBar from "components/sidebar";
 import ShoppingList from "components/sidebar/shoppingList";
 import Signin from "components/Signin";
+import { useActiveListExpanded } from "hooks/queries";
 import type { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import HistorySvg from "public/images/history.svg";
 import ItemsSvg from "public/images/items.svg";
 import LogoutSvg from "public/images/logout.svg";
 import StatsSvg from "public/images/stats.svg";
-import useSWR from "swr";
-import { ListDataExpanded } from "types/prisma.types";
-import { fetcher } from "utils/helpers";
-import { getActiveListKey } from "utils/swr-keys";
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  const actvieListKey = getActiveListKey(true);
-  const { data: listData, error, mutate } = useSWR<ListDataExpanded>(actvieListKey, fetcher);
+  const { data: listData, error, mutate } = useActiveListExpanded();
   console.log(listData);
   if (status == "loading") return <Loader height="h-48" width="w-48" />;
 

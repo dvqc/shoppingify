@@ -1,18 +1,10 @@
 import { NotFoundError } from "@prisma/client/runtime";
 import prisma from "lib/prisma";
-import {
-  createHandler,
-  Delete,
-  Get,
-  NotFoundException,
-  Query,
-  Req,
-  UnauthorizedException
-} from "next-api-decorators";
+import { createHandler, Delete, Get, NotFoundException, Query, Req, UnauthorizedException } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
-import { itemData } from "types/prisma.types";
-import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import { itemData } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
+import { HTTP_ERROR_MESSAGES } from "utils/constants";
 
 // GET,DELETE /api/items/:id
 class ItemHandler extends BasicHandler {
@@ -25,8 +17,7 @@ class ItemHandler extends BasicHandler {
           id: id
         }
       });
-      if (user.id != itemToDelete.createdBy)
-        throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
+      if (user.id != itemToDelete.createdBy) throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
 
       await prisma.item.delete({
         where: {
@@ -35,8 +26,7 @@ class ItemHandler extends BasicHandler {
       });
       return itemToDelete;
     } catch (err) {
-      if (err instanceof NotFoundError)
-        throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+      if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
       else throw err;
     }
   }
@@ -52,13 +42,11 @@ class ItemHandler extends BasicHandler {
           id: id
         }
       });
-      if (user.id != item.createdBy)
-        throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
+      if (user.id != item.createdBy) throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
 
       return item;
     } catch (err) {
-      if (err instanceof NotFoundError)
-        throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+      if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
       else throw err;
     }
   }

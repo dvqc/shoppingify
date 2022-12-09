@@ -1,17 +1,24 @@
-const getListItemKey = (id: string) => {
+/************ Items keys ************/
+
+export const getAllItemsKey = () => {
+  return `api/items`;
+};
+
+/************ Lists keys ************/
+export const getListItemKey = (id: string) => {
   return `api/listItems/${id}`;
 };
 
-const getListKey = (id: string) => {
+export const getListKey = (id: string) => {
   return `/api/lists/${id}`;
 };
 
-const getCategoriesKey = () => {
-  return `/api/categories`;
-};
-
-const getActiveListKey = (expand?: boolean) => {
+export const getActiveListKey = (expand?: boolean) => {
   return `/api/lists/active${expand ? "?expand=true" : ""}`;
 };
 
-export { getListItemKey, getListKey, getActiveListKey, getCategoriesKey };
+/************ Categories keys ************/
+
+export const getCategoriesKey = () => {
+  return `/api/categories`;
+};

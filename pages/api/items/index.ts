@@ -1,7 +1,7 @@
 import prisma from "lib/prisma";
 import { Body, createHandler, Get, HttpCode, Post, Query, Req, ValidationPipe } from "next-api-decorators";
 import type { NextApiRequest } from "next/types";
-import { itemData } from "types/prisma.types";
+import { itemData } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
 import { CreateItemDTO } from "validators";
 
