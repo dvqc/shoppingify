@@ -4,7 +4,8 @@ const HTTP_ERROR_MESSAGES = {
   403: "You do not have permission to do this operation",
   404: "The requested roussource was not found",
   405: "Method not allowed on this route",
-  409: "The roussource that you have tried to create already exists"
+  409: "The roussource that you have tried to create already exists",
+  500: "The server has encountered an unexpected error"
 };
 
 export { HTTP_ERROR_MESSAGES };

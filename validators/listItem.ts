@@ -9,14 +9,10 @@ export class ListItemUpdateDTO implements ListItemUpdateBody {
 
 export class ListItemCreateDTO implements ListItemBody {
   @IsNotEmpty()
-  @IsNumber()
-  qty!: number;
-
-  @IsNotEmpty()
   @IsMongoId()
   itemId!: string;
 
   @IsNotEmpty()
-  @IsMongoId()
-  listId!: string;
+  @IsNumber()
+  qty!: number;
 }
