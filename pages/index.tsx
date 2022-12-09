@@ -20,7 +20,7 @@ const Home: NextPage = () => {
 
   const { data: listData, error, mutate } = useActiveListExpanded();
   console.log(listData);
-  if (status == "loading") return <Loader height="h-48" width="w-48" />;
+  if (status == "loading") return <Loader height="h-24" width="w-24" />;
 
   if (user == undefined || status == "unauthenticated") {
     return <Signin></Signin>;

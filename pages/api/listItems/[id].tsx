@@ -15,7 +15,7 @@ import type { NextApiRequest } from "next/types";
 import { listItemData } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
-import { listItemUpdateDTO } from "validators";
+import { ListItemUpdateDTO } from "validators";
 
 // GET /api/listItems/:id
 class ListItemHandler extends BasicHandler {
@@ -49,7 +49,7 @@ class ListItemHandler extends BasicHandler {
   async put(
     @Query("id") id: string,
     @Body(ValidationPipe({ whitelist: true }))
-    body: listItemUpdateDTO,
+    body: ListItemUpdateDTO,
     @Req() req: NextApiRequest
   ) {
     const user = await getUser(req);

@@ -53,6 +53,7 @@ type ItemData = Prisma.ItemGetPayload<typeof itemData>;
 const listItemBody = Prisma.validator<Prisma.ListItemArgs>()({
   select: {
     itemId: true,
+    listId:true,
     qty: true
   }
 });

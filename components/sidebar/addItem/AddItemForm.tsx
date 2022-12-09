@@ -1,13 +1,10 @@
-import useSWR from "swr";
-import { CategoryData } from "types/prisma";
-import { fetcher } from "utils/helpers";
-import { getCategoriesKey } from "utils/swr-keys";
+import { useCategories } from "hooks/queries";
 import SelectInput from "./SelectInput";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 
 const AddItemForm = () => {
-  const { data: cateogries, error } = useSWR<CategoryData[]>(getCategoriesKey, fetcher);
+  const { data: cateogries, error } = useCategories();
   // const handleSubmit = (e: FormEvent) => {
   // TODO.....
   // return;
