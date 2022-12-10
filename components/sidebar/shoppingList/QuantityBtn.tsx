@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 const QuantityBtn = ({
   qty,
   setQty,
+  onRemove,
   isEditing
 }: {
   qty: number;
   setQty: (qty: number) => Promise<any>;
+  onRemove: () => Promise<any>;
   isEditing: boolean;
 }) => {
   const [showBtnGrp, setShowBtnGrp] = useState(false);
@@ -28,6 +30,7 @@ const QuantityBtn = ({
         <button
           className={`w-8 h-10 bg-[url('/images/delete.svg')] bg-yellow1 bg-no-repeat bg-[length:60%_60%] 
     bg-center rounded-xl`}
+          onClick={onRemove}
         ></button>
       </FadeInOut>
       <FadeInOut show={showBtnGrp} className="w-fit h-fit">

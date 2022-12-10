@@ -1,10 +1,10 @@
 import Loader from "components/Loader";
 import { CancelModal } from "components/modal";
+import { useActiveListExpanded } from "hooks/queries";
 import EditSvg from "public/images/edit.svg";
 import { useEffect, useState } from "react";
-import { KeyedMutator, useSWRConfig } from "swr";
-import { ListDataExpanded } from "types/prisma";
-import { updateList } from "utils/fetch-helpers";
+import { useSWRConfig } from "swr";
+import { updateActiveList } from "utils/fetch-helpers";
 import { HttpException } from "utils/helpers";
 import { getActiveListKey } from "utils/swr-keys";
 import FadeInOut from "../../FadeInOut";
@@ -14,15 +14,8 @@ import EmptyList from "./EmptyList";
 import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
 
-const ShoppingList = ({
-  list,
-  error,
-  mutate
-}: {
-  list: ListDataExpanded | undefined;
-  error: any;
-  mutate: KeyedMutator<ListDataExpanded>;
-}) => {
+const ShoppingList = () => {
+  const { data: list, error, mutate } = useActiveListExpanded();
   const apiError: HttpException = error?.message;
 
   const { cache } = useSWRConfig();
@@ -38,9 +31,8 @@ const ShoppingList = ({
     return <div>Failed to load</div>;
   }
 
-  console.log(isEditing);
   return (
-    <div className="w-full min-h-screen m-0 p-0 flex flex-col hide-scroll">
+    <div className="w-full min-h-screen m-0 p-0 flex flex-col ">
       {
         <>
           {apiError?.statusCode == 404 ? (
@@ -80,7 +72,7 @@ const ShoppingList = ({
                   list
                     ? async () => {
                         await mutate(
-                          updateList(list.id, {
+                          updateActiveList({
                             status: "COMPLETED"
                           })
                         );
@@ -103,7 +95,7 @@ const ShoppingList = ({
                   list
                     ? async (newName: string) => {
                         await mutate(
-                          updateList(list.id, {
+                          updateActiveList({
                             name: newName
                           })
                         );
@@ -119,12 +111,14 @@ const ShoppingList = ({
             setIsOpen={setShowModal}
             onSubmit={
               list
-                ? async () =>
+                ? async () => {
                     await mutate(
-                      updateList(list.id, {
+                      updateActiveList({
                         status: "CANCELED"
                       })
-                    )
+                    );
+                    cache.delete(getActiveListKey(true));
+                  }
                 : () => {}
             }
           ></CancelModal>

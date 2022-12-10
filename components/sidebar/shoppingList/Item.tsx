@@ -1,12 +1,16 @@
 import FadeInOut from "components/FadeInOut";
 import Loader from "components/Loader";
-import { useListItem } from "hooks/queries";
+import { useActiveListExpanded, useListItem } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { ListItemData } from "types/prisma";
+import { removeItemFromActiveList, updateListItem } from "utils/fetch-helpers";
 import CheckBox from "./CheckBox";
+import QuantityBtn from "./QuantityBtn";
 
 const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: boolean }) => {
   const { data: listItemData, error, mutate } = useListItem(listItem.id);
+  const { mutate: mutateActiveList } = useActiveListExpanded();
+
   const [itemChecked, setItemChecked] = useState(false);
 
   const checkItem = () => {
@@ -26,16 +30,17 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
         <CheckBox onChange={checkItem} isChecked={itemChecked}></CheckBox>
       </FadeInOut>
       <div className={`text-lg font-medium text-black ${itemChecked ? "line-through" : ""}`}>{listItem.item.name}</div>
-      {/* <QuantityBtn
+      <QuantityBtn
         qty={listItemData.qty}
         isEditing={isEditing}
+        onRemove={async () => await mutateActiveList(removeItemFromActiveList(listItem.id))}
         setQty={(qty: number) =>
-          mutate(listItemKey, updateListItem(listItemKey, { qty: qty }), {
+          mutate(updateListItem(listItem.id, { qty: qty }), {
             optimisticData: { ...listItemData, qty: qty },
             rollbackOnError: true
           })
         }
-      ></QuantityBtn> */}
+      ></QuantityBtn>
     </li>
   );
 };

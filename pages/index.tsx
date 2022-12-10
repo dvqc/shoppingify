@@ -6,7 +6,6 @@ import { NavBar, NavItem } from "components/navbar";
 import SideBar from "components/sidebar";
 import ShoppingList from "components/sidebar/shoppingList";
 import Signin from "components/Signin";
-import { useActiveListExpanded } from "hooks/queries";
 import type { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import HistorySvg from "public/images/history.svg";
@@ -18,8 +17,6 @@ const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  const { data: listData, error, mutate } = useActiveListExpanded();
-  console.log(listData);
   if (status == "loading") return <Loader height="h-24" width="w-24" />;
 
   if (user == undefined || status == "unauthenticated") {
@@ -39,7 +36,7 @@ const Home: NextPage = () => {
         <AllItemsContainer></AllItemsContainer>
       </main>
       <SideBar>
-        <ShoppingList list={listData} error={error} mutate={mutate}></ShoppingList>
+        <ShoppingList></ShoppingList>
       </SideBar>
     </>
   );

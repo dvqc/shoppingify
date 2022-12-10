@@ -5,7 +5,7 @@ import {
   createHandler,
   Get,
   NotFoundException,
-  Put,
+  Patch,
   Query,
   Req,
   UnauthorizedException,
@@ -45,8 +45,8 @@ class ListItemHandler extends BasicHandler {
       else throw err;
     }
   }
-  @Put()
-  async put(
+  @Patch()
+  async patch(
     @Query("id") id: string,
     @Body(ValidationPipe({ whitelist: true }))
     body: ListItemUpdateDTO,
