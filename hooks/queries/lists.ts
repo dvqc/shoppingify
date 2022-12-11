@@ -5,4 +5,10 @@ import { getActiveListKey } from "utils/swr-keys";
 
 export const useActiveList = () => useSWR<ListData>(getActiveListKey(), fetcher);
 
-export const useActiveListExpanded = () => useSWR<ListDataExpanded>(getActiveListKey(true), fetcher);
+export const useActiveListExpanded = () =>
+  useSWR<ListDataExpanded>(getActiveListKey(true), fetcher, {
+    revalidateIfStale: false,
+    refreshInterval: 0,
+    errorRetryCount: 1,
+    revalidateOnFocus: false
+  });
