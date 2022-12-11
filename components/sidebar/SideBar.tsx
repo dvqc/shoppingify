@@ -1,13 +1,19 @@
-import { ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { SideBarStates } from "types/app";
 
-const SideBar = ({ children }: { children: ReactNode }) => {
+const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Element[] }) => {
+  const [hide, setHide] = useState(false);
+
+  useEffect(() => {
+    setHide(false);
+  }, [show]);
+
   return (
     <div className="w-96 max-h-screen sticky top-0 right-0 bg-orange1 hide-scroll">
-      {children}
-      {/* <ShoppingList></ShoppingList> */}
-      {/* <div className="animate-slide-in  z-10 absolute -left-full top-0 right-0 w-full">
-        <AddItemForm></AddItemForm>
-      </div> */}
+      {children.map((child) => {
+        console.log(child.sideBarId);
+        return <></>;
+      })}
     </div>
   );
 };

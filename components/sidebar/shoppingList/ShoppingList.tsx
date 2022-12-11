@@ -4,6 +4,7 @@ import { useActiveListExpanded } from "hooks/queries";
 import EditSvg from "public/images/edit.svg";
 import { useEffect, useState } from "react";
 import { useSWRConfig } from "swr";
+import { SideBarCompFunc, SideBarStates } from "types/app";
 import { updateActiveList } from "utils/fetch-helpers";
 import { HttpException } from "utils/helpers";
 import { getActiveListKey } from "utils/swr-keys";
@@ -14,7 +15,7 @@ import EmptyList from "./EmptyList";
 import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
 
-const ShoppingList = () => {
+const ShoppingList: SideBarCompFunc = ({ sideBarId }: { sideBarId: SideBarStates }) => {
   const { data: list, error, mutate } = useActiveListExpanded();
   const apiError: HttpException = error?.message;
 
@@ -32,7 +33,7 @@ const ShoppingList = () => {
   }
 
   return (
-    <div className="w-full min-h-screen m-0 p-0 flex flex-col ">
+    <div className="w-full min-h-screen m-0 p-0 flex flex-col  bg-orange1">
       {
         <>
           {apiError?.statusCode == 404 ? (

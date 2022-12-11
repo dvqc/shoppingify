@@ -4,6 +4,7 @@ import Loader from "components/Loader";
 import { NavBar, NavItem } from "components/navbar";
 
 import SideBar from "components/sidebar";
+import AddItemForm from "components/sidebar/addItem";
 import ShoppingList from "components/sidebar/shoppingList";
 import Signin from "components/Signin";
 import type { NextPage } from "next";
@@ -12,10 +13,14 @@ import HistorySvg from "public/images/history.svg";
 import ItemsSvg from "public/images/items.svg";
 import LogoutSvg from "public/images/logout.svg";
 import StatsSvg from "public/images/stats.svg";
+import { useState } from "react";
+import { SideBarStates } from "types/app";
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
+
+  const [sideBar, setSideBar] = useState<SideBarStates>("list");
 
   if (status == "loading") return <Loader height="h-24" width="w-24" />;
 
@@ -34,9 +39,14 @@ const Home: NextPage = () => {
       <main className="grow px-20 bg-gray5">
         <Header></Header>
         <AllItemsContainer></AllItemsContainer>
+        <div>
+          <button onClick={() => setSideBar("add")}>add</button>
+        </div>
+        <button onClick={() => setSideBar("list")}>list</button>
       </main>
-      <SideBar>
-        <ShoppingList></ShoppingList>
+      <SideBar show={sideBar}>
+        <ShoppingList sideBarId="list"></ShoppingList>
+        <AddItemForm sideBarId="add"></AddItemForm>
       </SideBar>
     </>
   );

@@ -1,9 +1,10 @@
 import { useCategories } from "hooks/queries";
+import { SideBarCompFunc, SideBarStates } from "types/app";
 import SelectInput from "./SelectInput";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 
-const AddItemForm = () => {
+const AddItemForm: SideBarCompFunc = ({ sideBarId }: { sideBarId: SideBarStates }) => {
   const { data: cateogries, error } = useCategories();
   // const handleSubmit = (e: FormEvent) => {
   // TODO.....
