@@ -1,6 +1,6 @@
 import FadeInOut from "components/FadeInOut";
 import Loader from "components/Loader";
-import { useActiveListExpanded, useListItem } from "hooks/queries";
+import { useActiveListExpanded, useListItemByRelIds } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { ListItemData } from "types/prisma";
 import { removeItemFromActiveList, updateListItem } from "utils/fetch-helpers";
@@ -8,7 +8,9 @@ import CheckBox from "./CheckBox";
 import QuantityBtn from "./QuantityBtn";
 
 const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: boolean }) => {
-  const { data: listItemData, error, mutate } = useListItem(listItem.id);
+  const listId = listItem.list.id ?? "";
+  const itemId = listItem.item.id ?? "";
+  const { data: listItemData, error, mutate } = useListItemByRelIds(listId, itemId);
   const { mutate: mutateActiveList } = useActiveListExpanded();
 
   const [itemChecked, setItemChecked] = useState(false);

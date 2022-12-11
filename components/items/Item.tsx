@@ -1,9 +1,14 @@
-import { useActiveListExpanded } from "hooks/queries";
+import { useActiveListExpanded, useListItemByRelIds } from "hooks/queries";
 import { ItemData } from "types/prisma";
-import { addItemToActiveList, createList } from "utils/fetch-helpers";
+import { addItemToActiveList, createList, updateListItem } from "utils/fetch-helpers";
 
 const Item = ({ item }: { item: ItemData }) => {
   const { data: activeList, mutate: mutateActiveList } = useActiveListExpanded();
+  const {
+    data: activeListItem,
+    mutate: mutateActiveListItem,
+    error: listItemErr
+  } = useListItemByRelIds(activeList ? activeList?.id : "", item.id);
 
   return (
     <div
@@ -19,8 +24,9 @@ const Item = ({ item }: { item: ItemData }) => {
             await mutateActiveList(createList({ name: "Shopping list", listItems: [] }), {
               optimisticData: { id: "", createdAt: null, createdBy: "", name: "Shopping list", listItems: [] }
             });
-            if(activeList?.listItems.find(li => li.id == item.id))
-            await mutateActiveList(addItemToActiveList({ itemId: item.id, qty: 1 }));
+          if (activeList)
+            if (activeListItem)
+              await mutateActiveListItem(updateListItem(activeListItem.id, { qty: activeListItem.qty + 1 }));
             else await mutateActiveList(addItemToActiveList({ itemId: item.id, qty: 1 }));
         }}
       ></button>

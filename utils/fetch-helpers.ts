@@ -1,5 +1,19 @@
-import { ListCreateBody, ListDataExpanded, ListItemBody, ListItemData, ListItemUpdateBody, ListUpdateBody } from "types/prisma";
-import { getActiveListItemKey, getActiveListItemsKey, getActiveListKey, getListItemKey, getListKey, getListsKey } from "./swr-keys";
+import {
+  ListCreateBody,
+  ListDataExpanded,
+  ListItemBody,
+  ListItemData,
+  ListItemUpdateBody,
+  ListUpdateBody
+} from "types/prisma";
+import {
+  getActiveListItemKey,
+  getActiveListItemsKey,
+  getActiveListKey,
+  getListItemKey,
+  getListKey,
+  getListsKey
+} from "./swr-keys";
 
 export const fetcher = async (input: RequestInfo | URL, init?: RequestInit | undefined) => {
   const res = await fetch(input, init);

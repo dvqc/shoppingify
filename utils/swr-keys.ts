@@ -9,6 +9,9 @@ export const getListItemKey = (id: string) => {
   return `api/listItems/${id}`;
 };
 
+export const getActiveListItemByRelsKey = (listId: string, itemId: string) => {
+  return `api/listItems/${listId}/${itemId}`;
+};
 export const getListsKey = () => {
   return `/api/lists`;
 };

@@ -69,8 +69,14 @@ type ListItemUpdateBody = Prisma.ListItemGetPayload<typeof listItemUpdateBody>;
 const listItemData = Prisma.validator<Prisma.ListItemArgs>()({
   select: {
     id: true,
+    list: {
+      select: {
+        id: true
+      }
+    },
     item: {
       select: {
+        id: true,
         name: true,
         category: {
           select: {
