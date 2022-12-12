@@ -1,17 +1,16 @@
 import { useCategories } from "hooks/queries";
-import { SideBarCompFunc, SideBarStates } from "types/app";
 import SelectInput from "./SelectInput";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 
-const AddItemForm: SideBarCompFunc = ({ sideBarId }: { sideBarId: SideBarStates }) => {
+const AddItemForm = () => {
   const { data: cateogries, error } = useCategories();
   // const handleSubmit = (e: FormEvent) => {
   // TODO.....
   // return;
   // };
   return (
-    <form className="w-full h-full min-h-screen m-0 px-10 py-8 flex flex-col bg-white">
+    <form className="w-full h-full  px-10 py-8 flex flex-col bg-white">
       <h2 className="text-2xl font-medium">Add a new item</h2>
 
       <TextInput id="name" name="name" placeholder="Enter a name" label="Name" isRequired={true}></TextInput>

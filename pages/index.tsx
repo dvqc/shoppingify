@@ -45,8 +45,8 @@ const Home: NextPage = () => {
         <button onClick={() => setSideBar("list")}>list</button>
       </main>
       <SideBar show={sideBar}>
-        <ShoppingList sideBarId="list"></ShoppingList>
-        <AddItemForm sideBarId="add"></AddItemForm>
+        <ShoppingList data-sidebarid={"list"}></ShoppingList>
+        <AddItemForm data-sidebarid={"add"}></AddItemForm>
       </SideBar>
     </>
   );
