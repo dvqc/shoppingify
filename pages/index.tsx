@@ -8,6 +8,7 @@ import AddItemForm from "components/sidebar/addItem";
 import Details from "components/sidebar/itemDetails/Details";
 import ShoppingList from "components/sidebar/shoppingList";
 import Signin from "components/Signin";
+import { DetailsItemContext } from "contexts";
 import type { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import HistorySvg from "public/images/history.svg";
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
   const user = session?.user;
 
   const [sideBar, setSideBar] = useState<SideBarStates>("list");
+  const [itemId, setItemId] = useState("id");
 
   if (status == "loading") return <Loader height="h-24" width="w-24" />;
 
@@ -30,7 +32,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <>
+    <DetailsItemContext.Provider value={{ itemId, setItemId }}>
       <NavBar>
         <NavItem link="#" text="items" svg={<ItemsSvg />}></NavItem>
         <NavItem link="#" text="history" svg={<HistorySvg />}></NavItem>
@@ -51,9 +53,9 @@ const Home: NextPage = () => {
       <SideBar show={sideBar}>
         <ShoppingList data-sidebarid={"list"}></ShoppingList>
         <AddItemForm data-sidebarid={"add"}></AddItemForm>
-        <Details data-sidebarid={"info"}></Details>
+        <Details itemId={itemId} data-sidebarid={"info"}></Details>
       </SideBar>
-    </>
+    </DetailsItemContext.Provider>
   );
 };
 

@@ -1,4 +1,6 @@
+import { DetailsItemContext } from "contexts";
 import { useActiveListExpanded, useListItemByRelIds } from "hooks/queries";
+import { useContext } from "react";
 import { ItemData, ListDataExpanded } from "types/prisma";
 import { addItemToActiveList, createList, updateListItem } from "utils/fetch-helpers";
 
@@ -10,10 +12,13 @@ const Item = ({ item }: { item: ItemData }) => {
     error: listItemErr
   } = useListItemByRelIds(activeList ? activeList?.id : "", item.id);
 
+  const { itemId, setItemId } = useContext(DetailsItemContext);
+
   return (
     <div
       className="w-44 h-16 px-4 py-3 flex flex-row justify-between items-center bg-white 
       rounded-xl shadow-base cursor-pointer hover:border-yellow1 hover:border-2 ease-in duration-150"
+      onClick={() => setItemId(item.id)}
     >
       <h3 className="m-0 p-0 w-28 text-base font-medium break-words">{item.name}</h3>
       <button

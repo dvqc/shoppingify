@@ -1,21 +1,30 @@
+import Loader from "components/Loader";
+import { useItem } from "hooks/queries";
 import Info from "./Info";
 
-const Details = () => {
+const Details = ({ itemId }: { itemId: string }) => {
+  const { data: itemData, error } = useItem(itemId);
+
+  if (error) return <div>Failed to load</div>;
+  if (!itemData)
+    return (
+      <div className="w-full h-full bg-white">
+        <Loader></Loader>
+      </div>
+    );
+
+  console.log(itemData);
   return (
-    <div className="w-full h-full  px-10 py-8 flex flex-col bg-white">
-      <img src="https://m.media-amazon.com/images/I/8124jPI4bKL._SX679_.jpg" className="w-full rounded-xl"></img>
+    <div className="w-full h-full  px-10 py-8 flex flex-col bg-white hide-scroll">
+      <img src={itemData.image ?? ""} className="w-full rounded-xl"></img>
       <Info name="name">
-        <h1 className="text-2xl font-medium text-dark2">Avocado</h1>
+        <h1 className="text-2xl font-medium text-dark2">{itemData.name}</h1>
       </Info>
       <Info name="category">
-        <h2 className="text-xl font-medium text-dark2">Fruits and vegitables</h2>
+        <h2 className="text-xl font-medium text-dark2">{itemData.category.label}</h2>
       </Info>
       <Info name="note">
-        <p className="text-base font-medium text-dark2">
-          The avocado is a medium-sized, evergreen tree in the laurel family. It is native to the Americas and was first
-          domesticated by Mesoamerican tribes more than 5,000 years ago. Then as now it was prized for its large and
-          unusually oily fruit
-        </p>
+        <p className="text-base font-medium text-dark2">{itemData.note}</p>
       </Info>
     </div>
   );

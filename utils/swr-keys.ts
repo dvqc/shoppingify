@@ -4,6 +4,10 @@ export const getAllItemsKey = () => {
   return `api/items`;
 };
 
+export const getItemKey = (id: string) => {
+  return `api/items/${id}`;
+};
+
 /************ Lists keys ************/
 export const getListItemKey = (id: string) => {
   return `api/listItems/${id}`;
