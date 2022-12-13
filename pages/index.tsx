@@ -5,6 +5,7 @@ import { NavBar, NavItem } from "components/navbar";
 
 import SideBar from "components/sidebar";
 import AddItemForm from "components/sidebar/addItem";
+import Details from "components/sidebar/itemDetails/Details";
 import ShoppingList from "components/sidebar/shoppingList";
 import Signin from "components/Signin";
 import type { NextPage } from "next";
@@ -42,11 +43,15 @@ const Home: NextPage = () => {
         <div>
           <button onClick={() => setSideBar("add")}>add</button>
         </div>
+        <div>
+          <button onClick={() => setSideBar("info")}>info</button>
+        </div>
         <button onClick={() => setSideBar("list")}>list</button>
       </main>
       <SideBar show={sideBar}>
         <ShoppingList data-sidebarid={"list"}></ShoppingList>
         <AddItemForm data-sidebarid={"add"}></AddItemForm>
+        <Details data-sidebarid={"info"}></Details>
       </SideBar>
     </>
   );

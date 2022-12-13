@@ -32,7 +32,7 @@ const ShoppingList = () => {
   }
 
   return (
-    <div className="w-full min-h-full m-0 p-0 flex flex-col  bg-orange1">
+    <div className="w-full min-h-full m-0 p-0 flex flex-col bg-orange1 max-h-screen">
       {
         <>
           {apiError?.statusCode == 404 ? (
@@ -45,7 +45,7 @@ const ShoppingList = () => {
               <Loader height="h-24" width="w-24"></Loader>
             </div>
           ) : (
-            <div className="w-full m-0 px-10 pt-8 grow">
+            <div className="w-full m-0 px-10 pt-8 grow hide-scroll">
               <AddItem></AddItem>
               <div className="m-0 p-0 w-full">
                 <div className="w-full flex flex-row justify-between items-center ">
