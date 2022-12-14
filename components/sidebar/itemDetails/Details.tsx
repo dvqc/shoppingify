@@ -11,7 +11,7 @@ const Details = () => {
   const { data: itemData, error } = useItem(itemId);
 
   const addItem = useAddItemToActiveList(itemId);
-  const deleteItem = useDeleteItem(itemId);
+  const deleteItem = useDeleteItem();
 
   if (error) return <div>Failed to load</div>;
   if (!itemData)
@@ -40,7 +40,7 @@ const Details = () => {
         <button
           onClick={async (e) => {
             e.preventDefault();
-            await deleteItem();
+            await deleteItem(itemId);
             setSideBarTab("list");
           }}
           className="btn text-dark2 bg-gray5"

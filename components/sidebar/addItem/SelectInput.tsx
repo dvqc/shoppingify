@@ -21,7 +21,7 @@ const SelectInput = ({
 }) => {
   const [dropdownStatus, setDropdownStatus] = useState<"open" | "closed" | "closing">("closed");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [selected, setSelected] = useState<Option>();
+  const [selected, setSelected] = useState<Option>(options[0]);
   const handleSelect = (option: Option) => {
     setSelected(option);
   };

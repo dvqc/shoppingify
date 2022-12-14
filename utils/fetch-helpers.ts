@@ -1,4 +1,5 @@
 import {
+  ItemCreateBody,
   ItemData,
   ListCreateBody,
   ListDataExpanded,
@@ -11,6 +12,7 @@ import {
   getActiveListItemKey,
   getActiveListItemsKey,
   getActiveListKey,
+  getAllItemsKey,
   getItemKey,
   getListItemKey,
   getListKey,
@@ -95,6 +97,17 @@ export const updateListItem = async (id: string, payload: ListItemUpdateBody) =>
 };
 
 /************ Items functions ************/
+
+export const createItem = async (payload: ItemCreateBody) => {
+  const data: ListDataExpanded = await fetcher(getAllItemsKey(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+  return data;
+};
 
 export const deleteItem = async (id: string) => {
   const data: ItemData = await fetcher(getItemKey(id), {

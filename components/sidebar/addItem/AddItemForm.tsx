@@ -1,4 +1,5 @@
 import { SideBarContext } from "contexts";
+import { useCreateItem } from "hooks/mutations";
 import { useCategories } from "hooks/queries";
 import { useContext } from "react";
 import SelectInput from "./SelectInput";
@@ -8,12 +9,15 @@ import TextInput from "./TextInput";
 const AddItemForm = () => {
   const { setSideBarTab } = useContext(SideBarContext);
   const { data: cateogries, error } = useCategories();
-  // const handleSubmit = (e: FormEvent) => {
-  // TODO.....
-  // return;
-  // };
+  const createItem = useCreateItem();
+
   return (
-    <form className="w-full h-full  px-10 py-8 flex flex-col bg-white">
+    <form
+      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+      }}
+      className="w-full h-full  px-10 py-8 flex flex-col bg-white"
+    >
       <h2 className="text-2xl font-medium">Add a new item</h2>
 
       <TextInput id="name" name="name" placeholder="Enter a name" label="Name" isRequired={true}></TextInput>
@@ -44,15 +48,15 @@ const AddItemForm = () => {
 
       <div className="btn-group mt-auto mb-0">
         <button
+          className="btn text-dark2 bg-gray5"
           onClick={(e) => {
             e.preventDefault();
             setSideBarTab("list");
           }}
-          className="btn text-dark2 bg-gray5"
         >
           Cancel
         </button>
-        <button type="submit" onClick={(e) => e.preventDefault()} className="btn text-white bg-yellow1">
+        <button type="submit" className="btn text-white bg-yellow1">
           Save
         </button>
       </div>
