@@ -1,9 +1,12 @@
+import { SideBarContext } from "contexts";
 import { useCategories } from "hooks/queries";
+import { useContext } from "react";
 import SelectInput from "./SelectInput";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 
 const AddItemForm = () => {
+  const { setSideBarTab } = useContext(SideBarContext);
   const { data: cateogries, error } = useCategories();
   // const handleSubmit = (e: FormEvent) => {
   // TODO.....
@@ -40,7 +43,13 @@ const AddItemForm = () => {
       />
 
       <div className="btn-group mt-auto mb-0">
-        <button onClick={(e) => e.preventDefault()} className="btn text-dark2 bg-gray5">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setSideBarTab("list");
+          }}
+          className="btn text-dark2 bg-gray5"
+        >
           Cancel
         </button>
         <button type="submit" onClick={(e) => e.preventDefault()} className="btn text-white bg-yellow1">

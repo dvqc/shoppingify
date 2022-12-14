@@ -1,3 +1,4 @@
 import DetailsItemContext from "./DetailsItemContext";
+import SideBarContext from "./SiedBarContext";
 
-export { DetailsItemContext };
+export { SideBarContext,DetailsItemContext };

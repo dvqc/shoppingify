@@ -8,7 +8,7 @@ import AddItemForm from "components/sidebar/addItem";
 import Details from "components/sidebar/itemDetails/Details";
 import ShoppingList from "components/sidebar/shoppingList";
 import Signin from "components/Signin";
-import { DetailsItemContext } from "contexts";
+import { DetailsItemContext, SideBarContext } from "contexts";
 import type { NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import HistorySvg from "public/images/history.svg";
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  const [sideBar, setSideBar] = useState<SideBarStates>("list");
+  const [sideBarTab, setSideBarTab] = useState<SideBarStates>("list");
   const [itemId, setItemId] = useState("id");
 
   if (status == "loading") return <Loader height="h-24" width="w-24" />;
@@ -33,28 +33,30 @@ const Home: NextPage = () => {
 
   return (
     <DetailsItemContext.Provider value={{ itemId, setItemId }}>
-      <NavBar>
-        <NavItem link="#" text="items" svg={<ItemsSvg />}></NavItem>
-        <NavItem link="#" text="history" svg={<HistorySvg />}></NavItem>
-        <NavItem link="#" text="statistics" svg={<StatsSvg />}></NavItem>
-        <NavItem link="#" text="logout" svg={<LogoutSvg />} onClick={() => signOut()}></NavItem>
-      </NavBar>
-      <main className="grow px-20 bg-gray5">
-        <Header></Header>
-        <AllItemsContainer></AllItemsContainer>
-        <div>
-          <button onClick={() => setSideBar("add")}>add</button>
-        </div>
-        <div>
-          <button onClick={() => setSideBar("info")}>info</button>
-        </div>
-        <button onClick={() => setSideBar("list")}>list</button>
-      </main>
-      <SideBar show={sideBar}>
-        <ShoppingList data-sidebarid={"list"}></ShoppingList>
-        <AddItemForm data-sidebarid={"add"}></AddItemForm>
-        <Details itemId={itemId} data-sidebarid={"info"}></Details>
-      </SideBar>
+      <SideBarContext.Provider value={{ sideBarTab, setSideBarTab }}>
+        <NavBar>
+          <NavItem link="#" text="items" svg={<ItemsSvg />}></NavItem>
+          <NavItem link="#" text="history" svg={<HistorySvg />}></NavItem>
+          <NavItem link="#" text="statistics" svg={<StatsSvg />}></NavItem>
+          <NavItem link="#" text="logout" svg={<LogoutSvg />} onClick={() => signOut()}></NavItem>
+        </NavBar>
+        <main className="grow px-20 bg-gray5">
+          <Header></Header>
+          <AllItemsContainer></AllItemsContainer>
+          <div>
+            <button onClick={() => setSideBarTab("add")}>add</button>
+          </div>
+          <div>
+            <button onClick={() => setSideBarTab("info")}>info</button>
+          </div>
+          <button onClick={() => setSideBarTab("list")}>list</button>
+        </main>
+        <SideBar show={sideBarTab}>
+          <ShoppingList data-sidebarid={"list"}></ShoppingList>
+          <AddItemForm data-sidebarid={"add"}></AddItemForm>
+          <Details data-sidebarid={"info"}></Details>
+        </SideBar>
+      </SideBarContext.Provider>
     </DetailsItemContext.Provider>
   );
 };
