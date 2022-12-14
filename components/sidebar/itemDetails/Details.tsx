@@ -1,12 +1,14 @@
 import Loader from "components/Loader";
 import { DetailsItemContext, SideBarContext } from "contexts";
 import { useItem } from "hooks/queries";
+import useAddItem from "hooks/useAddItem";
 import { useContext } from "react";
 import Info from "./Info";
 
 const Details = () => {
   const { itemId } = useContext(DetailsItemContext);
   const { setSideBarTab } = useContext(SideBarContext);
+  const addItem = useAddItem(itemId);
 
   const { data: itemData, error } = useItem(itemId);
 
@@ -34,6 +36,27 @@ const Details = () => {
       <Info name="note">
         <p className="text-base font-medium text-dark2">{itemData.note}</p>
       </Info>
+      <div className="btn-group mt-auto mb-0">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setSideBarTab("list");
+          }}
+          className="btn text-dark2 bg-gray5"
+        >
+          Delete
+        </button>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            addItem();
+          }}
+          className="btn text-white bg-yellow1"
+        >
+          Add to list
+        </button>
+      </div>
     </div>
   );
 };
