@@ -8,14 +8,18 @@ export const getItemKey = (id: string) => {
   return `api/items/${id}`;
 };
 
-/************ Lists keys ************/
+/************ ListItems keys ************/
+
 export const getListItemKey = (id: string) => {
   return `api/listItems/${id}`;
 };
 
-export const getActiveListItemByRelsKey = (listId: string, itemId: string) => {
+export const getListItemByRelsKey = (listId: string, itemId: string) => {
   return `api/listItems/${listId}/${itemId}`;
 };
+
+/************ Lists keys ************/
+
 export const getListsKey = () => {
   return `/api/lists`;
 };
@@ -35,6 +39,7 @@ export const getActiveListItemsKey = (expand?: boolean) => {
 export const getActiveListItemKey = (id: string, expand?: boolean) => {
   return `/api/lists/active/listItems/${id}${expand ? "?expand=true" : ""}`;
 };
+
 /************ Categories keys ************/
 
 export const getCategoriesKey = () => {

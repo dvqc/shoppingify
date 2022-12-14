@@ -1,4 +1,5 @@
 import {
+  ItemData,
   ListCreateBody,
   ListDataExpanded,
   ListItemBody,
@@ -10,6 +11,7 @@ import {
   getActiveListItemKey,
   getActiveListItemsKey,
   getActiveListKey,
+  getItemKey,
   getListItemKey,
   getListKey,
   getListsKey
@@ -25,6 +27,8 @@ export const fetcher = async (input: RequestInfo | URL, init?: RequestInit | und
 
   return res.json();
 };
+
+/************ Lists functions ************/
 
 export const createList = async (payload: ListCreateBody) => {
   const data: ListDataExpanded = await fetcher(getListsKey(), {
@@ -77,6 +81,8 @@ export const removeItemFromActiveList = async (id: string) => {
   return data;
 };
 
+/************ ListItems functions ************/
+
 export const updateListItem = async (id: string, payload: ListItemUpdateBody) => {
   const data: ListItemData = await fetcher(getListItemKey(id), {
     method: "PATCH",
@@ -84,6 +90,15 @@ export const updateListItem = async (id: string, payload: ListItemUpdateBody) =>
       "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
-  }).catch((err) => console.log(err.message));
+  });
+  return data;
+};
+
+/************ Items functions ************/
+
+export const deleteItem = async (id: string) => {
+  const data: ItemData = await fetcher(getItemKey(id), {
+    method: "DELETE",
+  });
   return data;
 };

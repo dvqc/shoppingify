@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   const user = session?.user;
 
   const [sideBarTab, setSideBarTab] = useState<SideBarStates>("list");
-  const [itemId, setItemId] = useState("id");
+  const [itemId, setItemId] = useState("x");
 
   if (status == "loading") return <Loader height="h-24" width="w-24" />;
 
@@ -52,9 +52,9 @@ const Home: NextPage = () => {
           <button onClick={() => setSideBarTab("list")}>list</button>
         </main>
         <SideBar show={sideBarTab}>
-          <ShoppingList data-sidebarid={"list"}></ShoppingList>
-          <AddItemForm data-sidebarid={"add"}></AddItemForm>
-          <Details data-sidebarid={"info"}></Details>
+          <ShoppingList key={"list"}></ShoppingList>
+          <AddItemForm key={"add"}></AddItemForm>
+          <Details key={"info"}></Details>
         </SideBar>
       </SideBarContext.Provider>
     </DetailsItemContext.Provider>

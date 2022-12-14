@@ -1,8 +1,8 @@
 import { ListDataExpanded } from "types/prisma";
 import { addItemToActiveList, createList, updateListItem } from "utils/fetch-helpers";
-import { useActiveListExpanded, useListItemByRelIds } from "./queries";
+import { useActiveListExpanded, useListItemByRelIds } from "../queries";
 
-const useAddItem = (itemId: string) => {
+export const useAddItemToActiveList = (itemId: string) => {
   const { data: activeList, mutate: mutateActiveList } = useActiveListExpanded();
   const {
     data: activeListItem,
@@ -21,6 +21,6 @@ const useAddItem = (itemId: string) => {
       await mutateActiveListItem(updateListItem(activeListItem.id, { qty: activeListItem.qty + 1 }));
     else await mutateActiveList(addItemToActiveList({ itemId: itemId, qty: 1 }));
   };
-  return addItem
+  return addItem;
 };
-export default useAddItem;
+

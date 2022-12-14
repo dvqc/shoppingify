@@ -1,16 +1,17 @@
 import Loader from "components/Loader";
 import { DetailsItemContext, SideBarContext } from "contexts";
+import { useAddItemToActiveList, useDeleteItem } from "hooks/mutations";
 import { useItem } from "hooks/queries";
-import useAddItem from "hooks/useAddItem";
 import { useContext } from "react";
 import Info from "./Info";
 
 const Details = () => {
   const { itemId } = useContext(DetailsItemContext);
   const { setSideBarTab } = useContext(SideBarContext);
-  const addItem = useAddItem(itemId);
-
   const { data: itemData, error } = useItem(itemId);
+
+  const addItem = useAddItemToActiveList(itemId);
+  const deleteItem = useDeleteItem(itemId);
 
   if (error) return <div>Failed to load</div>;
   if (!itemData)
@@ -20,7 +21,6 @@ const Details = () => {
       </div>
     );
 
-  console.log(itemData);
   return (
     <div className="w-full h-full  px-10 py-8 flex flex-col bg-white hide-scroll">
       <button className="text-yellow1 text-sm font-bold w-fit" onClick={() => setSideBarTab("list")}>
@@ -38,8 +38,9 @@ const Details = () => {
       </Info>
       <div className="btn-group mt-auto mb-0">
         <button
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
+            await deleteItem();
             setSideBarTab("list");
           }}
           className="btn text-dark2 bg-gray5"
@@ -48,9 +49,9 @@ const Details = () => {
         </button>
         <button
           type="submit"
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
-            addItem();
+            await addItem();
           }}
           className="btn text-white bg-yellow1"
         >

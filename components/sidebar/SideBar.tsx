@@ -11,12 +11,14 @@ const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Elemen
   return (
     <div className="w-96 h-screen sticky top-0 right-0 bg-orange1 ">
       {children.map((child) =>
-        child.props["data-sidebarid"] == show ? (
-          <div className="animate-slide-in absolute w-full h-full" onAnimationEnd={() => setHide(true)}>
+        child.key == show ? (
+          <div key={child.key} className="animate-slide-in absolute w-full h-full" onAnimationEnd={() => setHide(true)}>
             {child}
           </div>
         ) : (
-          <div className={`absolute  top-0 right-0 w-full ${hide ? "hidden" : ""}`}>{child}</div>
+          <div key={child.key} className={`absolute  top-0 right-0 w-full ${hide ? "hidden" : ""}`}>
+            {child}
+          </div>
         )
       )}
     </div>
