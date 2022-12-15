@@ -1,4 +1,5 @@
-import { SideBarContext } from "contexts";
+import ErrMsg from "components/ErrMsg";
+import { DetailsItemContext, SideBarContext } from "contexts";
 import { useCreateItem } from "hooks/mutations";
 import { useCategories } from "hooks/queries";
 import { useContext, useState } from "react";
@@ -8,6 +9,7 @@ import TextInput from "./TextInput";
 
 const AddItemForm = () => {
   const { setSideBarTab } = useContext(SideBarContext);
+  const { setItemId } = useContext(DetailsItemContext);
   const { data: cateogries, error } = useCategories();
   const [formError, setFormError] = useState<string>();
   const createItem = useCreateItem();
@@ -22,12 +24,18 @@ const AddItemForm = () => {
           image: { value: string };
           category: { value: string };
         };
-        await createItem({
-          name: target.name.value,
-          note: target.note.value,
-          image: target.image.value,
-          category: { label: target.category.value }
-        }).catch((e) => setFormError(e.message?.message));
+        try {
+          const item = await createItem({
+            name: target.name.value,
+            note: target.note.value,
+            image: target.image.value,
+            category: { label: target.category.value }
+          });
+          setItemId(item.id);
+          setSideBarTab("info");
+        } catch (e: any) {
+          setFormError(e.message?.message);
+        }
       }}
       className="w-full h-full  px-10 py-8 flex flex-col bg-white"
     >
@@ -59,11 +67,7 @@ const AddItemForm = () => {
         }
       />
 
-      {formError && formError.length > 0 ? (
-        <div className="bg-red1 text-white text-lg font-bold mt-6 px-4 py-2 rounded-lg shadow-md">{formError}!</div>
-      ) : (
-        <></>
-      )}
+      {formError && formError.length > 0 ? <ErrMsg message={formError} /> : <></>}
 
       <div className="btn-group mt-auto mb-0">
         <button

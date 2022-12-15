@@ -99,7 +99,7 @@ export const updateListItem = async (id: string, payload: ListItemUpdateBody) =>
 /************ Items functions ************/
 
 export const createItem = async (payload: ItemCreateBody) => {
-  const data: ListDataExpanded = await fetcher(getAllItemsKey(), {
+  const data: ItemData = await fetcher(getAllItemsKey(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
