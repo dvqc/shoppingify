@@ -1,5 +1,14 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUrl,
+  MaxLength,
+  MinLength,
+  ValidateIf,
+  ValidateNested
+} from "class-validator";
 import { CategoryCreateBody, ItemCreateBody } from "types/prisma";
 class CategoryDTO implements CategoryCreateBody {
   @IsNotEmpty()
@@ -22,7 +31,9 @@ export class CreateItemDTO implements ItemCreateBody {
   note!: string | null;
 
   @IsOptional()
+  @ValidateIf((e) => e.externalLink === "")
   @IsUrl()
+  @MaxLength(2048)
   image!: string | null;
 
   @Type(() => CategoryDTO)

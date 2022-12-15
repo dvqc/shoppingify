@@ -9,6 +9,7 @@ const AllItemsContainer = () => {
   if (error) return <div>failed to load</div>;
   if (!items) return <Loader height="h-24" width="w-24"></Loader>;
 
+  console.log(items);
   const itemsByCategory = groupBy(items, (item) => item.category.label);
 
   return (

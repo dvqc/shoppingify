@@ -27,13 +27,13 @@ const Details = () => {
         <span className="text-xl">&#8592;</span> back
       </button>
       <img src={itemData.image ?? ""} className="w-full rounded-xl mt-8"></img>
-      <Info name="name">
+      <Info label="name">
         <h1 className="text-2xl font-medium text-dark2">{itemData.name}</h1>
       </Info>
-      <Info name="category">
+      <Info label="category">
         <h2 className="text-xl font-medium text-dark2">{itemData.category.label}</h2>
       </Info>
-      <Info name="note">
+      <Info label="note">
         <p className="text-base font-medium text-dark2">{itemData.note}</p>
       </Info>
       <div className="btn-group mt-auto mb-0">

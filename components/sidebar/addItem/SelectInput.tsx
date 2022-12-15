@@ -47,6 +47,7 @@ const SelectInput = ({
         onFocus={showDropdown}
         onBlur={hideDropdwon}
         value={selected?.text}
+        autoComplete="off"
         required
       />
       <label className="label" htmlFor={id}>
