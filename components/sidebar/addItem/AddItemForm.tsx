@@ -14,7 +14,7 @@ const AddItemForm = () => {
 
   return (
     <form
-      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+      onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
           name: { value: string };
@@ -22,7 +22,7 @@ const AddItemForm = () => {
           image: { value: string };
           category: { value: string };
         };
-        createItem({
+        await createItem({
           name: target.name.value,
           note: target.note.value,
           image: target.image.value,
