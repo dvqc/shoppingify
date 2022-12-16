@@ -28,15 +28,15 @@ const ShoppingList = () => {
   }, [list]);
 
   if (apiError && apiError?.statusCode != 404) {
-    return <div>Failed to load</div>;
+    return <div></div>;
   }
 
   return (
-    <div className="w-full min-h-full m-0 p-0 flex flex-col bg-orange1 max-h-screen">
+    <div className="w-full h-screen m-0 p-0 flex flex-col bg-orange1">
       {
         <>
           {apiError?.statusCode == 404 ? (
-            <div className="w-full m-0 px-10 pt-8 grow flex flex-col">
+            <div className="w-full px-10 pt-8 grow flex flex-col">
               <AddItem></AddItem>
               <EmptyList></EmptyList>
             </div>
@@ -45,9 +45,9 @@ const ShoppingList = () => {
               <Loader height="h-24" width="w-24"></Loader>
             </div>
           ) : (
-            <div className="w-full m-0 px-10 pt-8 grow hide-scroll">
+            <div className="w-full px-10 pt-8 grow hide-scroll">
               <AddItem></AddItem>
-              <div className="m-0 p-0 w-full">
+              <div className="w-full">
                 <div className="w-full flex flex-row justify-between items-center ">
                   <h2 className="my-10 text-2xl font-bold text-dark2">{list.name}</h2>
                   <button className="w-6 h-6" onClick={() => setIsEditing(!isEditing)}>
@@ -64,7 +64,7 @@ const ShoppingList = () => {
           <div className="w-full h-28 px-10 py-8 bg-white mb-0 mt-auto relative">
             <FadeInOut
               show={!isEditing}
-              className={`absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0 
+              className={`absolute w-5/6 inset-x-10 inset-y-1  bottom-0 right-0
               flex justify-center items-center ${!isEditing ? "" : "translate-y-full duration-200 ease-in"} `}
             >
               <Complete

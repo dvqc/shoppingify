@@ -55,7 +55,8 @@ module.exports = {
       animation: {
         "fade-in": "fadein .2s ease-in forwards",
         "fade-out": "fadeout .2s ease-in forwards",
-        "slide-in": "slidein .2s ease-in forwards"
+        "slide-in": "slidein .4s ease-in forwards",
+        "slide-out": "slideout .4s ease-in forwards"
       },
       keyframes: {
         fadein: {
@@ -76,10 +77,22 @@ module.exports = {
         },
         slidein: {
           "0%": {
+            opacity: "0",
             left: "100%"
           },
           "100%": {
+            opacity: "1",
             left: "0%"
+          }
+        },
+        slideout: {
+          "0%": {
+            opacity: "1",
+            right: "0%"
+          },
+          "100%": {
+            opacity: "0",
+            right: "50%"
           }
         }
       }

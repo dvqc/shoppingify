@@ -45,9 +45,9 @@ const Home: NextPage = () => {
           <AllItemsContainer></AllItemsContainer>
         </main>
         <SideBar show={sideBarTab}>
-          <ShoppingList key={"list"}></ShoppingList>
           <AddItemForm key={"add"}></AddItemForm>
           <Details key={"info"}></Details>
+          <ShoppingList key={"list"}></ShoppingList>
         </SideBar>
       </SideBarContext.Provider>
     </DetailsItemContext.Provider>

@@ -13,7 +13,7 @@ const Details = () => {
   const addItem = useAddItemToActiveList(itemId);
   const deleteItem = useDeleteItem();
 
-  if (error) return <div>Failed to load</div>;
+  if (error) return <div></div>;
   if (!itemData)
     return (
       <div className="w-full h-full bg-white">
@@ -22,11 +22,11 @@ const Details = () => {
     );
 
   return (
-    <div className="w-full h-full  px-10 py-8 flex flex-col bg-white hide-scroll">
+    <div className="w-full h-full min-h-screen px-10 py-8 flex flex-col bg-white hide-scroll">
       <button className="text-yellow1 text-sm font-bold w-fit" onClick={() => setSideBarTab("list")}>
         <span className="text-xl">&#8592;</span> back
       </button>
-      <img src={itemData.image ?? ""} className="w-full rounded-xl mt-8"></img>
+      <img src={itemData.image ?? ""} className="w-full h-56 object-contain rounded-xl mt-8"></img>
       <Info label="name">
         <h1 className="text-2xl font-medium text-dark2">{itemData.name}</h1>
       </Info>

@@ -29,7 +29,7 @@ const AddItemForm = () => {
           setFormError(err.message?.message);
         }
       }}
-      className="w-full h-full  px-10 py-8 flex flex-col bg-white"
+      className="relative w-full h-full min-h-screen px-10 py-8 flex flex-col bg-white"
     >
       <h2 className="text-2xl font-medium">Add a new item</h2>
 
@@ -73,7 +73,7 @@ const AddItemForm = () => {
 
       {formError && formError.length > 0 ? <ErrMsg message={formError} /> : <></>}
 
-      <div className="btn-group mt-auto mb-0">
+      <div className="btn-group mb-0 mt-auto">
         <button
           className="btn text-dark2 bg-gray5"
           onClick={(e) => {
