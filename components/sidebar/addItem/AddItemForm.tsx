@@ -2,7 +2,8 @@ import ErrMsg from "components/ErrMsg";
 import { DetailsItemContext, SideBarContext } from "contexts";
 import { useCreateItem } from "hooks/mutations";
 import { useCategories } from "hooks/queries";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useReducer, useState } from "react";
+import { addItemFormReducer, addItemInitialState } from "utils/reducers";
 import SelectInput from "./SelectInput";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
@@ -11,46 +12,52 @@ const AddItemForm = () => {
   const { setSideBarTab } = useContext(SideBarContext);
   const { setItemId } = useContext(DetailsItemContext);
   const { data: cateogries, error } = useCategories();
+  const categoryOptions = cateogries ? cateogries.map((category) => category.label) : [];
   const [formError, setFormError] = useState<string>();
+  const [formData, dispatchFormAction] = useReducer(addItemFormReducer, addItemInitialState);
   const createItem = useCreateItem();
 
   return (
     <form
       onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const target = e.target as typeof e.target & {
-          name: { value: string };
-          note: { value: string };
-          image: { value: string };
-          category: { value: string };
-        };
         try {
-          const item = await createItem({
-            name: target.name.value,
-            note: target.note.value,
-            image: target.image.value,
-            category: { label: target.category.value }
-          });
+          const item = await createItem(formData);
           setItemId(item.id);
           setSideBarTab("info");
-        } catch (e: any) {
-          setFormError(e.message?.message);
+        } catch (err: any) {
+          setFormError(err.message?.message);
         }
       }}
       className="w-full h-full  px-10 py-8 flex flex-col bg-white"
     >
       <h2 className="text-2xl font-medium">Add a new item</h2>
 
-      <TextInput id="name" name="name" placeholder="Enter a name" label="Name" isRequired={true}></TextInput>
+      <TextInput
+        placeholder="Enter a name"
+        label="Name"
+        required={true}
+        value={formData.name}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatchFormAction({ type: "name", value: e.target.value })}
+      ></TextInput>
 
-      <TextArea id="note" name="note" placeholder="Enter a note" label={"Note (optional)"}></TextArea>
+      <TextArea
+        id="note"
+        name="note"
+        placeholder="Enter a note"
+        label={"Note (optional)"}
+        value={formData.note ?? ""}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => dispatchFormAction({ type: "note", value: e.target.value })}
+      ></TextArea>
 
       <TextInput
         id="image"
         name="image"
         placeholder="Enter a url"
         label="Image (optional)"
-        isRequired={false}
+        required={false}
+        value={formData.image ?? ""}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatchFormAction({ type: "image", value: e.target.value })}
       ></TextInput>
 
       <SelectInput
@@ -58,13 +65,10 @@ const AddItemForm = () => {
         name="category"
         placeholder="Enter a category"
         label="Category"
-        options={
-          cateogries
-            ? cateogries.map((cat) => {
-                return { text: cat.label, value: cat.label };
-              })
-            : []
-        }
+        value={formData.category.label}
+        options={categoryOptions}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatchFormAction({ type: "category", value: e.target.value })}
+        onOption={(newValue) => dispatchFormAction({ type: "category", value: newValue })}
       />
 
       {formError && formError.length > 0 ? <ErrMsg message={formError} /> : <></>}
@@ -75,6 +79,7 @@ const AddItemForm = () => {
           onClick={(e) => {
             e.preventDefault();
             setSideBarTab("list");
+            dispatchFormAction({ type: "reset", value: "" });
           }}
         >
           Cancel

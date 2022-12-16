@@ -1,16 +1,7 @@
-const TextInput = ({
-  id,
-  name,
-  placeholder,
-  label,
-  isRequired = false
-}: {
-  id: string;
-  name: string;
-  placeholder: string;
-  label: string;
-  isRequired?: boolean;
-}) => {
+import { FC } from "react";
+import { InputProps } from "types/app";
+
+const TextInput: FC<InputProps> = ({ label, id, name, placeholder, required, onChange, value }) => {
   return (
     <div className="input-group">
       <input
@@ -19,8 +10,10 @@ const TextInput = ({
         name={name}
         className="input"
         placeholder={placeholder}
-        required={isRequired}
+        required={required}
         autoComplete="off"
+        onChange={onChange}
+        value={value}
       />
       <label htmlFor={id} className="label">
         {label}

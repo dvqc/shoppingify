@@ -1,29 +1,13 @@
-import { useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
+import { SelectProps } from "types/app";
 import { afterAnimation } from "utils/helpers";
 
-type Option = {
-  text: string;
-  value: string;
-};
-
-const SelectInput = ({
-  id,
-  name,
-  placeholder,
-  label,
-  options
-}: {
-  id: string;
-  name: string;
-  placeholder: string;
-  label: string;
-  options: Option[];
-}) => {
+const SelectInput: FC<SelectProps> = ({ id, name, placeholder, label, options, value, onChange, onOption }) => {
   const [dropdownStatus, setDropdownStatus] = useState<"open" | "closed" | "closing">("closed");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [selected, setSelected] = useState<Option>(options[0]);
-  const handleSelect = (option: Option) => {
-    setSelected(option);
+
+  const handleSelect = (option: string) => {
+    onOption(option);
   };
 
   const showDropdown = () => {
@@ -46,7 +30,8 @@ const SelectInput = ({
         placeholder={placeholder}
         onFocus={showDropdown}
         onBlur={hideDropdwon}
-        value={selected?.text}
+        onChange={onChange}
+        value={value}
         autoComplete="off"
         required
       />
@@ -73,7 +58,7 @@ const SelectInput = ({
               key={i}
               onClick={() => handleSelect(option)}
             >
-              {option.text}
+              {option}
             </li>
           ))}
         </ul>
