@@ -42,8 +42,6 @@ class ItemHandler extends BasicHandler {
           id: id
         }
       });
-      if (user.id != item.createdBy) throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
-
       return item;
     } catch (err) {
       if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);

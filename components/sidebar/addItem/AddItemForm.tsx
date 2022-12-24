@@ -17,12 +17,18 @@ const AddItemForm = () => {
   const [formData, dispatchFormAction] = useReducer(addItemFormReducer, addItemInitialState);
   const createItem = useCreateItem();
 
+  const reset = () => {
+    dispatchFormAction({ type: "reset", value: "" });
+    setFormError("");
+  };
+
   return (
     <form
       onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
           const item = await createItem(formData);
+          reset();
           setItemId(item.id);
           setSideBarTab("info");
         } catch (err: any) {
@@ -79,7 +85,7 @@ const AddItemForm = () => {
           onClick={(e) => {
             e.preventDefault();
             setSideBarTab("list");
-            dispatchFormAction({ type: "reset", value: "" });
+            reset();
           }}
         >
           Cancel

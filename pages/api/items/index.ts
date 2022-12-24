@@ -44,9 +44,6 @@ class ItemsHandler extends BasicHandler {
     const items = await prisma.item.findMany({
       ...itemData,
       where: {
-        user: {
-          id: user.id
-        },
         ...(category && { category: { label: category } })
       }
     });
