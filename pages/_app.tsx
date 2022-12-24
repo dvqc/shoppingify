@@ -1,4 +1,5 @@
-import { HeadLayout } from "components/layouts";
+import { AuthGuard } from "components/auth";
+import { HeadLayout, NavBarLayout, SideBarLayout } from "components/layouts";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import "../styles/index.css";
@@ -7,7 +8,13 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <SessionProvider session={pageProps.session}>
       <HeadLayout>
-        <Component {...pageProps} />
+        <AuthGuard>
+          <NavBarLayout>
+            <SideBarLayout>
+              <Component {...pageProps} />
+            </SideBarLayout>
+          </NavBarLayout>
+        </AuthGuard>
       </HeadLayout>
     </SessionProvider>
   );
