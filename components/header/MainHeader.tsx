@@ -1,4 +1,4 @@
-const Header = () => {
+const MainHeader = () => {
   return (
     <header className="flex justify-between my-6">
       <h1 className="w-1/2 text-2xl font-medium text-dark1">
@@ -15,4 +15,4 @@ const Header = () => {
     </header>
   );
 };
-export default Header;
+export default MainHeader;
