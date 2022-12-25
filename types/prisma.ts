@@ -121,6 +121,7 @@ const listData = Prisma.validator<Prisma.ListArgs>()({
     name: true,
     createdAt: true,
     createdBy: true,
+    status: true,
     listItems: {
       select: {
         id: true
@@ -136,6 +137,7 @@ const listDataExpanded = Prisma.validator<Prisma.ListArgs>()({
     name: true,
     createdAt: true,
     createdBy: true,
+    status: true,
     listItems: {
       ...listItemData
     }
