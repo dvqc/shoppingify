@@ -56,13 +56,13 @@ class ListItemHandler extends BasicHandler {
     try {
       const listItemToUpdate = await prisma.listItem.findUniqueOrThrow({
         select: {
-          item: true
+          list: true
         },
         where: {
           id: id
         }
       });
-      if (user.id != listItemToUpdate.item.createdBy) throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
+      if (user.id != listItemToUpdate.list.createdBy) throw new UnauthorizedException(HTTP_ERROR_MESSAGES[403]);
 
       const listItem = await prisma.listItem.update({
         data: {

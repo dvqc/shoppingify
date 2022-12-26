@@ -11,8 +11,8 @@ export const useListItem = (id: string) =>
     revalidateOnFocus: false
   });
 
-export const useListItemByRelIds = (listId: string, itemId: string) =>
-  useSwr<ListItemData>(getListItemByRelsKey(listId, itemId), fetcher, {
+export const useListItemByRelIds = (listId?: string, itemId?: string) =>
+  useSwr<ListItemData>(!listId || !itemId ? null : getListItemByRelsKey(listId, itemId), fetcher, {
     revalidateIfStale: false,
     refreshInterval: 0,
     errorRetryCount: 1,

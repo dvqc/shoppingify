@@ -4,17 +4,26 @@ import { useActiveListExpanded, useListItemByRelIds } from "../queries";
 
 export const useAddItemToActiveList = (itemId: string) => {
   const { data: activeList, mutate: mutateActiveList } = useActiveListExpanded();
+
+  const conditionToQuery = activeList && activeList.listItems?.find((listItem) => listItem.id === itemId);
   const {
     data: activeListItem,
     mutate: mutateActiveListItem,
     error: listItemErr
-  } = useListItemByRelIds(activeList ? activeList?.id : "", itemId);
+  } = useListItemByRelIds(conditionToQuery ? activeList.id : undefined, itemId);
 
   const addItem = async () => {
     let resActivelist: ListDataExpanded | undefined;
     if (!activeList) {
       resActivelist = await mutateActiveList(createList({ name: "Shopping list", listItems: [] }), {
-        optimisticData: { id: "", createdAt: null, createdBy: "", name: "Shopping list", listItems: [] }
+        optimisticData: {
+          id: "",
+          createdAt: new Date(),
+          createdBy: "",
+          name: "Shopping list",
+          status: "ACTIVE",
+          listItems: []
+        }
       });
     }
     if ((resActivelist || activeList) && activeListItem)
@@ -23,4 +32,3 @@ export const useAddItemToActiveList = (itemId: string) => {
   };
   return addItem;
 };
-

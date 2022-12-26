@@ -9,7 +9,6 @@ import { ListData } from "types/prisma";
 const History: NextPage = () => {
   const { data: lists, error } = useLists();
 
-  let content;
   if (error)
     return (
       <HistoryContainer>

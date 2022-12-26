@@ -23,8 +23,10 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
     if (isEditing && itemChecked) setItemChecked(false);
   }, [isEditing]);
 
-  if (error) return <div>Failed to load data</div>;
-  if (!listItemData) return <Loader></Loader>;
+  if (error) {
+    return <div>Failed to load data</div>;
+  }
+  if (!listItemData) return <Loader classname="mt-6"></Loader>;
 
   return (
     <li key={listItem.id} className="my-4 max-h-min flex flex-row basis-10 items-center flex-wrap">

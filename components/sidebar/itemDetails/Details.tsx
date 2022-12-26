@@ -1,18 +1,23 @@
+import ErrMsg from "components/ErrMsg";
 import Loader from "components/Loader";
 import { DetailsItemContext, SideBarContext } from "contexts";
 import { useAddItemToActiveList, useDeleteItem } from "hooks/mutations";
 import { useItem } from "hooks/queries";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Info from "./Info";
 
 const Details = () => {
   const { itemId } = useContext(DetailsItemContext);
   const { setSideBarTab } = useContext(SideBarContext);
   const { data: itemData, error } = useItem(itemId);
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const addItem = useAddItemToActiveList(itemId);
   const deleteItem = useDeleteItem();
 
+  useEffect(() => {
+    setErrorMessage("");
+  }, [itemId]);
   if (error) return <div></div>;
   if (!itemData)
     return (
@@ -36,12 +41,20 @@ const Details = () => {
       <Info label="note">
         <p className="text-base font-medium text-dark2">{itemData.note}</p>
       </Info>
+
+      <div className="mb-6">{errorMessage && errorMessage.length > 0 ? <ErrMsg message={errorMessage} /> : <></>}</div>
+
       <div className="btn-group mt-auto mb-0">
         <button
           onClick={async (e) => {
             e.preventDefault();
-            await deleteItem(itemId);
-            setSideBarTab("list");
+            setErrorMessage("");
+            try {
+              await deleteItem(itemId);
+              setSideBarTab("list");
+            } catch (err: any) {
+              setErrorMessage(err.message?.message);
+            }
           }}
           className="btn text-dark2 bg-gray5"
         >
@@ -51,11 +64,15 @@ const Details = () => {
           type="submit"
           onClick={async (e) => {
             e.preventDefault();
-            await addItem();
+            setErrorMessage("");
+            await addItem().catch((err) => {
+              console.log(err.message);
+              setErrorMessage(err.message?.message);
+            });
           }}
           className="btn text-white bg-yellow1"
         >
-          Add to list
+          Add
         </button>
       </div>
     </div>
