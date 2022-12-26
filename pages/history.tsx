@@ -1,4 +1,5 @@
 import Empty from "components/Empty";
+import { HistoryContainer } from "components/history";
 import MonthLists from "components/history/MonthLists";
 import Loader from "components/Loader";
 import { useLists } from "hooks/queries";
@@ -8,8 +9,19 @@ import { ListData } from "types/prisma";
 const History: NextPage = () => {
   const { data: lists, error } = useLists();
 
-  if (error) return <div>failed to load</div>;
-  if (!lists) return <Loader height="h-24" width="w-24"></Loader>;
+  let content;
+  if (error)
+    return (
+      <HistoryContainer>
+        <div>failed to load</div>;
+      </HistoryContainer>
+    );
+  if (!lists)
+    return (
+      <HistoryContainer>
+        <Loader height="h-24" width="w-24"></Loader>{" "}
+      </HistoryContainer>
+    );
 
   const filteredList = lists.filter((list) => list.status != "ACTIVE");
   const listsPerMonth: ListData[][] = [];
@@ -24,14 +36,13 @@ const History: NextPage = () => {
     }
   }
   return (
-    <main className="grow px-20 bg-gray5">
-      <h1 className="text-dark2 font-bold text-2xl mt-6 mb-10">Shopping History</h1>
+    <HistoryContainer>
       {listsPerMonth.length > 0 ? (
         listsPerMonth.map((monthList, i) => <MonthLists key={i} lists={monthList}></MonthLists>)
       ) : (
         <Empty classname="h-3/4">You have no lists in your history</Empty>
       )}
-    </main>
+    </HistoryContainer>
   );
 };
 
