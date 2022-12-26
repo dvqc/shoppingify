@@ -1,3 +1,4 @@
+import Empty from "components/Empty";
 import MonthLists from "components/history/MonthLists";
 import Loader from "components/Loader";
 import { useLists } from "hooks/queries";
@@ -25,9 +26,11 @@ const History: NextPage = () => {
   return (
     <main className="grow px-20 bg-gray5">
       <h1 className="text-dark2 font-bold text-2xl mt-6 mb-10">Shopping History</h1>
-      {listsPerMonth.map((monthList, i) => (
-        <MonthLists key={i} lists={monthList}></MonthLists>
-      ))}
+      {listsPerMonth.length > 0 ? (
+        listsPerMonth.map((monthList, i) => <MonthLists key={i} lists={monthList}></MonthLists>)
+      ) : (
+        <Empty classname="h-3/4">You have no lists in your history</Empty>
+      )}
     </main>
   );
 };

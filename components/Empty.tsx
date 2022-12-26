@@ -1,10 +1,11 @@
-const Empty = () => {
+import { ReactNode } from "react";
+
+const Empty = ({ classname, children }: { classname?: string; children?: ReactNode }) => {
   return (
-    <div className="flex w-full h-screen justify-center items-center ">
-      <div className="text-xl text-gray-400">There are no items</div>
+    <div className={`flex h-full w-full justify-center items-center ${classname}`}>
+      <div className="text-xl text-gray-400">{children ?? "Nothing to show"}</div>
     </div>
   );
 };
 
 export default Empty;
-
