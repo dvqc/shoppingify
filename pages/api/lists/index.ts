@@ -41,6 +41,9 @@ class ListsHandler extends BasicHandler {
         user: {
           id: user.id
         }
+      },
+      orderBy: {
+        createdAt: "asc"
       }
     });
     return lists;
