@@ -1,21 +1,21 @@
 /************ Items keys ************/
 
 export const getAllItemsKey = () => {
-  return `api/items`;
+  return `/api/items`;
 };
 
 export const getItemKey = (id: string) => {
-  return `api/items/${id}`;
+  return `/api/items/${id}`;
 };
 
 /************ ListItems keys ************/
 
 export const getListItemKey = (id: string) => {
-  return `api/listItems/${id}`;
+  return `/api/listItems/${id}`;
 };
 
 export const getListItemByRelsKey = (listId: string, itemId: string) => {
-  return `api/listItems/${listId}/${itemId}`;
+  return `/api/listItems/${listId}/${itemId}`;
 };
 
 /************ Lists keys ************/
