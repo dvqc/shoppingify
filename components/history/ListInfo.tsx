@@ -22,7 +22,7 @@ const ListInfo = ({ list }: { list: ListData }) => {
       <div className={`px-2 w-24 text-center font-medium text-sm border-[1px]  rounded-lg ${conditionalStyle} `}>
         {list.status}
       </div>
-      <a href="#" className="w-4 text-yellow1 font-extrabold text-xl hover:text-blue1">
+      <a href={`/history/list/${list.id}`} className="w-4 text-yellow1 font-extrabold text-xl hover:text-blue1">
         {">"}
       </a>
     </div>

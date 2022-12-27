@@ -16,7 +16,7 @@ const NavItem = ({
   return (
     <li
       className={`h-11 w-full flex justify-between  hover:bg-gray-100  transition ease-in duration-300 ${
-        router.asPath === link ? onpageStyle : ""
+        router.asPath == link ? onpageStyle : ""
       }`}
     >
       <a href={link} className="w-full" onClick={onClick}>
