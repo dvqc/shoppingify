@@ -21,7 +21,6 @@ import {
 
 export const fetcher = async (input: RequestInfo | URL, init?: RequestInit | undefined) => {
   const url = input.toString().startsWith("/") ? window.location.origin + input : input;
-  console.log(input, url);
   const res = await fetch(url, init);
   if (!res.ok) {
     const error = new Error("An error occurred while fetching the data.");

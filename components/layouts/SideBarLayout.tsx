@@ -13,7 +13,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <DetailsItemContext.Provider value={{ itemId, setItemId }}>
         <SideBarContext.Provider value={{ sideBarTab, setSideBarTab }}>
-          {children}
+          <main className="grow px-20 bg-gray5">{children}</main>
           <SideBar show={sideBarTab}>
             <AddItemForm key={"add"}></AddItemForm>
             <Details key={"info"}></Details>
