@@ -7,6 +7,8 @@ export const useLists = () => useSWR<ListData[]>(getListsKey(), fetcher);
 
 export const useList = (id: string) => useSWR<ListData>(getListKey(id), fetcher);
 
+export const useListExpanded = (id: string) => useSWR<ListDataExpanded>(getListKey(id, true), fetcher);
+
 export const useActiveList = () => useSWR<ListData>(getActiveListKey(), fetcher);
 
 export const useActiveListExpanded = () =>

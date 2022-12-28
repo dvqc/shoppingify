@@ -3,7 +3,7 @@ import { ListDataExpanded } from "types/prisma";
 import Item from "./Item";
 
 const ItemsList = ({ list, isEditing }: { list: ListDataExpanded; isEditing: boolean }) => {
-  const listByCategory = groupBy(list?.listItems, (listItem) => listItem.item.category.label);
+  const listByCategory = groupBy(list.listItems, (listItem) => listItem.item.category.label);
 
   return (
     <>

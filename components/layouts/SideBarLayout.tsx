@@ -1,6 +1,6 @@
 import SideBar from "components/sidebar";
 import AddItemForm from "components/sidebar/addItem";
-import Details from "components/sidebar/itemDetails/Details";
+import { Details } from "components/sidebar/itemDetails/";
 import ShoppingList from "components/sidebar/shoppingList";
 import { DetailsItemContext, SideBarContext } from "contexts";
 import { useState } from "react";

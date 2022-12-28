@@ -4,6 +4,7 @@ import { DetailsItemContext, SideBarContext } from "contexts";
 import { useAddItemToActiveList, useDeleteItem } from "hooks/mutations";
 import { useItem } from "hooks/queries";
 import { useContext, useEffect, useState } from "react";
+import BackBtn from "./BackBtn";
 import Info from "./Info";
 
 const Details = () => {
@@ -28,9 +29,7 @@ const Details = () => {
 
   return (
     <div className="w-full h-full min-h-screen px-10 py-8 flex flex-col bg-white hide-scroll">
-      <button className="text-yellow1 text-sm font-bold w-fit" onClick={() => setSideBarTab("list")}>
-        <span className="text-xl">&#8592;</span> back
-      </button>
+      <BackBtn onClick={() => setSideBarTab("list")}></BackBtn>
       <img src={itemData.image ?? ""} className="w-full h-56 object-contain rounded-xl mt-8"></img>
       <Info label="name">
         <h1 className="text-2xl font-medium text-dark2">{itemData.name}</h1>

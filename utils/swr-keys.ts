@@ -24,8 +24,8 @@ export const getListsKey = () => {
   return `/api/lists`;
 };
 
-export const getListKey = (id: string) => {
-  return `/api/lists/${id}`;
+export const getListKey = (id: string, expand?: boolean) => {
+  return `/api/lists/${id}${expand ? "?expand=true" : ""}`;
 };
 
 export const getActiveListKey = (expand?: boolean) => {
