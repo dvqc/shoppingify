@@ -1,4 +1,4 @@
-import Loader from "components/loader/SpinLoader";
+import SkeletonLoader from "components/loader/SkeletonLoader";
 import { CancelModal } from "components/modal";
 import { useActiveListExpanded } from "hooks/queries";
 import EditSvg from "public/images/edit.svg";
@@ -32,7 +32,7 @@ const ShoppingList = () => {
   }
 
   return (
-    <div className="w-full h-screen m-0 p-0 flex flex-col bg-orange1">
+    <div className="w-full h-screen flex flex-col bg-orange1">
       {
         <>
           {apiError?.statusCode == 404 ? (
@@ -41,11 +41,17 @@ const ShoppingList = () => {
               <EmptyList></EmptyList>
             </div>
           ) : !list ? (
-            <div className="h-screen">
-              <Loader height="h-24" width="w-24"></Loader>
+            <div className="w-full grow px-10 pt-8 hide-scroll">
+              <SkeletonLoader className="h-36 bg-orange-200 my-4" />
+              <SkeletonLoader className="h-12 bg-orange-200 mt-8 mb-16" />
+              <SkeletonLoader className="h-8 bg-orange-200 my-4" />
+              <SkeletonLoader className="h-8 bg-orange-200 my-4" />
+              <SkeletonLoader className="h-8 bg-orange-200 my-4" />
+              <SkeletonLoader className="h-8 bg-orange-200 my-4" />
+              <SkeletonLoader className="h-8 bg-orange-200 my-4" />
             </div>
           ) : (
-            <div className="w-full px-10 pt-8 grow hide-scroll">
+            <div className="w-full grow px-10 pt-8 hide-scroll">
               <AddItem></AddItem>
               <div className="w-full">
                 <div className="w-full flex flex-row justify-between items-center ">

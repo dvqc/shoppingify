@@ -1,5 +1,5 @@
 import FadeInOut from "components/FadeInOut";
-import Loader from "components/loader/SpinLoader";
+import SkeletonLoader from "components/loader/SkeletonLoader";
 import { useActiveListExpanded, useListItemByRelIds } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { ListItemData } from "types/prisma";
@@ -26,7 +26,7 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
   if (error) {
     return <div>Failed to load data</div>;
   }
-  if (!listItemData) return <Loader classname="mt-6"></Loader>;
+  if (!listItemData) return <SkeletonLoader className="h-8 my-4 bg-orange-200"></SkeletonLoader>;
 
   return (
     <li key={listItem.id} className="my-4 max-h-min flex flex-row basis-10 items-center flex-wrap">
