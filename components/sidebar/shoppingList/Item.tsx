@@ -1,5 +1,5 @@
 import FadeInOut from "components/FadeInOut";
-import Loader from "components/Loader";
+import Loader from "components/loader/SpinLoader";
 import { useActiveListExpanded, useListItemByRelIds } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { ListItemData } from "types/prisma";

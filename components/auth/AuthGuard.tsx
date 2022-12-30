@@ -1,4 +1,4 @@
-import Loader from "components/Loader";
+import Loader from "components/loader/SpinLoader";
 import Signin from "components/Signin";
 import { useSession } from "next-auth/react";
 

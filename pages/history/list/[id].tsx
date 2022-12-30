@@ -2,7 +2,7 @@ import { Error, Unauthorized } from "components/errors";
 import NotFound from "components/errors/NotFound";
 import { ListDate } from "components/history";
 import { ItemsByCategory } from "components/history/list";
-import Loader from "components/Loader";
+import Loader from "components/loader/SpinLoader";
 import { BackBtn } from "components/sidebar/itemDetails";
 import { useListExpanded } from "hooks/queries";
 import groupBy from "lodash.groupby";

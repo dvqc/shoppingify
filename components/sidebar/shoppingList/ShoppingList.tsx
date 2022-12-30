@@ -1,4 +1,4 @@
-import Loader from "components/Loader";
+import Loader from "components/loader/SpinLoader";
 import { CancelModal } from "components/modal";
 import { useActiveListExpanded } from "hooks/queries";
 import EditSvg from "public/images/edit.svg";

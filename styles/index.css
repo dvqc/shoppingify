@@ -69,6 +69,10 @@ select::-ms-expand {
 }
 
 @layer components {
+  .skeleton {
+    @apply animate-pulse bg-slate-300;
+  }
+
   .btn {
     @apply block px-6 py-4 border-none rounded-xl text-base font-bold cursor-pointer
     hover:shadow-base hover:opacity-90 transition-all;

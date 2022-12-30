@@ -1,4 +1,4 @@
-const Loader = ({
+const SpinLoader = ({
   height,
   width,
   classname
@@ -19,4 +19,4 @@ const Loader = ({
   );
 };
 
-export default Loader;
+export default SpinLoader;

@@ -1,4 +1,4 @@
-import Loader from "components/Loader";
+import Loader from "components/loader/SpinLoader";
 import { useItems } from "hooks/queries";
 import groupBy from "lodash.groupby";
 import CategoryItems from "./CategoryItems";
