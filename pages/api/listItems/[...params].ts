@@ -28,7 +28,7 @@ class ListItemIdsHandler extends BasicHandler {
       })
       .catch((err) => {
         if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
-        console.log(err);
+        console.log(err.message);
         throw err;
       });
 
