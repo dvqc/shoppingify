@@ -1,7 +1,7 @@
 import Empty from "components/Empty";
 import { HistoryContainer } from "components/history";
 import MonthLists from "components/history/MonthLists";
-import Loader from "components/loader/SpinLoader";
+import { SkeletonLoader } from "components/loader";
 import { useLists } from "hooks/queries";
 import { NextPage } from "next";
 import { ListData } from "types/prisma";
@@ -18,7 +18,18 @@ const History: NextPage = () => {
   if (!lists)
     return (
       <HistoryContainer>
-        <Loader height="h-24" width="w-24"></Loader>{" "}
+        <SkeletonLoader className="h-8 w-32 mt-10 bg-slate-200" />
+        <div className="flex flex-col gap-5 my-6">
+          <SkeletonLoader className="h-14  bg-slate-200" />
+          <SkeletonLoader className="h-14  bg-slate-200" />
+          <SkeletonLoader className="h-14  bg-slate-200" />
+        </div>
+        <SkeletonLoader className="h-8 w-32 mt-10 bg-slate-200" />
+        <div className="flex flex-col gap-5 my-6">
+          <SkeletonLoader className="h-14  bg-slate-200" />
+          <SkeletonLoader className="h-14  bg-slate-200" />
+          <SkeletonLoader className="h-14  bg-slate-200" />
+        </div>
       </HistoryContainer>
     );
 

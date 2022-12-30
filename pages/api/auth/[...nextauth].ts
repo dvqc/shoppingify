@@ -1,12 +1,11 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "lib/prisma";
 import { NextApiHandler } from "next";
 import NextAuth, { Session } from "next-auth";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import prisma from "lib/prisma";
 
-const authHandler: NextApiHandler = (req, res) =>
-  NextAuth(req, res, authOptions);
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, authOptions);
 export default authHandler;
 
 export const authOptions = {

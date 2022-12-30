@@ -1,4 +1,4 @@
-import SkeletonLoader from "components/loader/SkeletonLoader";
+import { SkeletonLoader } from "components/loader";
 import { CancelModal } from "components/modal";
 import { useActiveListExpanded } from "hooks/queries";
 import EditSvg from "public/images/edit.svg";

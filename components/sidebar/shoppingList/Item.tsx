@@ -1,5 +1,5 @@
 import FadeInOut from "components/FadeInOut";
-import SkeletonLoader from "components/loader/SkeletonLoader";
+import {SkeletonLoader} from "components/loader";
 import { useActiveListExpanded, useListItemByRelIds } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { ListItemData } from "types/prisma";
@@ -8,8 +8,8 @@ import CheckBox from "./CheckBox";
 import QuantityBtn from "./QuantityBtn";
 
 const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: boolean }) => {
-  const listId = listItem.list.id ?? "";
-  const itemId = listItem.item.id ?? "";
+  const listId = listItem.list.id;
+  const itemId = listItem.item.id;
   const { data: listItemData, error, mutate } = useListItemByRelIds(listId, itemId);
   const { mutate: mutateActiveList } = useActiveListExpanded();
 
@@ -24,7 +24,7 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
   }, [isEditing]);
 
   if (error) {
-    return <div>Failed to load data</div>;
+    return <div className="text-base font-bold text-red1">Failed to load data</div>;
   }
   if (!listItemData) return <SkeletonLoader className="h-8 my-4 bg-orange-200"></SkeletonLoader>;
 

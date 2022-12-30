@@ -1,4 +1,4 @@
-import SkeletonLoader from "components/loader/SkeletonLoader";
+import { SkeletonLoader } from "components/loader";
 import { useItems } from "hooks/queries";
 import groupBy from "lodash.groupby";
 import CategoryItems from "./CategoryItems";

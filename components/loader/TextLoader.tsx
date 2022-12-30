@@ -5,7 +5,7 @@ const TextLoader = ({ rowNumber }: { rowNumber?: number }) => {
   return (
     <>
       {rows.map((row, i) => (
-        <SkeletonLoader className={`h-2 mb-2 ${i == rows.length - 1 ? "w-5/6" : ""}`}></SkeletonLoader>
+        <SkeletonLoader key={i} className={`h-2 mb-2 ${i == rows.length - 1 ? "w-5/6" : ""}`}></SkeletonLoader>
       ))}
     </>
   );

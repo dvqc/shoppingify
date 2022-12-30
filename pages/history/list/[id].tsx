@@ -1,8 +1,7 @@
-import { Error, Unauthorized } from "components/errors";
-import NotFound from "components/errors/NotFound";
+import { Error, NotFound, Unauthorized } from "components/errors";
 import { ListDate } from "components/history";
 import { ItemsByCategory } from "components/history/list";
-import Loader from "components/loader/SpinLoader";
+import { SkeletonLoader } from "components/loader";
 import { BackBtn } from "components/sidebar/itemDetails";
 import { useListExpanded } from "hooks/queries";
 import groupBy from "lodash.groupby";
@@ -22,7 +21,29 @@ const ListHistory: NextPage = () => {
     return <Error errMsg={error.message.message} />;
   }
 
-  if (!list) return <Loader classname="mt-16" />;
+  if (!list)
+    return (
+      <div className="w-full mt-10">
+        <div className="mt-24 mb-12">
+          <SkeletonLoader className="h-10 w-40 my-6 bg-slate-200" />
+          <SkeletonLoader className="h-6 w-32 bg-slate-200" />
+        </div>
+        <SkeletonLoader className="h-8 w-32 mt-10 bg-slate-200" />
+        <div className="flex flex-row flex-wrap gap-5 my-6">
+          <SkeletonLoader className="w-44 h-16  bg-slate-200" />
+          <SkeletonLoader className="w-44 h-16  bg-slate-200" />
+          <SkeletonLoader className="w-44 h-16  bg-slate-200" />
+          <SkeletonLoader className="w-44 h-16  bg-slate-200" />
+        </div>
+        <SkeletonLoader className="h-8 w-32 mt-10 bg-slate-200" />
+        <div className="flex flex-row flex-wrap gap-5 my-6">
+          <SkeletonLoader className="w-44 h-16  bg-slate-200" />
+          <SkeletonLoader className="w-44 h-16  bg-slate-200 " />
+          <SkeletonLoader className="w-44 h-16  bg-slate-200" />
+          <SkeletonLoader className="w-44 h-16  bg-slate-200" />
+        </div>
+      </div>
+    );
 
   const listItemsByCategory = groupBy(list.listItems, (listItem) => listItem.item.category.label);
 
