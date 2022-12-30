@@ -70,7 +70,7 @@ select::-ms-expand {
 
 @layer components {
   .skeleton {
-    @apply animate-pulse bg-slate-300;
+    @apply w-full h-full rounded-xl bg-slate-100 opacity-70 animate-pulse;
   }
 
   .btn {
