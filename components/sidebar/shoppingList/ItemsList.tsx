@@ -8,7 +8,7 @@ const ItemsList = ({ list, isEditing }: { list: ListDataExpanded; isEditing: boo
   return (
     <>
       {(() => {
-        let shoppingList = [];
+        const shoppingList = [];
         for (const [category, itemsByCategory] of Object.entries(listByCategory)) {
           shoppingList.push(
             <div key={category} className="m-0 p-0 ">

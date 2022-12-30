@@ -33,7 +33,7 @@ class ItemHandler extends BasicHandler {
 
   @Get()
   async get(@Query("id") id: string, @Req() req: NextApiRequest) {
-    const user = await getUser(req);
+    await getUser(req);
 
     try {
       const item = await prisma.item.findUniqueOrThrow({

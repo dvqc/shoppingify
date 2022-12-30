@@ -1,15 +1,5 @@
 import { useRouter } from "next/router";
-const NavItem = ({
-  link,
-  text,
-  svg,
-  onClick
-}: {
-  link: string;
-  text: string;
-  svg: JSX.Element;
-  onClick?: () => void;
-}) => {
+const NavItem = ({ link, svg, onClick }: { link: string; svg: JSX.Element; onClick?: () => void }) => {
   const router = useRouter();
   const onpageStyle =
     "before:inline-block before:content-[''] before:h-full before:rounded-r-md before:bg-yellow1 before:w-[6px] bg-gray-100";

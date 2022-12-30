@@ -9,10 +9,10 @@ const NavBarLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <NavBar>
-        <NavItem link="/items" text="items" svg={<ItemsSvg />}></NavItem>
-        <NavItem link="/history" text="history" svg={<HistorySvg />}></NavItem>
-        <NavItem link="#" text="statistics" svg={<StatsSvg />}></NavItem>
-        <NavItem link="#" text="logout" svg={<LogoutSvg />} onClick={() => signOut()}></NavItem>
+        <NavItem link="/items" svg={<ItemsSvg />}></NavItem>
+        <NavItem link="/history" svg={<HistorySvg />}></NavItem>
+        <NavItem link="#" svg={<StatsSvg />}></NavItem>
+        <NavItem link="#" svg={<LogoutSvg />} onClick={() => signOut()}></NavItem>
       </NavBar>
       {children}
     </>

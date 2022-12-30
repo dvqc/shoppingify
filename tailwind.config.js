@@ -56,9 +56,18 @@ module.exports = {
         "fade-in": "fadein .2s ease-in forwards",
         "fade-out": "fadeout .2s ease-in forwards",
         "slide-in": "slidein .4s ease-in forwards",
-        "slide-out": "slideout .4s ease-in forwards"
+        "slide-out": "slideout .4s ease-in forwards",
+        glide: "glideKF 2s ease-in-out infinite alternate"
       },
       keyframes: {
+        glideKF: {
+          "0%": {
+            transform: "translateX(-50%)"
+          },
+          "100%": {
+            transform: "translateX(50%)"
+          }
+        },
         fadein: {
           "0%": {
             opacity: "0"

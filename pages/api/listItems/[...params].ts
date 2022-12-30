@@ -9,7 +9,7 @@ import { HTTP_ERROR_MESSAGES } from "utils/constants";
 class ListItemIdsHandler extends BasicHandler {
   @Get()
   async get(@Req() req: NextApiRequest) {
-    const user = await getUser(req);
+    await getUser(req);
     const { params } = req.query;
 
     if (!params || !(params instanceof Array) || params.length != 2)
@@ -36,7 +36,7 @@ class ListItemIdsHandler extends BasicHandler {
 
   @Delete()
   async delete(@Req() req: NextApiRequest) {
-    const user = await getUser(req);
+    await getUser(req);
     const { params } = req.query;
 
     if (!params || !(params instanceof Array) || params.length != 2)

@@ -84,7 +84,9 @@ const ShoppingList = () => {
                         );
                         cache.delete(getActiveListKey(true));
                       }
-                    : () => {}
+                    : () => {
+                        return;
+                      }
                 }
                 onCancel={() => setShowModal(true)}
               ></Complete>
@@ -107,7 +109,9 @@ const ShoppingList = () => {
                         );
                         setIsEditing(false);
                       }
-                    : async (newName: string) => {}
+                    : async () => {
+                        return;
+                      }
                 }
               ></NameInput>
             </FadeInOut>
@@ -125,7 +129,9 @@ const ShoppingList = () => {
                     );
                     cache.delete(getActiveListKey(true));
                   }
-                : () => {}
+                : () => {
+                    return;
+                  }
             }
           ></CancelModal>
         </>
