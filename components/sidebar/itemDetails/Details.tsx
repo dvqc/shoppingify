@@ -4,9 +4,9 @@ import SkeletonLoader from "components/loader/SkeletonLoader";
 import { DetailsItemContext, SideBarContext } from "contexts";
 import { useAddItemToActiveList, useDeleteItem } from "hooks/mutations";
 import { useItem } from "hooks/queries";
-import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import BackBtn from "./BackBtn";
+import DetailsImage from "./DetailsImage";
 import Info from "./Info";
 
 const Details = () => {
@@ -35,10 +35,7 @@ const Details = () => {
       ) : (
         <>
           <BackBtn onClick={() => setSideBarTab("list")}></BackBtn>
-
-          <div className="w-full min-h-[14rem] rounded-xl mt-8 bg-slate-50 relative">
-            <Image src={itemData.image ?? ""} objectPosition="" layout="fill" objectFit="cover" />
-          </div>
+          <DetailsImage src={itemData.image} />
           <Info label="name">
             <h1 className="text-2xl font-medium text-dark2">{itemData.name}</h1>
           </Info>
