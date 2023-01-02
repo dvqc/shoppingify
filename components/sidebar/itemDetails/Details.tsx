@@ -47,7 +47,7 @@ const Details = () => {
           </Info>
 
           <div className="mb-6">
-            {errorMessage && errorMessage.length > 0 ? <ErrMsg message={errorMessage} /> : <></>}
+            <ErrMsg errMessage={errorMessage} />
           </div>
 
           <div className="btn-group mt-auto mb-0">

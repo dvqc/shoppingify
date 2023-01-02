@@ -22,21 +22,21 @@ const AddItemForm = () => {
     setFormError("");
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormError("");
+    try {
+      const item = await createItem(formData);
+      reset();
+      setItemId(item.id);
+      setSideBarTab("info");
+    } catch (err: any) {
+      setFormError(err.message?.message);
+    }
+  };
+
   return (
-    <form
-      onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-          const item = await createItem(formData);
-          reset();
-          setItemId(item.id);
-          setSideBarTab("info");
-        } catch (err: any) {
-          setFormError(err.message?.message);
-        }
-      }}
-      className="relative w-full h-full min-h-screen px-10 py-8 flex flex-col bg-white"
-    >
+    <form onSubmit={handleSubmit} className="relative w-full h-full min-h-screen px-10 py-8 flex flex-col bg-white">
       <h2 className="text-2xl font-medium">Add a new item</h2>
 
       <TextInput
@@ -77,15 +77,15 @@ const AddItemForm = () => {
         onOption={(newValue) => dispatchFormAction({ type: "category", value: newValue })}
       />
 
-      {formError && formError.length > 0 ? <ErrMsg message={formError} /> : <></>}
+      <ErrMsg errMessage={formError} />
 
       <div className="btn-group mb-0 mt-auto">
         <button
           className="btn text-dark2 bg-gray5"
           onClick={(e) => {
             e.preventDefault();
-            setSideBarTab("list");
             reset();
+            setSideBarTab("list");
           }}
         >
           Cancel

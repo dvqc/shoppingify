@@ -12,7 +12,7 @@ const NavBarLayout = ({ children }: { children: React.ReactNode }) => {
       <NavBar>
         <NavItem link="/items" svg={<ItemsSvg />}></NavItem>
         <NavItem link="/history" svg={<HistorySvg />}></NavItem>
-        <NavItem link="#" svg={<StatsSvg />}></NavItem>
+        <NavItem link="/statistics" svg={<StatsSvg />}></NavItem>
         <NavItem link="#" svg={<LogoutSvg />} onClick={() => signOut()}></NavItem>
       </NavBar>
       {children}
