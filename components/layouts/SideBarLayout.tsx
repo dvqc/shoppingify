@@ -3,14 +3,14 @@ import AddItemForm from "components/sidebar/addItem";
 import { Details } from "components/sidebar/itemDetails/";
 import ShoppingList from "components/sidebar/shoppingList";
 import { DetailsItemContext, SideBarContext } from "contexts";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { SideBarStates } from "types/app";
 
 const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
   const [sideBarTab, setSideBarTab] = useState<SideBarStates>("list");
   const [itemId, setItemId] = useState("x");
   return (
-    <>
+    <Fragment>
       <DetailsItemContext.Provider value={{ itemId, setItemId }}>
         <SideBarContext.Provider value={{ sideBarTab, setSideBarTab }}>
           <main className="grow px-20 bg-gray5">{children}</main>
@@ -21,7 +21,7 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
           </SideBar>
         </SideBarContext.Provider>
       </DetailsItemContext.Provider>
-    </>
+    </Fragment>
   );
 };
 
