@@ -6,6 +6,7 @@ const afterAnimation = (ref: RefObject<HTMLElement>, callback: () => void) => {
   });
 };
 
+
 export declare class HttpException extends Error {
   name: string;
   statusCode: number;

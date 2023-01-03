@@ -1,5 +1,5 @@
 const HTTP_ERROR_MESSAGES = {
-  400: "Invalid body content",
+  400: "Invalid request",
   401: "You are not signed in",
   403: "You do not have permission to do this operation",
   404: "The requested roussource was not found",
