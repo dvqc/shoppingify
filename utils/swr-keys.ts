@@ -45,3 +45,9 @@ export const getActiveListItemKey = (id: string, expand?: boolean) => {
 export const getCategoriesKey = () => {
   return `/api/categories`;
 };
+
+/************ Aggregates keys ************/
+
+export const getListItemsCounts = (byMonth?: number) => {
+  return `/api/aggregates/listItems/counts/${byMonth ? `?byMonth=${byMonth}` : ""}`;
+};

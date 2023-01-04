@@ -97,7 +97,7 @@ export const updateListItem = async (id: string, payload: ListItemUpdateBody) =>
   return data;
 };
 
-/************ Items functions ************/
+/**************** Items functions ****************/
 
 export const createItem = async (payload: ItemCreateBody) => {
   const data: ItemData = await fetcher(getAllItemsKey(), {

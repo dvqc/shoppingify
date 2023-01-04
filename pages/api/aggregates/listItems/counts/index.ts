@@ -2,7 +2,7 @@ import { NotFoundError } from "@prisma/client/runtime";
 import groupBy from "lodash.groupby";
 import type { NextApiRequest } from "next";
 import { Get, Query, Req, NotFoundException, createHandler, BadRequestException } from "next-api-decorators";
-import { ListItemsCount, ListItemsCountByMonth } from "types/app";
+import { ListItemsCount, ListItemsMonthCount } from "types/app";
 import { BasicHandler, getUser } from "utils/api-helpers";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { isValidMonth } from "utils/helpers";
@@ -12,7 +12,7 @@ class ListItemsCountHandler extends BasicHandler {
   async get(
     @Req() req: NextApiRequest,
     @Query("byMonth") byMonth?: number
-  ): Promise<ListItemsCount[] | ListItemsCountByMonth[]> {
+  ): Promise<ListItemsCount[] | ListItemsMonthCount[]> {
     const user = await getUser(req);
 
     if (byMonth && (byMonth > 12 || byMonth < 1)) throw new BadRequestException(HTTP_ERROR_MESSAGES[400]);
@@ -41,16 +41,17 @@ class ListItemsCountHandler extends BasicHandler {
         }
       });
       const allListItems = allListItemsRaw.map((item) => {
-        return { itemId: item.itemId, qty: item.qty, month: new Date(item.list.createdAt).getMonth() + 1 };
+        return { itemId: item.itemId, qty: item.qty, month: new Date(item.list.createdAt).getMonth() };
       });
 
       const itemsByMonth = groupBy(allListItems, (item) => item.month);
-      const countsByMonth: ListItemsCountByMonth[] = [];
+      const countsByMonth: ListItemsMonthCount[] = [];
 
       for (const [key, value] of Object.entries(itemsByMonth)) {
-        if (isValidMonth(key)) {
+        const month = Number(key);
+        if (isValidMonth(month)) {
           countsByMonth.push({
-            month: key,
+            month: month,
             count: value.reduce((total, item) => total + item.qty, 0)
           });
         }

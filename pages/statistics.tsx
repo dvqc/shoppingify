@@ -1,9 +1,42 @@
 import { NextPage } from "next";
 import { Line } from "react-chartjs-2";
 import { PercentageBar } from "components/statistics";
+import { useListItemsCounts, useListItemsCountsByMonth } from "hooks/queries";
 
 const Statistics: NextPage = () => {
-  const labels = ["January", "February", "March", "April", "May", "June", "July"];
+  const MONTHS_NUMBER = 6;
+  const { data: monthlyCounts } = useListItemsCountsByMonth(MONTHS_NUMBER);
+  const { data: itemsCounts } = useListItemsCounts();
+
+  let labels: string[] = [];
+  let monthlyCountsData: number[] = [];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  if (monthlyCounts) {
+    const oldestMonth = new Date(new Date().setMonth(new Date().getMonth() - MONTHS_NUMBER)).getMonth();
+
+    for (let i = 0; i < MONTHS_NUMBER; i++) {
+      const month = (oldestMonth + i + 1) % 12;
+      labels.push(months[month]);
+      monthlyCountsData.push(0);
+
+      monthlyCounts.forEach((element) => {
+        if (element.month == month) monthlyCountsData[i] = element.count;
+      });
+    }
+  }
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -23,20 +56,8 @@ const Statistics: NextPage = () => {
     datasets: [
       {
         label: "items",
-        data: [52, 42, 30, 25, 29, 39, 58],
+        data: monthlyCountsData,
         borderColor: "#F9A109",
-        backgroundColor: "rgba(0,0,0,0)"
-      },
-      {
-        label: "items2",
-        data: [20, 21, 29, 49, 75, 82, 85],
-        borderColor: "#F91509",
-        backgroundColor: "rgba(0,0,0,0)"
-      },
-      {
-        label: "items3",
-        data: [95, 55, 23, 11, 7, 5, 6],
-        borderColor: "#1509F9",
         backgroundColor: "rgba(0,0,0,0)"
       }
     ]
