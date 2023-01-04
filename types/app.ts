@@ -19,6 +19,16 @@ export interface SelectProps extends InputProps {
 }
 
 export interface AddItemFormActionI {
-    type: keyof ItemCreateBody | "reset";
-    value: string;
-  }
+  type: keyof ItemCreateBody | "reset";
+  value: string;
+}
+
+export interface ListItemsCount {
+  itemId: string;
+  count: number;
+}
+
+export interface ListItemsCountByMonth {
+  month:  "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
+  count: number;
+}

@@ -6,7 +6,6 @@ const afterAnimation = (ref: RefObject<HTMLElement>, callback: () => void) => {
   });
 };
 
-
 export declare class HttpException extends Error {
   name: string;
   statusCode: number;
@@ -15,4 +14,10 @@ export declare class HttpException extends Error {
   constructor(statusCode: number, message?: string, errors?: string[]);
 }
 
-export { afterAnimation };
+function isValidMonth(
+  month: string
+): month is "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" {
+  return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"].includes(month);
+}
+
+export { afterAnimation, isValidMonth };
