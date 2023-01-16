@@ -14,7 +14,7 @@ const ItemsList = ({ list, isEditing }: { list: ListDataExpanded; isEditing: boo
             <div key={category} className="m-0 p-0 ">
               <h3 className="text-sm font-medium text-gray1 mt-8 mb-4 ">{category}</h3>
               <ul>
-                {itemsByCategory.map((item, i) => (
+                {itemsByCategory.map((item) => (
                   <Item key={item.id} listItem={item} isEditing={isEditing} />
                 ))}
               </ul>

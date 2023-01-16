@@ -46,9 +46,9 @@ class ActiveListItemsHandler extends BasicHandler {
       await prisma.listItem.create({
         data: { ...body, listId: activeList.id }
       });
-    } catch (e) {
-      if (e instanceof PrismaClientKnownRequestError) {
-        if (e.code === "P2002") {
+    } catch (err: unknown) {
+      if (err instanceof PrismaClientKnownRequestError) {
+        if (err.code === "P2002") {
           throw new ConflictException(HTTP_ERROR_MESSAGES[409]);
         }
       }
@@ -95,7 +95,7 @@ class ActiveListItemsHandler extends BasicHandler {
           id: activeList.id
         }
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
         if (err instanceof PrismaClientKnownRequestError)
           if (err.code == "P2017") throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
         throw err;

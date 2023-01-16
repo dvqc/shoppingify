@@ -6,10 +6,10 @@ import { useListItemsCounts, useListItemsCountsByMonth } from "hooks/queries";
 const Statistics: NextPage = () => {
   const MONTHS_NUMBER = 6;
   const { data: monthlyCounts } = useListItemsCountsByMonth(MONTHS_NUMBER);
-  const { data: itemsCounts } = useListItemsCounts();
+  // const { data: itemsCounts } = useListItemsCounts();
 
-  let labels: string[] = [];
-  let monthlyCountsData: number[] = [];
+  const labels: string[] = [];
+  const monthlyCountsData: number[] = [];
   const months = [
     "January",
     "February",

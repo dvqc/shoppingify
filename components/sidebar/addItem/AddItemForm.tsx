@@ -11,7 +11,7 @@ import TextInput from "./TextInput";
 const AddItemForm = () => {
   const { setSideBarTab } = useContext(SideBarContext);
   const { setItemId } = useContext(DetailsItemContext);
-  const { data: cateogries, error } = useCategories();
+  const { data: cateogries } = useCategories();
   const categoryOptions = cateogries ? cateogries.map((category) => category.label) : [];
   const [formError, setFormError] = useState<string>();
   const [formData, dispatchFormAction] = useReducer(addItemFormReducer, addItemInitialState);

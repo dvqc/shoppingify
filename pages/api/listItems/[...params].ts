@@ -26,7 +26,7 @@ class ListItemIdsHandler extends BasicHandler {
           itemId_listId: { itemId, listId }
         }
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
         console.log(err.message);
         throw err;
@@ -54,7 +54,7 @@ class ListItemIdsHandler extends BasicHandler {
           itemId_listId: { itemId, listId }
         }
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
         throw err;
       });

@@ -1,7 +1,7 @@
 import { AuthGuard } from "components/auth";
 import { HeadLayout, NavBarLayout, SideBarLayout } from "components/layouts";
 import { Session } from "next-auth";
-import { SessionProvider, SessionProviderProps } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import "../styles/index.css";
 
