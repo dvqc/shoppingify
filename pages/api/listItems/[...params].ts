@@ -5,6 +5,7 @@ import { createHandler, Delete, Get, NotFoundException, Req } from "next-api-dec
 import { listItemData } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
+import prisma from "lib/prisma";
 
 class ListItemIdsHandler extends BasicHandler {
   @Get()

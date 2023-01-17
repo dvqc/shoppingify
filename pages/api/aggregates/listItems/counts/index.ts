@@ -6,6 +6,7 @@ import { ListItemsCount, ListItemsMonthCount } from "types/app";
 import { BasicHandler, getUser } from "utils/api-helpers";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { isValidMonth } from "utils/helpers";
+import prisma from "lib/prisma";
 
 class ListItemsCountHandler extends BasicHandler {
   @Get()

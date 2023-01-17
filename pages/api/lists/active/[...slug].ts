@@ -15,6 +15,7 @@ import { listData, listDataExpanded } from "types/prisma";
 import { BasicHandler, getUser } from "utils/api-helpers";
 import { HTTP_ERROR_MESSAGES } from "utils/constants";
 import { ListItemCreateDTO } from "validators";
+import prisma from "lib/prisma";
 
 class ActiveListItemsHandler extends BasicHandler {
   @Post()
