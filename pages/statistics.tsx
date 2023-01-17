@@ -2,12 +2,15 @@ import { NextPage } from "next";
 import { Line } from "react-chartjs-2";
 import { PercentageBar } from "components/statistics";
 import { useListItemsCounts, useListItemsCountsByMonth } from "hooks/queries";
+import { getPercentage } from "utils/helpers";
 
 const Statistics: NextPage = () => {
   const MONTHS_NUMBER = 6;
   const { data: monthlyCounts } = useListItemsCountsByMonth(MONTHS_NUMBER);
-  // const { data: itemsCounts } = useListItemsCounts();
-
+  const { data: itemsCounts } = useListItemsCounts();
+  const sumItemsCounts = itemsCounts?.reduce((acc, curr) => {
+    return { itemId: "", itemName: "", count: acc.count + curr.count };
+  });
   const labels: string[] = [];
   const monthlyCountsData: number[] = [];
   const months = [
@@ -68,9 +71,24 @@ const Statistics: NextPage = () => {
       <div className="w-full my-10 grid grid-cols-2 gap-16">
         <div className="flex flex-col gap-4">
           <h2 className="text-black text-2xl font-medium my-8 ">Top items</h2>
-          <PercentageBar label="banana" percentage={58} />
-          <PercentageBar label="cheese" percentage={25} />
-          <PercentageBar label="lettuce" percentage={98} />
+          {itemsCounts && sumItemsCounts ? (
+            <>
+              <PercentageBar
+                label={itemsCounts[0].itemName}
+                percentage={getPercentage(itemsCounts[0].count, sumItemsCounts.count)}
+              />
+              <PercentageBar
+                label={itemsCounts[1].itemName}
+                percentage={getPercentage(itemsCounts[1].count, sumItemsCounts.count)}
+              />
+              <PercentageBar
+                label={itemsCounts[2].itemName}
+                percentage={getPercentage(itemsCounts[2].count, sumItemsCounts.count)}
+              />
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="flex flex-col gap-4">
           <h2 className="text-black text-2xl font-medium my-8">Top categories</h2>

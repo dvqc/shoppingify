@@ -18,4 +18,8 @@ function isValidMonth(month: number): month is 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
   return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].includes(Number(month));
 }
 
-export { afterAnimation, isValidMonth };
+function getPercentage(qty: number, total: number) {
+  return Math.round((qty / total) * 100);
+}
+
+export { afterAnimation, isValidMonth, getPercentage };

@@ -10,33 +10,28 @@ import prisma from "lib/prisma";
 class ListItemIdsHandler extends BasicHandler {
   @Get()
   async get(@Req() req: NextApiRequest) {
-    try {
-      await getUser(req);
-      const { params } = req.query;
+    await getUser(req);
+    const { params } = req.query;
 
-      if (!params || !(params instanceof Array) || params.length != 2)
-        throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+    if (!params || !(params instanceof Array) || params.length != 2)
+      throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
 
-      const [listId, itemId] = params;
+    const [listId, itemId] = params;
 
-      if (!isMongoId(listId) || !isMongoId(itemId)) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+    if (!isMongoId(listId) || !isMongoId(itemId)) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
 
-      const listItem = await prisma.listItem
-        .findUniqueOrThrow({
-          ...listItemData,
-          where: {
-            itemId_listId: { itemId, listId }
-          }
-        })
-        .catch((err: Error) => {
-          console.error(err.message);
-          if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
-          // throw err;
-        });
-      return listItem;
-    } catch (err: any) {
-      console.error(err.message);
-    }
+    const listItem = await prisma.listItem
+      .findUniqueOrThrow({
+        ...listItemData,
+        where: {
+          itemId_listId: { itemId, listId }
+        }
+      })
+      .catch((err: Error) => {
+        if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+        throw err;
+      });
+    return listItem;
   }
 
   @Delete()
@@ -59,9 +54,8 @@ class ListItemIdsHandler extends BasicHandler {
         }
       })
       .catch((err: Error) => {
-        console.log(err.message);
         if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
-        // throw err;
+        throw err;
       });
 
     return listItem;

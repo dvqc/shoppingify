@@ -25,6 +25,12 @@ export interface AddItemFormActionI {
 
 export interface ListItemsCount {
   itemId: string;
+  itemName: string;
+  count: number;
+}
+export interface CategoryCount {
+  categoryId: string;
+  categoryName: string;
   count: number;
 }
 

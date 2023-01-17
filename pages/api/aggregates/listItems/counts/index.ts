@@ -58,53 +58,57 @@ class ListItemsCountHandler extends BasicHandler {
         }
       }
       return countsByMonth;
-    }
-
-    try {
-      const allListItemsAgg = await prisma.listItem.aggregate({
-        _sum: {
-          qty: true
-        },
-        where: {
-          list: {
-            user: user,
-            status: {
-              not: "ACTIVE"
+    } else
+      try {
+        const allListItemsAgg = await prisma.listItem.aggregate({
+          _sum: {
+            qty: true
+          },
+          where: {
+            list: {
+              user: user,
+              status: {
+                not: "ACTIVE"
+              }
             }
           }
-        }
-      });
-      const allListItemsCount = allListItemsAgg._sum.qty;
+        });
+        const allListItemsCount = allListItemsAgg._sum.qty;
 
-      if (allListItemsCount === null) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+        if (allListItemsCount === null) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
 
-      const listItemsAggs = await prisma.listItem.groupBy({
-        by: ["itemId"],
-        _sum: {
-          qty: true
-        },
-        where: {
-          list: {
-            user: user
-          }
-        },
-        orderBy: {
+        const listItemsAggs = await prisma.listItem.groupBy({
+          by: ["itemId"],
           _sum: {
-            qty: "desc"
+            qty: true
+          },
+          where: {
+            list: {
+              user: user
+            }
+          },
+          orderBy: {
+            _sum: {
+              qty: "desc"
+            }
           }
-        }
-      });
-      const listItemsCount = listItemsAggs.map((itemAgg) => {
-        return {
-          itemId: itemAgg.itemId,
-          count: itemAgg._sum.qty ?? 0
-        };
-      });
-      return listItemsCount;
-    } catch (err) {
-      if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
-      else throw err;
-    }
+        });
+        const listItemsCount: ListItemsCount[] = await Promise.all(
+          listItemsAggs.map(async (itemAgg) => {
+            return {
+              itemId: itemAgg.itemId,
+              itemName: await prisma.item
+                .findUniqueOrThrow({ where: { id: itemAgg.itemId } })
+                .then((item) => item.name),
+              count: itemAgg._sum.qty ?? 0
+            };
+          })
+        );
+        return listItemsCount;
+      } catch (err) {
+        if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
+        else throw err;
+      }
   }
 }
 export default createHandler(ListItemsCountHandler);
