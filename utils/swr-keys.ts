@@ -51,3 +51,7 @@ export const getCategoriesKey = () => {
 export const getListItemsCounts = (byMonth?: number) => {
   return `/api/aggregates/listItems/counts/${byMonth ? `?byMonth=${byMonth}` : ""}`;
 };
+
+export const getCategoriesCounts = () => {
+  return `/api/aggregates/categories/counts/`;
+};
