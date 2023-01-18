@@ -75,16 +75,16 @@ const Statistics: NextPage = () => {
           <h2 className="text-black text-2xl font-medium my-8 ">Top items</h2>
           {itemsCounts && sumItemsCounts ? (
             <>
-              {itemsCounts.map((itemCount, i) =>
-                i < 3 ? (
-                  <PercentageBar
-                    label={itemCount.itemName}
-                    percentage={getPercentage(itemCount.count, sumItemsCounts)}
-                  />
-                ) : (
-                  <></>
-                )
-              )}
+              {itemsCounts.map((itemCount, i) => {
+                if (i < 3)
+                  return (
+                    <PercentageBar
+                      key={itemCount.itemId}
+                      label={itemCount.itemName}
+                      percentage={getPercentage(itemCount.count, sumItemsCounts)}
+                    />
+                  );
+              })}
             </>
           ) : (
             <></>
@@ -94,16 +94,16 @@ const Statistics: NextPage = () => {
           <h2 className="text-black text-2xl font-medium my-8">Top categories</h2>
           {categoriesCounts && sumCategoriesCounts ? (
             <>
-              {categoriesCounts.map((categoryCount, i) =>
-                i < 3 ? (
-                  <PercentageBar
-                    label={categoryCount.categoryName}
-                    percentage={getPercentage(categoryCount.count, sumCategoriesCounts)}
-                  />
-                ) : (
-                  <></>
-                )
-              )}
+              {categoriesCounts.map((categoryCount, i) => {
+                if (i < 3)
+                  return (
+                    <PercentageBar
+                      key={categoryCount.categoryId}
+                      label={categoryCount.categoryName}
+                      percentage={getPercentage(categoryCount.count, sumCategoriesCounts)}
+                    />
+                  );
+              })}
             </>
           ) : (
             <></>

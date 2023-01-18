@@ -43,7 +43,7 @@ class ListsHandler extends BasicHandler {
         }
       },
       orderBy: {
-        createdAt: "asc"
+        createdAt: "desc"
       }
     });
     return lists;

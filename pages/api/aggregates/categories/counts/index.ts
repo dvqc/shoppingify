@@ -33,7 +33,8 @@ class CategoriesCountHandler extends BasicHandler {
         const count = listItems.map((lisitem) => lisitem.qty).reduce((acc, curr) => acc + curr, 0);
         categoryCounts.push({ categoryId: categoryId, categoryName: listItems[0].item.category.label, count: count });
       }
-      return categoryCounts;
+      const sortedCategoryCounts = categoryCounts.sort((a, b) => b.count - a.count);
+      return sortedCategoryCounts;
     } catch (err) {
       if (err instanceof NotFoundError) throw new NotFoundException(HTTP_ERROR_MESSAGES[404]);
       else throw err;

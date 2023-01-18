@@ -48,12 +48,12 @@ class ListItemsCountHandler extends BasicHandler {
       const itemsByMonth = groupBy(allListItems, (item) => item.month);
       const countsByMonth: ListItemsMonthCount[] = [];
 
-      for (const [key, value] of Object.entries(itemsByMonth)) {
-        const month = Number(key);
-        if (isValidMonth(month)) {
+      for (const [month, items] of Object.entries(itemsByMonth)) {
+        const monthNumber = Number(month);
+        if (isValidMonth(monthNumber)) {
           countsByMonth.push({
-            month: month,
-            count: value.reduce((total, item) => total + item.qty, 0)
+            month: monthNumber,
+            count: items.reduce((total, item) => total + item.qty, 0)
           });
         }
       }
