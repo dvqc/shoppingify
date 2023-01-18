@@ -3,8 +3,8 @@ import { useItems } from "hooks/queries";
 import groupBy from "lodash.groupby";
 import CategoryItems from "./CategoryItems";
 
-const AllItemsContainer = () => {
-  const { data: items, error } = useItems();
+const AllItemsContainer = ({ q }: { q?: string }) => {
+  const { data: items, error } = useItems(q);
 
   if (error) return <div>failed to load</div>;
   if (!items)

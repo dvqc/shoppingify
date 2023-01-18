@@ -3,8 +3,8 @@ import { ItemData } from "types/prisma";
 import { fetcher } from "utils/fetch-helpers";
 import { getAllItemsKey, getItemKey } from "utils/swr-keys";
 
-export const useItems = () =>
-  useSwr<ItemData[]>(getAllItemsKey(), fetcher, {
+export const useItems = (q?: string) =>
+  useSwr<ItemData[]>(getAllItemsKey(q), fetcher, {
     revalidateIfStale: false,
     refreshInterval: 0,
     errorRetryCount: 1,

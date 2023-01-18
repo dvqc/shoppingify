@@ -1,7 +1,7 @@
 /************ Items keys ************/
 
-export const getAllItemsKey = () => {
-  return `/api/items`;
+export const getAllItemsKey = (q?: string) => {
+  return `/api/items${q ? "?q=" + q : ""}`;
 };
 
 export const getItemKey = (id: string) => {
