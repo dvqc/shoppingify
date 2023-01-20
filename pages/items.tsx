@@ -22,7 +22,6 @@ const Home: NextPage = () => {
           onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
         ></input>
       </header>
-
       <AllItemsContainer q={searchQuery}></AllItemsContainer>
     </>
   );

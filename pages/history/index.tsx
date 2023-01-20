@@ -1,4 +1,5 @@
 import Empty from "components/Empty";
+import { Error } from "components/errors";
 import { HistoryContainer, MonthLists } from "components/history";
 import { SkeletonLoader } from "components/loader";
 import { useLists } from "hooks/queries";
@@ -11,7 +12,7 @@ const History: NextPage = () => {
   if (error)
     return (
       <HistoryContainer>
-        <div>failed to load</div>;
+        <Error errMsg="failed to load data" />;
       </HistoryContainer>
     );
 

@@ -1,11 +1,20 @@
-import { DetailsItemContext, SideBarContext } from "contexts";
+import { DetailsItemContext, ErrorContext, SideBarContext } from "contexts";
 import { useAddItemToActiveList } from "hooks/mutations";
 import { useContext } from "react";
 import { ItemData } from "types/prisma";
-
+function randomString(length: number) {
+  var result = "";
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 const Item = ({ item }: { item: ItemData }) => {
   const { setItemId } = useContext(DetailsItemContext);
   const { setSideBarTab } = useContext(SideBarContext);
+  const { error, setError } = useContext(ErrorContext);
   const addItem = useAddItemToActiveList(item.id);
 
   return (
@@ -23,7 +32,9 @@ const Item = ({ item }: { item: ItemData }) => {
       bg-center bg-[length:60%_60%] rounded-lg hover:bg-gray-100 ease-in duration-200"
         onClick={async (e) => {
           e.stopPropagation();
-          await addItem();
+          await addItem().catch((err) => {
+            setError(err.message.message);
+          });
         }}
       ></button>
     </div>

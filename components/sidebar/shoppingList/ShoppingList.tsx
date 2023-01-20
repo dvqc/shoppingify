@@ -1,8 +1,9 @@
 import { SkeletonLoader } from "components/loader";
 import { CancelModal } from "components/modal";
+import { ErrorContext } from "contexts";
 import { useActiveListExpanded } from "hooks/queries";
 import EditSvg from "public/images/edit.svg";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSWRConfig } from "swr";
 import { updateActiveList } from "utils/fetch-helpers";
 import { HttpException } from "utils/helpers";
@@ -15,6 +16,8 @@ import ItemsList from "./ItemsList";
 import NameInput from "./NameInput";
 
 const ShoppingList = () => {
+  const { setError } = useContext(ErrorContext);
+
   const { data: list, error, mutate } = useActiveListExpanded();
   const apiError: HttpException = error?.message;
 
@@ -81,7 +84,7 @@ const ShoppingList = () => {
                           updateActiveList({
                             status: "COMPLETED"
                           })
-                        );
+                        ).catch((err) => setError(err.message.message));
                         cache.delete(getActiveListKey(true));
                       }
                     : () => {
@@ -106,7 +109,7 @@ const ShoppingList = () => {
                           updateActiveList({
                             name: newName
                           })
-                        );
+                        ).catch((err) => setError(err.message.message));
                         setIsEditing(false);
                       }
                     : async () => {
@@ -126,7 +129,7 @@ const ShoppingList = () => {
                       updateActiveList({
                         status: "CANCELED"
                       })
-                    );
+                    ).catch((err) => setError(err.message.message));
                     cache.delete(getActiveListKey(true));
                   }
                 : () => {

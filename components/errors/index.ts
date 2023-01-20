@@ -1,4 +1,5 @@
 import Error from "./Error";
 import NotFound from "./NotFound";
 import Unauthorized from "./Unauthorized";
-export { NotFound, Unauthorized, Error };
+import ErrMsg from "./ErrMsg";
+export { ErrMsg, NotFound, Unauthorized, Error };

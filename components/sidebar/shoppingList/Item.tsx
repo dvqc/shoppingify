@@ -1,13 +1,16 @@
 import FadeInOut from "components/FadeInOut";
-import {SkeletonLoader} from "components/loader";
+import { SkeletonLoader } from "components/loader";
+import { ErrorContext } from "contexts";
 import { useActiveListExpanded, useListItemByRelIds } from "hooks/queries";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ListItemData } from "types/prisma";
 import { removeItemFromActiveList, updateListItem } from "utils/fetch-helpers";
 import CheckBox from "./CheckBox";
 import QuantityBtn from "./QuantityBtn";
 
 const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: boolean }) => {
+  const { setError } = useContext(ErrorContext);
+
   const listId = listItem.list.id;
   const itemId = listItem.item.id;
   const { data: listItemData, error, mutate } = useListItemByRelIds(listId, itemId);
@@ -37,12 +40,14 @@ const Item = ({ listItem, isEditing }: { listItem: ListItemData; isEditing: bool
       <QuantityBtn
         qty={listItemData.qty}
         isEditing={isEditing}
-        onRemove={async () => await mutateActiveList(removeItemFromActiveList(listItem.id))}
+        onRemove={async () =>
+          await mutateActiveList(removeItemFromActiveList(listItem.id)).catch((err) => setError(err.message.message))
+        }
         setQty={(qty: number) =>
           mutate(updateListItem(listItem.id, { qty: qty }), {
             optimisticData: { ...listItemData, qty: qty },
             rollbackOnError: true
-          })
+          }).catch((err) => setError(err.message.message))
         }
       ></QuantityBtn>
     </li>

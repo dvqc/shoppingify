@@ -1,4 +1,4 @@
-import ErrMsg from "components/ErrMsg";
+import ErrMsg from "components/errors/ErrMsg";
 import { HeaderLoader, TextLoader } from "components/loader";
 import SkeletonLoader from "components/loader/SkeletonLoader";
 import { DetailsItemContext, SideBarContext } from "contexts";

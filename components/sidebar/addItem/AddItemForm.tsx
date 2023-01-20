@@ -1,4 +1,4 @@
-import ErrMsg from "components/ErrMsg";
+import ErrMsg from "components/errors/ErrMsg";
 import { DetailsItemContext, SideBarContext } from "contexts";
 import { useCreateItem } from "hooks/mutations";
 import { useCategories } from "hooks/queries";
