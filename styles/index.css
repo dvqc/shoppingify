@@ -25,11 +25,11 @@ body {
 html {
   color-scheme: dark light;
 }
-
+/* 
 #__next {
   display: flex;
   justify-content: center;
-}
+} */
 
 textarea {
   resize: none;
@@ -69,6 +69,9 @@ select::-ms-expand {
 }
 
 @layer components {
+  body {
+    @apply bg-gray5;
+  }
   .skeleton {
     @apply w-full h-full rounded-xl bg-slate-100 opacity-70 animate-pulse;
   }

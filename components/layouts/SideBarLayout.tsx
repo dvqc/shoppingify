@@ -13,7 +13,9 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
     <Fragment>
       <DetailsItemContext.Provider value={{ itemId, setItemId }}>
         <SideBarContext.Provider value={{ sideBarTab, setSideBarTab }}>
-          <main className="grow px-20 bg-gray5">{children}</main>
+          <div className="pr-96">
+            <main className="px-20">{children}</main>
+          </div>
           <SideBar show={sideBarTab}>
             <AddItemForm key={"add"}></AddItemForm>
             <Details key={"info"}></Details>

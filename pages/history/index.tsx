@@ -38,7 +38,7 @@ const History: NextPage = () => {
   const listsPerMonth: ListData[][] = [];
 
   if (filteredList.length > 0) {
-    listsPerMonth.push([lists[0]]);
+    listsPerMonth.push([filteredList[0]]);
     for (let i = 1; i < filteredList.length; i++) {
       const monthOfPrevious = new Date(filteredList[i - 1].createdAt).getMonth();
       const monthOfCurrent = new Date(filteredList[i].createdAt).getMonth();

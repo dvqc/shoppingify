@@ -8,7 +8,7 @@ const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Elemen
     setHide(false);
   }, [show]);
   return (
-    <div className="w-96 h-screen sticky top-0 right-0 bg-orange1 ">
+    <div className="w-96 h-screen fixed top-0 right-0 bg-orange1 ">
       {children.map((child) =>
         child.key == show ? (
           <div
