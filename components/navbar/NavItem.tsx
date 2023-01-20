@@ -10,8 +10,10 @@ const NavItem = ({ link, svg, onClick }: { link: string; svg: JSX.Element; onCli
         router.asPath.includes(link) ? onpageStyle : ""
       }`}
     >
-      <Link href={link} onClick={onClick}>
-        <div className="grow w-full h-full flex justify-center items-center hover:cursor-pointer">{svg}</div>
+      <Link href={link}>
+        <div onClick={onClick} className="grow w-full h-full flex justify-center items-center hover:cursor-pointer">
+          {svg}
+        </div>
       </Link>
     </li>
   );

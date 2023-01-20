@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 import { PercentageBar } from "components/statistics";
 import { useCategoriesCounts, useListItemsCounts, useListItemsCountsByMonth } from "hooks/queries";
 import { getPercentage } from "utils/helpers";
+import { SkeletonLoader } from "components/loader";
 
 const Statistics: NextPage = () => {
   const MONTHS_NUMBER = 6;
@@ -87,7 +88,11 @@ const Statistics: NextPage = () => {
               })}
             </>
           ) : (
-            <></>
+            <>
+              <SkeletonLoader className="w-full h-2 m-4 bg-slate-200" />
+              <SkeletonLoader className="w-full h-2 m-4 bg-slate-200" />
+              <SkeletonLoader className="w-full h-2 m-4 bg-slate-200" />
+            </>
           )}
         </div>
         <div className="flex flex-col gap-4">
@@ -106,7 +111,11 @@ const Statistics: NextPage = () => {
               })}
             </>
           ) : (
-            <></>
+            <>
+              <SkeletonLoader className="w-full h-2 m-4 bg-slate-200" />
+              <SkeletonLoader className="w-full h-2 m-4 bg-slate-200" />
+              <SkeletonLoader className="w-full h-2 m-4 bg-slate-200" />
+            </>
           )}
         </div>
       </div>
