@@ -1,10 +1,13 @@
-import { SideBarContext } from "contexts";
+import { ScreenContext, SideBarContext } from "contexts";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { SideBarStates } from "types/app";
 
 const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Element[] }) => {
   const { sideBarShown, setSideBarShown } = useContext(SideBarContext);
+  const { width } = useContext(ScreenContext);
+  const MIN_WIDTH = 768;
+
   const [hideTab, setHideTab] = useState(false);
   const [hideSidebar, sethideSidebar] = useState(false);
   const [previousShow, setPreviousShow] = useState<SideBarStates>();
@@ -15,13 +18,15 @@ const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Elemen
   }, [show]);
 
   useEffect(() => {
-    if (hideSidebar) sethideSidebar(!sideBarShown);
-    if (sideBarShown) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "scroll";
+    if (width < MIN_WIDTH) {
+      if (hideSidebar) sethideSidebar(!sideBarShown);
+      if (sideBarShown) document.body.style.overflow = "hidden";
+      else document.body.style.overflow = "scroll";
+    }
   }, [sideBarShown]);
 
   useEffect(() => {
-    setSideBarShown(false);
+    if (width < MIN_WIDTH) setSideBarShown(false);
   }, [route]);
 
   return (

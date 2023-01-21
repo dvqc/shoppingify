@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
             <NavBarLayout>
               <SideBarLayout>
                 {error && error.length > 0 ? (
-                  <div className="fixed top-5 left-1/2 -translate-x-1/2  md:w-28 w-1/2 z-50">
+                  <div className="fixed top-5 left-1/2 -translate-x-1/2  md:w-72 w-1/2 z-50">
                     <ErrMsg errMessage={error} onHide={() => setError("")}></ErrMsg>
                   </div>
                 ) : (
