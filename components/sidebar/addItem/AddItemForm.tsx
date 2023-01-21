@@ -36,7 +36,7 @@ const AddItemForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative w-full h-full min-h-screen px-10 py-8 flex flex-col bg-white">
+    <form onSubmit={handleSubmit} className="w-full h-full min-h-screen px-10 py-8 flex flex-col bg-white">
       <h2 className="text-2xl font-medium">Add a new item</h2>
 
       <TextInput

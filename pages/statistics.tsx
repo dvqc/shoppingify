@@ -121,7 +121,7 @@ const Statistics: NextPage = () => {
       </div>
       <div className="w-full">
         <h2 className="text-black text-2xl font-medium mt-10 mb-8">Monthly summary</h2>
-        <div className="relative w-full h-72">
+        <div className="relative -z-10 w-full h-72">
           <Line data={data} options={options} />
         </div>
       </div>

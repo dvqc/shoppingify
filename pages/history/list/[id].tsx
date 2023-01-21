@@ -57,7 +57,7 @@ const ListHistory: NextPage = () => {
         <ListDate date={new Date(list.createdAt)} />
       </div>
       {Object.entries(listItemsByCategory).map(([category, listItems]) => {
-        return <ItemsByCategory category={category} listItems={listItems} />;
+        return <ItemsByCategory key={category} category={category} listItems={listItems} />;
       })}
     </main>
   );

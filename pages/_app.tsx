@@ -10,7 +10,6 @@ import "../styles/index.css";
 
 const App = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
   const [error, setError] = useState("");
-  console.log(error);
 
   return (
     <HeadLayout>
@@ -20,7 +19,7 @@ const App = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
             <NavBarLayout>
               <SideBarLayout>
                 {error && error.length > 0 ? (
-                  <div className="absolute top-2 left-1/3 w-1/4">
+                  <div className="fixed top-5 left-1/2 -translate-x-1/2  md:w-28 w-1/2 z-50">
                     <ErrMsg errMessage={error} onHide={() => setError("")}></ErrMsg>
                   </div>
                 ) : (

@@ -1,14 +1,37 @@
-import { useEffect, useState } from "react";
+import { SideBarContext } from "contexts";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 import { SideBarStates } from "types/app";
 
 const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Element[] }) => {
-  const [hide, setHide] = useState(false);
+  const { sideBarShown, setSideBarShown } = useContext(SideBarContext);
+  const [hideTab, setHideTab] = useState(false);
+  const [hideSidebar, sethideSidebar] = useState(false);
   const [previousShow, setPreviousShow] = useState<SideBarStates>();
+  const route = useRouter().route;
+
   useEffect(() => {
-    setHide(false);
+    setHideTab(false);
   }, [show]);
+
+  useEffect(() => {
+    if (hideSidebar) sethideSidebar(!sideBarShown);
+    if (sideBarShown) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "scroll";
+  }, [sideBarShown]);
+
+  useEffect(() => {
+    setSideBarShown(false);
+  }, [route]);
+
   return (
-    <div className="md:w-96 md:ml-0 md:fixed md:block hidden w-full h-screen top-0 right-0 bg-orange1 ">
+    <div
+      className={`md:w-96 md:ml-0 md:left-auto md:block fixed h-screen left-24 top-0 right-0 bg-orange1
+    ${sideBarShown ? "animate-fade-in" : "animate-fade-out"} ${hideSidebar ? "hidden" : ""}`}
+      onAnimationEnd={() => {
+        sethideSidebar(!sideBarShown);
+      }}
+    >
       {children.map((child) =>
         child.key == show ? (
           <div
@@ -22,9 +45,9 @@ const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Elemen
           <div
             key={child.key}
             className={`md:absolute z-0 top-0 right-0 w-full animate-slide-out ${
-              hide ? "hidden" : child.key === previousShow ? "" : "hidden"
+              hideTab ? "hidden" : child.key === previousShow ? "" : "hidden"
             } `}
-            onAnimationEnd={() => setHide(true)}
+            onAnimationEnd={() => setHideTab(true)}
           >
             {child}
           </div>

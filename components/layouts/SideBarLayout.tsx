@@ -2,25 +2,37 @@ import SideBar from "components/sidebar";
 import AddItemForm from "components/sidebar/addItem";
 import { Details } from "components/sidebar/itemDetails/";
 import ShoppingList from "components/sidebar/shoppingList";
-import { DetailsItemContext, SideBarContext } from "contexts";
+import { DetailsItemContext, ScreenContext, SideBarContext } from "contexts";
 import { Fragment, useState } from "react";
 import { SideBarStates } from "types/app";
 
 const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
   const [sideBarTab, setSideBarTab] = useState<SideBarStates>("list");
+  const [sideBarShown, setSideBarShown] = useState(false);
   const [itemId, setItemId] = useState("x");
+
   return (
     <Fragment>
       <DetailsItemContext.Provider value={{ itemId, setItemId }}>
-        <SideBarContext.Provider value={{ sideBarTab, setSideBarTab }}>
-          <div className="md:pr-96">
-            <main className="lg:px-20 px-5">{children}</main>
-          </div>
+        <SideBarContext.Provider value={{ sideBarShown, setSideBarShown, sideBarTab, setSideBarTab }}>
           <SideBar show={sideBarTab}>
             <AddItemForm key={"add"}></AddItemForm>
             <Details key={"info"}></Details>
             <ShoppingList key={"list"}></ShoppingList>
           </SideBar>
+          <div className="md:pr-96">
+            <main className="lg:px-20 px-5">{children}</main>
+          </div>
+          <div
+            className={`md:hidden fixed flex items-center justify-center font-bold text-xl text-white
+             z-20 w-8 h-8 top-1/2 right-5 shadow-base rounded-full  cursor-pointer 
+             ${sideBarShown ? "rotate-180 ease-in-out duration-300  bg-red1" : "ease-in-out duration-300 bg-blue1"}`}
+            onClick={() => {
+              setSideBarShown(!sideBarShown);
+            }}
+          >
+            {"<"}
+          </div>
         </SideBarContext.Provider>
       </DetailsItemContext.Provider>
     </Fragment>

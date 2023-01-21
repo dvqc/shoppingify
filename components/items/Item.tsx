@@ -5,7 +5,7 @@ import { ItemData } from "types/prisma";
 
 const Item = ({ item }: { item: ItemData }) => {
   const { setItemId } = useContext(DetailsItemContext);
-  const { setSideBarTab } = useContext(SideBarContext);
+  const { setSideBarTab, setSideBarShown } = useContext(SideBarContext);
   const { error, setError } = useContext(ErrorContext);
   const addItem = useAddItemToActiveList(item.id);
 
@@ -16,6 +16,7 @@ const Item = ({ item }: { item: ItemData }) => {
       onClick={() => {
         setItemId(item.id);
         setSideBarTab("info");
+        setSideBarShown(true);
       }}
     >
       <h3 className="m-0 p-0 w-28 text-base font-medium break-words">{item.name}</h3>
