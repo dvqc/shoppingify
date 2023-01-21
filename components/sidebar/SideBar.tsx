@@ -8,12 +8,12 @@ const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Elemen
     setHide(false);
   }, [show]);
   return (
-    <div className="w-96 h-screen fixed top-0 right-0 bg-orange1 ">
+    <div className="md:w-96 md:ml-0 md:fixed md:block hidden w-full h-screen top-0 right-0 bg-orange1 ">
       {children.map((child) =>
         child.key == show ? (
           <div
             key={child.key}
-            className={`${"animate-slide-in"} absolute z-10 top-0 right-0 w-full h-full `}
+            className={`md:absolute ${"animate-slide-in"}  z-10 top-0 right-0 w-full h-full `}
             onAnimationEnd={() => setPreviousShow(show)}
           >
             {child}
@@ -21,7 +21,7 @@ const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Elemen
         ) : (
           <div
             key={child.key}
-            className={`absolute z-0 top-0 right-0 w-full animate-slide-out ${
+            className={`md:absolute z-0 top-0 right-0 w-full animate-slide-out ${
               hide ? "hidden" : child.key === previousShow ? "" : "hidden"
             } `}
             onAnimationEnd={() => setHide(true)}

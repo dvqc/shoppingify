@@ -9,7 +9,7 @@ const DetailsImage = ({ src }: { src?: string | null }) => {
   return (
     <div className="w-full min-h-[14rem] rounded-xl mt-8 bg-slate-50 relative">
       {isLoading && <SkeletonLoader />}
-      {isError && <Image src="/images/placeholder.svg" alt="fallback" layout="fill" objectFit="cover" />}
+      {isError && <Image src="/images/placeholder.svg" alt="fallback image" layout="fill" objectFit="cover" />}
       <Image
         src={src ?? ""}
         objectPosition=""

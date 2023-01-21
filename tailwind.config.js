@@ -3,6 +3,12 @@ module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      minHeight: {
+        16: "4rem",
+        "1/2": "50%",
+        "1/3": "33.33%",
+        "1/4": "25%"
+      },
       backgroundColor: {
         gray5: "#FAFAFE",
         gray4: "#E0E0E0",

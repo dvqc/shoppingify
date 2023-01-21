@@ -1,17 +1,20 @@
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 const Signin = () => {
   return (
-    <div className="m-0 p-0 h-screen flex justify-center items-center">
+    <div className="m-0 p-0 h-screen w-screen flex justify-center items-center bg-white">
       <div
-        className="m-0 p-5 w-96 h-40 flex flex-col justify-between items-center
-       bg-gray-200 border[1px] border-0 rounded-xl absolute shadow-sm  "
+        className="m-0 p-5 w-1/4 h-3/4 flex flex-col justify-between items-center
+       bg-gradient-to-tr to-orange-50 from-orange-100 border[1px] border-0 rounded-xl absolute shadow-xl  "
       >
-        <h1 className="mb-4 text-2xl font-medium text-slate-900">
-          Please sign in to continue
+        <h1 className="w-full text-2xl font-medium text-dark1">
+          <span className="text-yellow1 font-bold">Shoppingify&nbsp;</span>
+          allows you to take your shopping list wherever you go
         </h1>
+        <Image src="/images/shopping.svg" width={300} height={600} layout="fixed" />
         <button
-          className="btn min-h-[2rem] w-20 text-slate-900 transition-all hover:bg-slate-400"
+          className="btn h-16 w-28  text-white font-bold text-lg transition-all bg-yellow1"
           onClick={() => signIn()}
         >
           Sign in

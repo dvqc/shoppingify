@@ -2,15 +2,7 @@ import { DetailsItemContext, ErrorContext, SideBarContext } from "contexts";
 import { useAddItemToActiveList } from "hooks/mutations";
 import { useContext } from "react";
 import { ItemData } from "types/prisma";
-function randomString(length: number) {
-  var result = "";
-  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
+
 const Item = ({ item }: { item: ItemData }) => {
   const { setItemId } = useContext(DetailsItemContext);
   const { setSideBarTab } = useContext(SideBarContext);
@@ -19,7 +11,7 @@ const Item = ({ item }: { item: ItemData }) => {
 
   return (
     <div
-      className="w-44 h-16 px-4 py-3 flex flex-row justify-between items-center bg-white 
+      className="sm:w-44 w-full h-16 px-4 py-3 flex flex-row justify-between items-center bg-white 
       rounded-xl shadow-base cursor-pointer hover:border-yellow1 hover:border-2 ease-in duration-150"
       onClick={() => {
         setItemId(item.id);

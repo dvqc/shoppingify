@@ -71,7 +71,7 @@ const Statistics: NextPage = () => {
 
   return (
     <>
-      <div className="w-full my-10 grid grid-cols-2 gap-16">
+      <div className="w-full my-10 grid md:grid-cols-2 md:gap-16 gap-10">
         <div className="flex flex-col gap-4">
           <h2 className="text-black text-2xl font-medium my-8 ">Top items</h2>
           {itemsCounts && sumItemsCounts ? (

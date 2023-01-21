@@ -7,7 +7,7 @@ const ListItem = ({ listItem }: { listItem: ListItemData }) => {
   const { setSideBarTab } = useContext(SideBarContext);
   return (
     <div
-      className="w-48 h-16 px-4 py-3 flex flex-row justify-between items-center bg-white 
+      className="sm:w-48 w-full h-16 px-4 py-3 flex flex-row justify-between items-center bg-white 
 rounded-xl shadow-base cursor-pointer hover:border-yellow1 hover:border-2 ease-in duration-150"
       onClick={() => {
         setItemId(listItem.item.id);

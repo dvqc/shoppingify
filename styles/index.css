@@ -19,17 +19,12 @@
 html,
 body {
   font-family: Quicksand, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 html {
   color-scheme: dark light;
 }
-/* 
-#__next {
-  display: flex;
-  justify-content: center;
-} */
 
 textarea {
   resize: none;
@@ -115,5 +110,12 @@ select::-ms-expand {
     /* WebKit */
     width: 0;
     height: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  html,
+  body {
+    font-size: 16px;
   }
 }

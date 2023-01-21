@@ -35,7 +35,7 @@ const ShoppingList = () => {
   }
 
   return (
-    <div className="w-full h-screen flex flex-col bg-orange1">
+    <div className="w-full h-full flex flex-col bg-orange1">
       {
         <>
           {apiError?.statusCode == 404 ? (
