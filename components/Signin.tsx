@@ -5,8 +5,8 @@ const Signin = () => {
   return (
     <div className="m-0 p-0 h-screen w-screen flex justify-center items-center bg-white">
       <div
-        className="m-0 p-10 md:w-96 md:h-3/4 w-full h-full flex flex-col justify-between items-center
-       bg-gradient-to-tr to-orange-50 from-orange-100 border[1px] border-0 rounded-xl absolute shadow-xl  "
+        className="m-0 p-10 md:w-96 md:h-3/4 w-full h-screen flex flex-col justify-between items-center
+       bg-gradient-to-tr to-orange-50 from-orange-100 border[1px] border-0 md:rounded-xl  absolute shadow-xl  "
       >
         <h1 className="w-full text-2xl font-medium text-dark1">
           <span className="text-yellow1 font-bold">Shoppingify&nbsp;</span>
