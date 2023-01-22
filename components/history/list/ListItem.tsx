@@ -16,7 +16,7 @@ rounded-xl shadow-base cursor-pointer hover:border-yellow1 hover:border-2 ease-i
         setSideBarShown(true);
       }}
     >
-      <h3 className="m-0 p-0 w-28 text-base font-medium break-words">{listItem.item.name}</h3>
+      <h3 className="m-0 p-0 w-28 text-base text-black font-medium break-words">{listItem.item.name}</h3>
       <span className="text-yellow1 text-sm font-semibold">{listItem.qty} pcs</span>
     </div>
   );

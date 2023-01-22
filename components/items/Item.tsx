@@ -19,7 +19,7 @@ const Item = ({ item }: { item: ItemData }) => {
         setSideBarShown(true);
       }}
     >
-      <h3 className="m-0 p-0 w-28 text-base font-medium break-words">{item.name}</h3>
+      <h3 className="m-0 p-0 w-28 text-base text-black font-medium break-words">{item.name}</h3>
       <button
         className="block h-7 w-7 outline-none border-none bg-[url('/images/add.svg')] bg-no-repeat 
       bg-center bg-[length:60%_60%] rounded-lg hover:bg-gray-100 ease-in duration-200"
