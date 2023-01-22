@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     <>
       <header className="flex md:justify-between md:flex-row-reverse flex-col my-6">
         <input
-          className="lg:w-64 md:w-48 md:mb-0 mb-6 w-full h-12 pl-14 text-base font-medium shadow-base rounded-xl 
+          className="lg:w-64 md:w-48 md:mb-0 mb-6 w-full h-12 pl-14 text-base font-medium shadow-base text-black rounded-xl 
         bg-[url('/images/search.svg')] bg-no-repeat bg-[length:1.4rem] bg-[center_left_1rem] border-white border-2
          placeholder:text-gray-400 outline-none focus:border-yellow1  focus:border-2 focus:duration-300"
           type="text"
