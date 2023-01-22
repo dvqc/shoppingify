@@ -2,11 +2,11 @@ import { ScreenContext, SideBarContext } from "contexts";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { SideBarStates } from "types/app";
+import { MIN_WIDTH } from "utils/constants";
 
 const SideBar = ({ show, children }: { show: SideBarStates; children: JSX.Element[] }) => {
   const { sideBarShown, setSideBarShown } = useContext(SideBarContext);
   const { width } = useContext(ScreenContext);
-  const MIN_WIDTH = 768;
 
   const [hideTab, setHideTab] = useState(false);
   const [hideSidebar, sethideSidebar] = useState(false);

@@ -5,6 +5,7 @@ import ShoppingList from "components/sidebar/shoppingList";
 import { DetailsItemContext, ScreenContext, SideBarContext } from "contexts";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { SideBarStates } from "types/app";
+import { MIN_WIDTH } from "utils/constants";
 
 const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
   const [sideBarTab, setSideBarTab] = useState<SideBarStates>("list");
@@ -14,8 +15,8 @@ const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (typeof window != "undefined")
       if (window.innerWidth) {
-        setSideBarShown(true);
         setScreenWidth(window.innerWidth);
+        if (window.innerWidth >= MIN_WIDTH) setSideBarShown(true);
       }
   }, []);
 

@@ -8,4 +8,6 @@ const HTTP_ERROR_MESSAGES = {
   500: "The server has encountered an unexpected error"
 };
 
-export { HTTP_ERROR_MESSAGES };
+const MIN_WIDTH = 768;
+
+export { HTTP_ERROR_MESSAGES, MIN_WIDTH };
