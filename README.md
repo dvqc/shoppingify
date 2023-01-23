@@ -40,19 +40,19 @@
 This is <a href="https://unsplash.com/">Shoppingify</a>, a web app that lets you create your shopping list and take it wherever you go.
 </h4>
 <div >
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/desktop1.png?raw=true" alt="Desktop UI 1"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/desktop2.png?raw=true" alt="Desktop UI 2"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/desktop3.png?raw=true" alt="Desktop UI 3"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/desktop4.png?raw=true" alt="Desktop UI 4"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/desktop5.png?raw=true" alt="Desktop UI 5"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/desktop6.png?raw=true" alt="Desktop UI 6"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/desktop7.png?raw=true" alt="Desktop UI 7"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/desktop1.png?raw=true" alt="Desktop UI 1"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/desktop2.png?raw=true" alt="Desktop UI 2"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/desktop3.png?raw=true" alt="Desktop UI 3"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/desktop4.png?raw=true" alt="Desktop UI 4"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/desktop5.png?raw=true" alt="Desktop UI 5"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/desktop6.png?raw=true" alt="Desktop UI 6"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/desktop7.png?raw=true" alt="Desktop UI 7"/>
 </div>
 <div>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/mobile1.png?raw=true" alt="Mobile UI 1"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/mobile2.png?raw=true" alt="Mobile UI 2"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/mobile3.png?raw=true" alt="Mobile UI 3"/>
-<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/mobile4.png?raw=true" alt="Mobile UI 4"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/mobile1.png?raw=true" alt="Mobile UI 1"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/mobile2.png?raw=true" alt="Mobile UI 2"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/mobile3.png?raw=true" alt="Mobile UI 3"/>
+<img src="https://github.com/dvqc/shoppingify/blob/main/public/images/presentation/mobile4.png?raw=true" alt="Mobile UI 4"/>
 </div>
 </div>
 
